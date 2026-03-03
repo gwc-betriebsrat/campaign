@@ -5,32 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GWC — Our Commitment</title>
   <link rel="stylesheet" href="_shared.css" />
+  <style>
+    /* ── Beliefs list ───────────────────────────────────────────────── */
+    .beliefs-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 24px;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 560px) {
+      .beliefs-list { grid-template-columns: 1fr; }
+    }
+
+    .belief-item {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      font-size: 0.88rem;
+      color: var(--mid);
+      line-height: 1.5;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .belief-item:hover {
+      border-color: var(--red);
+      box-shadow: 0 2px 10px var(--red-dim);
+    }
+
+    .belief-num {
+      font-size: 0.75rem;
+      font-weight: 900;
+      color: var(--red);
+      flex-shrink: 0;
+      min-width: 18px;
+    }
+
+    /* ── Contact footer ─────────────────────────────────────────────── */
+    .contact-footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .contact-footer a {
+      color: var(--red);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .contact-footer a:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
 
-  <!--
-    LOGO
-    ────
-    To swap the logo: change the src below to any other logo-vX.html.
-    The iFrame is fully isolated so the logo animates independently.
-  -->
-  <iframe
-    class="gwc-logo-frame"
-    src="logo-v8-bi.html"
-    title="GWC Logo"
-    scrolling="no">
-  </iframe>
+  <iframe class="gwc-logo-frame" src="logo-page-commitment.html" title="GWC Logo" scrolling="no"></iframe>
 
-  <!-- ── Hero ──────────────────────────────────────────────────────── -->
+  <!-- ── Hero ───────────────────────────────────────────────────────── -->
   <p class="hero-tagline">Real Voice. Real Change. Real Accountability.</p>
 
   <p class="hero-intro">
-    We know the challenges you face every day: unclear decisions that affect your work,
-    compensation structures that feel opaque, stunted growth opportunities, and too often
-    being the last to know about changes that impact your livelihood.
-    <br><br>
-    We deserve better. You deserve a Betriebsrat that listens with empathy, acts with
-    transparency, and delivers measurable improvements to your working life and beyond.
+    We know the challenges you face every day: unclear decisions that affect your work, compensation structures that feel opaque, stunted growth opportunities, and too often being the last to know about changes that impact your livelihood. We deserve better. You deserve a Works Council that listens with empathy, acts with transparency, and delivers measurable improvements to your working life and beyond.
   </p>
 
   <!-- ── Our Commitments ───────────────────────────────────────────── -->
@@ -43,14 +85,7 @@
         <div class="commitment-number">1</div>
         <div class="commitment-body">
           <h3>We will enforce your legal rights</h3>
-          <p>
-            Your legal rights are more than mere props in the corporate theatre.
-            Right now, employees face unjust performance plans, misleading terminations,
-            harassment, and opaque transfers with little support and even less choice.
-            We are convinced that a strong, educated Works Council can change this.
-            We learn from top experts, use that knowledge to deliver real results in your
-            interest, and keep you informed every step of the way.
-          </p>
+          <p>You deserve to have your legal rights respected. Right now, some employees face unjust performance plans, misleading terminations, harassment, and opaque transfers with little support and even less choice. We are convinced that a strong, educated Works Council can change this. We learn from top experts, use that knowledge to deliver real results in your interest, and keep you informed every step of the way.</p>
         </div>
       </div>
 
@@ -58,12 +93,7 @@
         <div class="commitment-number">2</div>
         <div class="commitment-body">
           <h3>We will fight for equitable pay</h3>
-          <p>
-            Equal work deserves equal pay for all. We will advocate for transparent and
-            just salary bands, and clear and just processes for promotions and raises.
-            No more hoping that you're being paid fair. We'll ensure the process is
-            documented, consistent, and accessible to all employees.
-          </p>
+          <p>Equal work deserves equal pay for all. We will advocate for transparent and just salary bands, and clear and just processes for promotions and raises. No more hoping that you're being paid fair. And we'll ensure the process is documented, consistent, and accessible to all employees.</p>
         </div>
       </div>
 
@@ -71,14 +101,7 @@
         <div class="commitment-number">3</div>
         <div class="commitment-body">
           <h3>We will prioritize your mental health</h3>
-          <p>
-            These are uncertain times. Uncertainty breeds anxiety. We have all had our
-            fair share of rough patches to understand that deeply — and how it affects
-            your mental health. We believe that your psychological safety is more
-            important than any macroeconomic statistic or internal KPI. We will press
-            for better flexibility in your work life, protection for your private life,
-            your rights as a caregiver, and your time in general.
-          </p>
+          <p>These are uncertain times. Uncertainty breeds anxiety. We have all had our fair share of rough patches to understand that deeply — and how it affects your mental health. We believe that your psychological safety is more important than any macroeconomic statistic or internal KPI. We will be there if you have any specific needs. We will press for better flexibility in your work life, protection for your private life, your rights as a caregiver, and your time in general. We believe that the long term mental well-being of employees is an essential ingredient for our organization's well-being.</p>
         </div>
       </div>
 
@@ -86,15 +109,7 @@
         <div class="commitment-number">4</div>
         <div class="commitment-body">
           <h3>We will bring transparency in your performance evaluation</h3>
-          <p>
-            Opaque evaluations lead to opaque decisions. The result is a stagnant career.
-            We commit to fixing this. We will advocate for structured and transparent
-            career paths and accessible training programs. Whether you want to deepen
-            expertise or explore new roles, we'll work to ensure the company invests in
-            your professional growth with concrete programs and budgets.
-            <br><br>
-            <span class="bold red">When you grow, Zalando grows.</span>
-          </p>
+          <p>Opaque evaluations lead to opaque decisions. The result is a stagnant career. We commit to fixing this. We will advocate for structured and transparent career paths and accessible training programs. Whether you want to deepen expertise or explore new roles, we'll work to ensure the company invests in your professional growth with concrete programs and budgets. <span class="bold red">When you grow, Zalando grows.</span></p>
         </div>
       </div>
 
@@ -109,41 +124,46 @@
 
       <div class="philosophy-card">
         <h3>We are transparent</h3>
-        <p>
-          No more decisions behind closed doors. We will ensure management consults the
-          Betriebsrat on all matters affecting working conditions — from reorganizations
-          to policy changes. You'll receive clear, timely communication about what's being
-          discussed and why. Every quarter, we'll publish a transparent report on active
-          negotiations and outcomes.
-        </p>
+        <p>No more decisions behind closed doors. We will ensure management consults the Works Council on all matters affecting working conditions — from reorganizations to policy changes. You'll receive clear, timely communication about what's being discussed and why. Every quarter, we'll publish a transparent report on active negotiations and outcomes.</p>
       </div>
 
       <div class="philosophy-card">
         <h3>We are inclusive</h3>
-        <p>
-          Every worker's perspective counts. We will create regular channels for
-          feedback: monthly town halls, anonymous suggestion systems,
-          organisation-specific listening sessions, and quarterly accountability reports.
-          We represent all workers — new hires and veterans, technical and support staff,
-          full-time and part-time employees alike.
-        </p>
+        <p>Every worker's perspective counts. We will create regular channels for feedback through monthly town halls, anonymous suggestion systems, listening sessions specific to groups impacted by management decisions, published summaries of all negotiations, and quarterly accountability reports showing what we've achieved and where we've fallen short. We represent all workers: new hires and veterans, technical and support staff, full-time and part-time employees alike.</p>
       </div>
 
+    </div>
+  </div>
+
+  <!-- ── 10 Things We Believe In ───────────────────────────────────── -->
+  <div class="section">
+    <h2 class="section-title">10 Things We Believe In</h2>
+
+    <div class="beliefs-list">
+      <div class="belief-item"><span class="belief-num">01</span>Mental health and psychological safety come before KPIs.</div>
+      <div class="belief-item"><span class="belief-num">02</span>Compromise flows both ways.</div>
+      <div class="belief-item"><span class="belief-num">03</span>Rights ignored are rights denied.</div>
+      <div class="belief-item"><span class="belief-num">04</span>Equal work deserves equal pay.</div>
+      <div class="belief-item"><span class="belief-num">05</span>Knowledge is strength.</div>
+      <div class="belief-item"><span class="belief-num">06</span>A Works Council must lead with strength.</div>
+      <div class="belief-item"><span class="belief-num">07</span>Career growth must not be a guessing game.</div>
+      <div class="belief-item"><span class="belief-num">08</span>Transparency is not optional.</div>
+      <div class="belief-item"><span class="belief-num">09</span>Ambiguity in communication erodes trust.</div>
+      <div class="belief-item"><span class="belief-num">10</span>No employee should face management alone.</div>
     </div>
   </div>
 
   <!-- ── Closing banner ────────────────────────────────────────────── -->
   <div class="closing-banner">
     <div class="vote-line">Cast your vote · Make it count</div>
-    <div class="voice-line">
-      Your <span>Voice</span>. Your <span>Choice</span>. Your <span>Betriebsrat</span>.
-    </div>
-    <div class="vote-line" style="margin-bottom:8px;">
-      Vote for real representation. Vote for accountability. Vote for change.
-    </div>
-    <div class="intl-line">
-      An International WoCo for an International Workforce.
-    </div>
+    <div class="voice-line">Your <span>Voice.</span> Your <span>Choice.</span> Your <span>Betriebsrat.</span></div>
+    <div class="intl-line">Global Workforce Community — Real Voice. Real Change. Real Accountability.</div>
+  </div>
+
+  <!-- ── Contact ───────────────────────────────────────────────────── -->
+  <div class="contact-footer">
+    Questions? Want to get involved?<br>
+    <a href="mailto:global-workforce-community@zalando.de">global-workforce-community@zalando.de</a>
   </div>
 
 </body>
