@@ -284,26 +284,25 @@
           <option value="Operations">Operations</option>
           <option value="Finance">Finance</option>
           <option value="Commercial">Commercial</option>
-          <option value="HR">HR</option>
           <option value="Other">Other</option>
         </select>
 
         <div class="checkbox-group">
           <div class="checkbox-group-label">How would you like to help?</div>
           <label class="checkbox-item">
-            <input type="checkbox" name="help" value="Join the Team" /> Join the core team
+            <input type="checkbox" name="help" value="🚀 Join the Team" /> Join the core team
           </label>
           <label class="checkbox-item">
-            <input type="checkbox" name="help" value="Organize events and meetups" /> Organize events &amp; meetups
+            <input type="checkbox" name="help" value="📅 Organize events and meetups" /> Organize events &amp; meetups
           </label>
           <label class="checkbox-item">
-            <input type="checkbox" name="help" value="Spread the word on social platforms" /> Spread the word
+            <input type="checkbox" name="help" value="📢 Spread the word on social platforms" /> Spread the word
           </label>
           <label class="checkbox-item">
-            <input type="checkbox" name="help" value="Create content and materials" /> Create content &amp; materials
+            <input type="checkbox" name="help" value="✍️ Create content and materials" /> Create content &amp; materials
           </label>
           <label class="checkbox-item">
-            <input type="checkbox" name="help" value="Reach out to colleagues" /> Reach out to colleagues
+            <input type="checkbox" name="help" value="🤝 Reach out to colleagues" /> Reach out to colleagues
           </label>
         </div>
 
@@ -388,13 +387,13 @@
       btn.textContent = 'Sending…';
 
       const checked = [...document.querySelectorAll('input[name="help"]:checked')]
-        .map(c => c.value).join(', ');
+        .map(c => c.value);
 
       const fd = new URLSearchParams();
       fd.append('entry.760835848',  document.getElementById('joinName').value.trim());
       fd.append('entry.1278129233', document.getElementById('joinEmail').value.trim());
       fd.append('entry.1320348182', document.getElementById('joinDept').value);
-      fd.append('entry.1607410288', checked || 'Not specified');
+      checked.forEach(v => fd.append('entry.1607410288', v));
       fd.append('entry.1075144989', document.getElementById('joinMessage').value.trim());
 
       fetch('https://docs.google.com/forms/d/e/1FAIpQLSeQUnmeRIv1y15sE-adCntNS2VXYK8E2_Hp9sVrjMLQiBKmsw/formResponse', {
