@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GWC Logo v8 – The Split</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #fff;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    }
+
+    .gwc-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      user-select: none;
+    }
+
+    /* ── Top: GWC acronym ────────────────────────────────────────── */
+    .gwc-acronym {
+      font-size: 72px;
+      font-weight: 900;
+      letter-spacing: -3px;
+      color: #1a1a1a;
+      line-height: 1;
+    }
+
+    .gwc-acronym .red { color: #b22222; }
+
+    /* ── Rule ────────────────────────────────────────────────────── */
+    .gwc-rule {
+      width: 100%;
+      height: 3px;
+      background: #b22222;
+      border-radius: 2px;
+    }
+
+    /* ── Split slogan ────────────────────────────────────────────── */
+    /*
+      Each line is a row. "Real" slides in from the right,
+      the word slides in from the left. They meet in the middle.
+      On exit they split apart. The next word pair replaces them.
+    */
+    .gwc-slogan {
+      margin-top: 8px;
+      position: relative;
+      height: 2em;
+      width: 360px;
+      overflow: hidden;
+    }
+
+    /* One pair = "Real" + word, absolutely positioned */
+    .gwc-pair {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1;
+      opacity: 0;
+    }
+
+    .gwc-pair .real {
+      color: #1a1a1a;
+      transform: translateX(60px);
+    }
+
+    .gwc-pair .word {
+      color: #b22222;
+      transform: translateX(-60px);
+    }
+
+    /*
+      3 pairs × 1.6 s each = 4.8 s cycle.
+      Each pair: both halves slide to centre (0.3 s), hold (1.0 s),
+      split apart (0.3 s).
+      enter end  = 0.3/4.8 =  6.25%
+      hold end   = 1.3/4.8 = 27.08%
+      exit end   = 1.6/4.8 = 33.33%
+    */
+    @keyframes pairIn {
+      0%      { opacity: 0; }
+      1%      { opacity: 1; }
+      6.25%   { opacity: 1; }
+      27.08%  { opacity: 1; }
+      33.33%  { opacity: 0; }
+      33.4%   { opacity: 0; }
+      100%    { opacity: 0; }
+    }
+
+    @keyframes realSplit {
+      0%      { transform: translateX(60px);  }
+      6.25%   { transform: translateX(0);     }
+      27.08%  { transform: translateX(0);     }
+      33.33%  { transform: translateX(60px);  }
+      100%    { transform: translateX(60px);  }
+    }
+
+    @keyframes wordSplit {
+      0%      { transform: translateX(-60px); }
+      6.25%   { transform: translateX(0);     }
+      27.08%  { transform: translateX(0);     }
+      33.33%  { transform: translateX(-60px); }
+      100%    { transform: translateX(-60px); }
+    }
+
+    .gwc-pair:nth-child(1) { animation: pairIn 4.8s cubic-bezier(0.22,1,0.36,1) 0.0s infinite; }
+    .gwc-pair:nth-child(2) { animation: pairIn 4.8s cubic-bezier(0.22,1,0.36,1) 1.6s infinite; }
+    .gwc-pair:nth-child(3) { animation: pairIn 4.8s cubic-bezier(0.22,1,0.36,1) 3.2s infinite; }
+
+    .gwc-pair:nth-child(1) .real { animation: realSplit 4.8s cubic-bezier(0.22,1,0.36,1) 0.0s infinite; }
+    .gwc-pair:nth-child(2) .real { animation: realSplit 4.8s cubic-bezier(0.22,1,0.36,1) 1.6s infinite; }
+    .gwc-pair:nth-child(3) .real { animation: realSplit 4.8s cubic-bezier(0.22,1,0.36,1) 3.2s infinite; }
+
+    .gwc-pair:nth-child(1) .word { animation: wordSplit 4.8s cubic-bezier(0.22,1,0.36,1) 0.0s infinite; }
+    .gwc-pair:nth-child(2) .word { animation: wordSplit 4.8s cubic-bezier(0.22,1,0.36,1) 1.6s infinite; }
+    .gwc-pair:nth-child(3) .word { animation: wordSplit 4.8s cubic-bezier(0.22,1,0.36,1) 3.2s infinite; }
+
+    /* ── Wordmark ────────────────────────────────────────────────── */
+    .gwc-wordmark {
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .gwc-fullname {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: #555;
+    }
+
+    .gwc-tagline {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="gwc-logo">
+
+    <div class="gwc-acronym"><span class="red">G</span>WC</div>
+    <div class="gwc-rule"></div>
+
+    <div class="gwc-slogan">
+      <div class="gwc-pair">
+        <span class="real">Real</span>
+        <span class="word">Voice</span>
+      </div>
+      <div class="gwc-pair">
+        <span class="real">Real</span>
+        <span class="word">Change</span>
+      </div>
+      <div class="gwc-pair">
+        <span class="real">Real</span>
+        <span class="word">Accountability</span>
+      </div>
+    </div>
+
+    <div class="gwc-wordmark">
+      <div class="gwc-fullname">Global Workforce Community</div>
+      <div class="gwc-tagline">A Works Council That Acts for You</div>
+    </div>
+
+  </div>
+
+</body>
+</html>

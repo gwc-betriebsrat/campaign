@@ -1,0 +1,423 @@
+/* ═══════════════════════════════════════════════════════════════════
+   GWC Campaign — Shared Stylesheet
+   Used by all 5 pages. Import via <link rel="stylesheet" href="_shared.css">
+   ═══════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap');
+
+/* ── Reset ─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Tokens ────────────────────────────────────────────────────────── */
+:root {
+  --red:        #b22222;
+  --red-light:  #f7e8e8;
+  --red-dim:    rgba(178, 34, 34, 0.12);
+  --dark:       #1a1a1a;
+  --mid:        #444;
+  --muted:      #777;
+  --border:     #e8e8e8;
+  --bg:         #ffffff;
+  --bg-soft:    #fafafa;
+
+  --font:       'Montserrat', 'Segoe UI', Arial, sans-serif;
+
+  --radius:     6px;
+  --radius-lg:  12px;
+
+  /* Page is always embedded in an iFrame — no outer chrome needed */
+  --page-pad:   32px 36px;
+  --page-pad-sm:20px 20px;
+}
+
+/* ── Base ──────────────────────────────────────────────────────────── */
+html { font-size: 15px; }
+
+body {
+  font-family: var(--font);
+  color: var(--dark);
+  background: var(--bg);
+  line-height: 1.7;
+  padding: var(--page-pad);
+  max-width: 860px;   /* comfortable reading width inside iFrame */
+}
+
+/* ── Logo iFrame wrapper ───────────────────────────────────────────── */
+/*
+  The logo lives in its own file and is embedded here via <iframe>.
+  Swap logo-css-only.html → any other logo version without touching content.
+*/
+.gwc-logo-frame {
+  width: 100%;
+  height: 260px;
+  border: none;
+  margin-bottom: 32px;
+  background: transparent;
+}
+
+/* ── Page header (used on non-landing pages) ───────────────────────── */
+.page-header {
+  border-left: 4px solid var(--red);
+  padding-left: 16px;
+  margin-bottom: 32px;
+}
+
+.page-header h1 {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--dark);
+  line-height: 1.2;
+}
+
+.page-header .subtitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-top: 4px;
+}
+
+/* ── Hero tagline (landing page only) ─────────────────────────────── */
+.hero-tagline {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.hero-intro {
+  font-size: 1rem;
+  color: var(--mid);
+  line-height: 1.8;
+  max-width: 680px;
+  margin-bottom: 36px;
+  border-left: 3px solid var(--red-dim);
+  padding-left: 16px;
+}
+
+/* ── Section ───────────────────────────────────────────────────────── */
+.section {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--dark);
+  letter-spacing: -0.3px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  border-radius: 2px;
+}
+
+/* ── Commitment cards ──────────────────────────────────────────────── */
+.commitment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.commitment-card {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-soft);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.commitment-card:hover {
+  border-color: var(--red);
+  box-shadow: 0 4px 16px var(--red-dim);
+}
+
+.commitment-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--red);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.commitment-body h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.commitment-body p {
+  font-size: 0.9rem;
+  color: var(--mid);
+  line-height: 1.75;
+}
+
+/* ── Philosophy cards (2-col grid) ────────────────────────────────── */
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .philosophy-grid { grid-template-columns: 1fr; }
+}
+
+.philosophy-card {
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  background: var(--red-light);
+  border-left: 4px solid var(--red);
+}
+
+.philosophy-card h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--red);
+  margin-bottom: 8px;
+}
+
+.philosophy-card p {
+  font-size: 0.88rem;
+  color: var(--mid);
+  line-height: 1.75;
+}
+
+/* ── Closing banner ────────────────────────────────────────────────── */
+.closing-banner {
+  margin-top: 40px;
+  padding: 28px 32px;
+  background: var(--dark);
+  border-radius: var(--radius-lg);
+  color: #fff;
+}
+
+.closing-banner .vote-line {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 8px;
+}
+
+.closing-banner .voice-line {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+
+.closing-banner .voice-line span { color: var(--red); }
+
+.closing-banner .intl-line {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  font-style: italic;
+}
+
+/* ── Values grid (for page-values) ────────────────────────────────── */
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .values-grid { grid-template-columns: 1fr; }
+}
+
+.value-card {
+  padding: 24px 20px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.value-card:hover {
+  border-color: var(--red);
+  box-shadow: 0 4px 16px var(--red-dim);
+}
+
+.value-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.value-card h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--dark);
+}
+
+.value-card p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── Team cards (for page-meet-the-team) ──────────────────────────── */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.team-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 24px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.team-card:hover {
+  border-color: var(--red);
+  box-shadow: 0 4px 16px var(--red-dim);
+}
+
+.team-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--red-light);
+  border: 3px solid var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--red);
+  flex-shrink: 0;
+}
+
+.team-name {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1.3;
+}
+
+.team-role {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.team-bio {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── Timeline (for page-accomplishments) ──────────────────────────── */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  padding-left: 28px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  padding: 0 0 28px 20px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -22px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--red);
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px var(--red);
+}
+
+.timeline-date {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 4px;
+}
+
+.timeline-item h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+
+.timeline-item p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── Placeholder state (pages without content yet) ─────────────────── */
+.placeholder-block {
+  padding: 40px;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  color: var(--muted);
+}
+
+.placeholder-block p {
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* ── Utility ───────────────────────────────────────────────────────── */
+.red    { color: var(--red); }
+.bold   { font-weight: 800; }
+.small  { font-size: 0.82rem; }
+.muted  { color: var(--muted); }
+.spacer { height: 24px; }
