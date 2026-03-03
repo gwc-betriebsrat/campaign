@@ -42,53 +42,49 @@
       border-radius: 2px;
     }
 
-    /* Page title row: "Our [Word]" */
+    /* ── Page title ──────────────────────────────────────────────────── */
     .gwc-slogan {
-      margin-top: 8px;
+      margin-top: 10px;
       display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 26px;
-      font-weight: 700;
+      align-items: baseline;
+      gap: 14px;
       line-height: 1;
-    }
-
-    .gwc-static {
-      color: #1a1a1a;
-      white-space: nowrap;
-    }
-
-    .gwc-word-track {
-      position: relative;
-      height: 1.2em;
-      width: 280px;
       overflow: hidden;
     }
 
-    .gwc-word-track .word {
-      position: absolute;
-      left: 0;
-      top: 0;
-      line-height: 1.2em;
+    /* "Our" slides in from the left, then stays */
+    .gwc-static {
+      font-size: 38px;
+      font-weight: 700;
+      color: #1a1a1a;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(-40px);
+      animation: staticSlide 0.5s cubic-bezier(0.22,1,0.36,1) 0.1s forwards;
+    }
+
+    @keyframes staticSlide {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* page word slides in from the left with a slight delay after "Our" */
+    .gwc-word {
+      font-size: 48px;
+      font-weight: 900;
       color: #b22222;
       white-space: nowrap;
-      /*
-        Single word: enter 0.3s, hold 1.0s, exit 0.3s = 1.6s cycle.
-        Percentages: enter 18.75%, hold 81.25%, exit 100%.
-        But we want it to pulse slightly — brief dip and return.
-      */
-      animation: wordPulse 3.2s cubic-bezier(0.22,1,0.36,1) 0s infinite;
+      opacity: 0;
+      transform: translateX(-50px);
+      animation: wordSlide 0.55s cubic-bezier(0.22,1,0.36,1) 0.4s forwards;
     }
 
-    @keyframes wordPulse {
-      0%    { opacity: 0; transform: translateY(100%); }
-      9%    { opacity: 1; transform: translateY(0);    }
-      85%   { opacity: 1; transform: translateY(0);    }
-      100%  { opacity: 1; transform: translateY(0);    }
+    @keyframes wordSlide {
+      to { opacity: 1; transform: translateX(0); }
     }
 
+    /* ── Wordmark ────────────────────────────────────────────────────── */
     .gwc-wordmark {
-      margin-top: 4px;
+      margin-top: 6px;
       display: flex;
       flex-direction: column;
       gap: 4px;
@@ -116,9 +112,7 @@
     <div class="gwc-rule"></div>
     <div class="gwc-slogan">
       <span class="gwc-static">Our</span>
-      <div class="gwc-word-track">
-        <span class="word">Values</span>
-      </div>
+      <span class="gwc-word">Values</span>
     </div>
     <div class="gwc-wordmark">
       <div class="gwc-fullname">Global Workforce Community</div>
