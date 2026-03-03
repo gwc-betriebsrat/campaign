@@ -46,79 +46,107 @@
       border-radius: 2px;
     }
 
-    /* ── Slogan row ──────────────────────────────────────────────────── */
+    /* ── Slogan ──────────────────────────────────────────────────────── */
     /*
-      "Real" / "Echte" is static. Only the keyword slides up/down.
-      6 words × 1.6 s = 9.6 s cycle.
+      Structure: [static stem] + [animated: suffix + gap + keyword]
+      EN: "Rea" + "l Voice" / "l Change" / "l Accountability"
+      DE: "Echt" + "e Stimme" / "er Wandel" / "e Verantwortung"
+
+      The animated chunk slides up from below as one unit.
+      Gap is baked into the animated span via padding-left on .keyword.
+
+      6 slots × 1.6 s = 9.6 s cycle.
       enter end = 3.125%  (0.3 s)
       hold  end = 13.542% (1.3 s)
       exit  end = 16.667% (1.6 s)
     */
     .gwc-slogan {
       margin-top: 8px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      position: relative;
+      height: 1.25em;
+      overflow: hidden;
       font-size: 26px;
       font-weight: 700;
-      line-height: 1;
+      line-height: 1.25em;
+      display: flex;
+      align-items: center;
     }
 
-    /* Static prefix — cycles in sync with the keyword */
-    .gwc-static {
+    /* Static stem: "Rea" or "Echt" — switches every 4.8 s */
+    .gwc-stem {
       color: #1a1a1a;
       position: relative;
-      min-width: 3.6em;   /* wide enough for "Echter" */
-      height: 1.2em;
+      height: 1.25em;
       overflow: hidden;
+      /* wide enough for "Echt" (4 chars) */
+      min-width: 2.6em;
+      flex-shrink: 0;
     }
 
-    .gwc-static span {
+    .gwc-stem span {
       position: absolute;
       left: 0;
       top: 0;
-      line-height: 1.2em;
+      line-height: 1.25em;
       opacity: 0;
       white-space: nowrap;
     }
 
-    /* Each prefix fades in sync with its keyword slot */
-    @keyframes prefixIn {
+    @keyframes stemIn {
       0%      { opacity: 0; }
       3.125%  { opacity: 1; }
-      13.542% { opacity: 1; }
-      16.667% { opacity: 0; }
-      16.7%   { opacity: 0; }
+      46.875% { opacity: 1; }
+      50%     { opacity: 0; }
+      50.1%   { opacity: 0; }
       100%    { opacity: 0; }
     }
 
-    .gwc-static span:nth-child(1) { animation: prefixIn 9.6s cubic-bezier(0.22,1,0.36,1) 0.0s infinite; }
-    .gwc-static span:nth-child(2) { animation: prefixIn 9.6s cubic-bezier(0.22,1,0.36,1) 1.6s infinite; }
-    .gwc-static span:nth-child(3) { animation: prefixIn 9.6s cubic-bezier(0.22,1,0.36,1) 3.2s infinite; }
-    .gwc-static span:nth-child(4) { animation: prefixIn 9.6s cubic-bezier(0.22,1,0.36,1) 4.8s infinite; }
-    .gwc-static span:nth-child(5) { animation: prefixIn 9.6s cubic-bezier(0.22,1,0.36,1) 6.4s infinite; }
-    .gwc-static span:nth-child(6) { animation: prefixIn 9.6s cubic-bezier(0.22,1,0.36,1) 8.0s infinite; }
+    .gwc-stem .s-en { animation: stemIn 9.6s cubic-bezier(0.22,1,0.36,1) 0.0s infinite; }
+    .gwc-stem .s-de { animation: stemIn 9.6s cubic-bezier(0.22,1,0.36,1) 4.8s infinite; }
 
-    /* Cycling keyword track */
-    .gwc-word-track {
+    /* Animated track: each slot is "suffix + keyword" as one unit */
+    .gwc-track {
       position: relative;
-      height: 1.2em;
-      width: 280px;
+      height: 1.25em;
       overflow: hidden;
+      /* wide enough for longest slot: "l Accountability" */
+      width: 300px;
     }
 
-    .gwc-word-track .word {
+    .gwc-slot {
       position: absolute;
       left: 0;
       top: 0;
-      line-height: 1.2em;
-      color: #b22222;
+      line-height: 1.25em;
+      display: flex;
+      align-items: center;
       opacity: 0;
       transform: translateY(100%);
       white-space: nowrap;
+      color: #b22222;
     }
 
-    @keyframes wordSlide {
+    /* suffix (the sliding letter) sits flush against the stem */
+    .gwc-slot .suffix {
+      /* no extra gap — visually continues the stem */
+    }
+
+    /* keyword gets a gap that varies per language */
+    .gwc-slot .keyword {
+      /* EN: tight gap, DE: wider gap — set per slot below */
+    }
+
+    /* EN slots: tight gap (0.22em) */
+    .gwc-slot:nth-child(1) .keyword,
+    .gwc-slot:nth-child(2) .keyword,
+    .gwc-slot:nth-child(3) .keyword { padding-left: 0.22em; }
+
+    /* DE slots: wider gap (0.32em) */
+    .gwc-slot:nth-child(4) .keyword,
+    .gwc-slot:nth-child(5) .keyword,
+    .gwc-slot:nth-child(6) .keyword { padding-left: 0.32em; }
+
+    @keyframes slotSlide {
       0%      { opacity: 0; transform: translateY(100%);  }
       3.125%  { opacity: 1; transform: translateY(0);     }
       13.542% { opacity: 1; transform: translateY(0);     }
@@ -127,13 +155,12 @@
       100%    { opacity: 0; transform: translateY(100%);  }
     }
 
-    /* EN words: 0 s, 1.6 s, 3.2 s — DE words: 4.8 s, 6.4 s, 8.0 s */
-    .gwc-word-track .word:nth-child(1) { animation: wordSlide 9.6s cubic-bezier(0.22,1,0.36,1) 0.0s infinite; }
-    .gwc-word-track .word:nth-child(2) { animation: wordSlide 9.6s cubic-bezier(0.22,1,0.36,1) 1.6s infinite; }
-    .gwc-word-track .word:nth-child(3) { animation: wordSlide 9.6s cubic-bezier(0.22,1,0.36,1) 3.2s infinite; }
-    .gwc-word-track .word:nth-child(4) { animation: wordSlide 9.6s cubic-bezier(0.22,1,0.36,1) 4.8s infinite; }
-    .gwc-word-track .word:nth-child(5) { animation: wordSlide 9.6s cubic-bezier(0.22,1,0.36,1) 6.4s infinite; }
-    .gwc-word-track .word:nth-child(6) { animation: wordSlide 9.6s cubic-bezier(0.22,1,0.36,1) 8.0s infinite; }
+    .gwc-slot:nth-child(1) { animation: slotSlide 9.6s cubic-bezier(0.22,1,0.36,1) 0.0s infinite; }
+    .gwc-slot:nth-child(2) { animation: slotSlide 9.6s cubic-bezier(0.22,1,0.36,1) 1.6s infinite; }
+    .gwc-slot:nth-child(3) { animation: slotSlide 9.6s cubic-bezier(0.22,1,0.36,1) 3.2s infinite; }
+    .gwc-slot:nth-child(4) { animation: slotSlide 9.6s cubic-bezier(0.22,1,0.36,1) 4.8s infinite; }
+    .gwc-slot:nth-child(5) { animation: slotSlide 9.6s cubic-bezier(0.22,1,0.36,1) 6.4s infinite; }
+    .gwc-slot:nth-child(6) { animation: slotSlide 9.6s cubic-bezier(0.22,1,0.36,1) 8.0s infinite; }
 
     /* ── Wordmark ────────────────────────────────────────────────────── */
     .gwc-wordmark {
@@ -192,25 +219,21 @@
     <div class="gwc-rule"></div>
 
     <div class="gwc-slogan">
-      <div class="gwc-static">
-        <!-- EN -->
-        <span>Real</span>
-        <span>Real</span>
-        <span>Real</span>
-        <!-- DE -->
-        <span>Echte</span>
-        <span>Echter</span>
-        <span>Echte</span>
+      <!-- Static stem switches EN↔DE every 4.8 s -->
+      <div class="gwc-stem">
+        <span class="s-en">Rea</span>
+        <span class="s-de">Echt</span>
       </div>
-      <div class="gwc-word-track">
+      <!-- Animated track: suffix + keyword slide up as one unit -->
+      <div class="gwc-track">
         <!-- EN -->
-        <span class="word">Voice</span>
-        <span class="word">Change</span>
-        <span class="word">Accountability</span>
+        <div class="gwc-slot"><span class="suffix">l</span><span class="keyword">Voice</span></div>
+        <div class="gwc-slot"><span class="suffix">l</span><span class="keyword">Change</span></div>
+        <div class="gwc-slot"><span class="suffix">l</span><span class="keyword">Accountability</span></div>
         <!-- DE -->
-        <span class="word">Stimme</span>
-        <span class="word">Wandel</span>
-        <span class="word">Verantwortung</span>
+        <div class="gwc-slot"><span class="suffix">e</span><span class="keyword">Stimme</span></div>
+        <div class="gwc-slot"><span class="suffix">er</span><span class="keyword">Wandel</span></div>
+        <div class="gwc-slot"><span class="suffix">e</span><span class="keyword">Verantwortung</span></div>
       </div>
     </div>
 
