@@ -327,7 +327,7 @@
         <div class="checkbox-group">
           <div class="checkbox-group-label">How would you like to help?</div>
           <label class="checkbox-item">
-            <input type="checkbox" name="help" value="🚀 Join the Team" /> Join the Team
+            <input type="checkbox" name="help" value="🚀 Support the Team" /> Support the Team
           </label>
           <label class="checkbox-item">
             <input type="checkbox" name="help" value="📅 Organize events and meetups" /> Organize events and meetups
@@ -435,13 +435,17 @@
       checked.forEach(v => fd.append('entry.1607410288', v));
       fd.append('entry.1075144989', document.getElementById('joinMessage').value.trim());
 
-      fetch('https://docs.google.com/forms/d/e/1FAIpQLSeQUnmeRIv1y15sE-adCntNS2VXYK8E2_Hp9sVrjMLQiBKmsw/formResponse', {
-        method: 'POST', mode: 'no-cors', body: fd
-      }).then(() => {
+      const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000));
+      Promise.race([
+        fetch('https://docs.google.com/forms/d/e/1FAIpQLSeQUnmeRIv1y15sE-adCntNS2VXYK8E2_Hp9sVrjMLQiBKmsw/formResponse', {
+          method: 'POST', mode: 'no-cors', body: fd
+        }),
+        timeout
+      ]).then(() => {
         document.getElementById('join-form').style.display = 'none';
         document.getElementById('join-success').style.display = 'flex';
       }).catch(() => {
-        toast('Submission failed — please try again.', 'error');
+        toast('Submission failed — please check your connection and try again.', 'error');
         btn.disabled = false;
         btn.textContent = 'Join the Movement →';
       });
@@ -463,13 +467,17 @@
         fd.append('entry.584414385', "Please share my feedback (we won't share your full name/email)");
       }
 
-      fetch('https://docs.google.com/forms/d/e/1FAIpQLSeSDIx4SWN6jypfPc9A3NoXTYMZMCgNqiwPF9fTNHvkEPk1hA/formResponse', {
-        method: 'POST', mode: 'no-cors', body: fd
-      }).then(() => {
+      const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000));
+      Promise.race([
+        fetch('https://docs.google.com/forms/d/e/1FAIpQLSeSDIx4SWN6jypfPc9A3NoXTYMZMCgNqiwPF9fTNHvkEPk1hA/formResponse', {
+          method: 'POST', mode: 'no-cors', body: fd
+        }),
+        timeout
+      ]).then(() => {
         document.getElementById('feedback-form').style.display = 'none';
         document.getElementById('fb-success').style.display = 'flex';
       }).catch(() => {
-        toast('Submission failed — please try again.', 'error');
+        toast('Submission failed — please check your connection and try again.', 'error');
         btn.disabled = false;
         btn.textContent = 'Send Feedback →';
       });
