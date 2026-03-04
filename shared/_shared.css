@@ -211,6 +211,14 @@ body {
   background: #f0f0f0;
   border-radius: var(--radius-lg);
   color: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.closing-banner-text {
+  flex: 1;
 }
 
 .closing-banner .vote-line {
@@ -223,20 +231,19 @@ body {
 }
 
 .closing-banner .voice-line {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 900;
   color: var(--dark);
   line-height: 1.3;
-  margin-bottom: 12px;
 }
 
 .closing-banner .voice-line span { color: var(--red); }
 
-.closing-banner .intl-line {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #999;
-  font-style: italic;
+.closing-banner-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 /* ── Values grid (for page-values) ────────────────────────────────── */
