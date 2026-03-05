@@ -3,247 +3,223 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GWC — Contribute</title>
+  <title>GWC — Contributing Guide</title>
   <link rel="stylesheet" href="../../shared/_shared.css" />
   <style>
-    .step-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
-      margin-top: 8px;
-    }
-
-    .step-card {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 22px 20px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      background: var(--bg-soft);
-    }
-
-    .step-number {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--red-light);
-      border: 2px solid var(--red);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
-      font-weight: 900;
-      color: var(--dark);
-      flex-shrink: 0;
-    }
-
-    .step-card h3 {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--dark);
-      margin: 0;
-    }
-
-    .step-card p {
-      font-size: 0.85rem;
+    body {
+      font-size: 0.92rem;
       color: var(--mid);
-      line-height: 1.7;
-      margin: 0;
+      line-height: 1.8;
     }
 
-    .resource-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .resource-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 18px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      text-decoration: none;
-      color: inherit;
-      transition: border-color 0.15s, box-shadow 0.15s;
-    }
-
-    .resource-item:hover {
-      border-color: var(--red);
-      box-shadow: 0 2px 10px var(--red-dim);
-    }
-
-    .resource-icon {
-      font-size: 1.4rem;
-      flex-shrink: 0;
-    }
-
-    .resource-text strong {
-      display: block;
-      font-size: 0.9rem;
-      font-weight: 800;
-      color: var(--dark);
-    }
-
-    .resource-text span {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .resource-arrow {
-      margin-left: auto;
+    h2 {
       font-size: 1rem;
-      color: var(--red);
-      opacity: 0.7;
-    }
-
-    .callout {
-      background: var(--red-light);
-      border-left: 4px solid var(--red);
-      border-radius: var(--radius);
-      padding: 16px 20px;
-      font-size: 0.88rem;
-      color: var(--mid);
-      line-height: 1.75;
-    }
-
-    .callout strong {
+      font-weight: 800;
       color: var(--dark);
+      margin: 32px 0 6px;
+    }
+
+    h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 20px 0 4px;
+    }
+
+    p { margin: 0 0 10px; }
+
+    ol, ul {
+      padding-left: 20px;
+      margin: 0 0 10px;
+    }
+
+    li { margin-bottom: 4px; }
+
+    code {
+      font-family: monospace;
+      font-size: 0.88rem;
+      background: #f0f0f0;
+      padding: 1px 5px;
+      border-radius: 3px;
+      color: var(--dark);
+    }
+
+    a { color: var(--red); }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 28px 0;
+    }
+
+    .toc {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin-bottom: 28px;
+    }
+
+    .toc p {
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+
+    .toc ol {
+      margin: 0;
+    }
+
+    .toc a {
+      text-decoration: none;
+    }
+
+    .toc a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-  <iframe class="gwc-logo-frame" src="logo.html" title="GWC Logo" scrolling="no"></iframe>
+  <h1 style="font-size:1.3rem;font-weight:900;color:var(--dark);margin-bottom:6px;">GWC Website — Contributing Guide</h1>
+  <p>Everything you need to make changes to the campaign website.</p>
 
-  <div class="page-header">
-    <div class="subtitle">For the team</div>
-    <h1>Contribute to the Website</h1>
+  <hr />
+
+  <div class="toc">
+    <p>Contents</p>
+    <ol>
+      <li><a href="#repo">The repository</a></li>
+      <li><a href="#access">Getting access</a></li>
+      <li><a href="#structure">Project structure</a></li>
+      <li><a href="#edits">Making an edit</a></li>
+      <li><a href="#html">HTML basics</a></li>
+      <li><a href="#pages">Page-by-page guides</a></li>
+      <li><a href="#candidates">Updating the candidate list</a></li>
+      <li><a href="#revert">Reverting a change</a></li>
+    </ol>
   </div>
 
-  <p class="hero-intro">
-    The GWC website is maintained by the team — not just engineers.
-    This page explains how to get access, where everything lives, and how to make changes,
-    even if you've never touched code before.
-  </p>
+  <h2 id="repo">1. The repository</h2>
+  <p>All website files live here:</p>
+  <p><a href="https://github.com/gwc-betriebsrat/campaign" target="_top">https://github.com/gwc-betriebsrat/campaign</a></p>
+  <p>When you save a change (called a "commit"), the website updates automatically within about 60 seconds.</p>
 
-  <!-- What is GitHub -->
-  <div class="section">
-    <h2 class="section-title">What is GitHub?</h2>
-    <p style="font-size:0.92rem;color:var(--mid);line-height:1.8;margin-bottom:16px;">
-      GitHub is where all the website files are stored and edited. Think of it like a shared Google Drive —
-      but every change is tracked, nothing is ever permanently lost, and updates go live automatically
-      within about 60 seconds of saving.
-    </p>
-    <div class="callout">
-      <strong>You don't need to be a software engineer.</strong> If you can edit a Word document,
-      you can make text changes to this website directly in your browser — no software to install.
-    </div>
-  </div>
+  <hr />
 
-  <!-- 3 steps -->
-  <div class="section">
-    <h2 class="section-title">Getting started</h2>
-    <div class="step-grid">
-      <div class="step-card">
-        <div class="step-number">1</div>
-        <h3>Create a GitHub account</h3>
-        <p>Go to <strong>github.com</strong> and sign up for a free account. It takes two minutes.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-number">2</div>
-        <h3>Request access</h3>
-        <p>Share your GitHub username with a team admin. They'll add you as a collaborator on the repository.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-number">3</div>
-        <h3>Read the guide</h3>
-        <p>Open <strong>CONTRIBUTING.md</strong> in the repo — it walks you through everything step by step.</p>
-      </div>
-    </div>
-  </div>
+  <h2 id="access">2. Getting access</h2>
+  <ol>
+    <li>Create a free account at <a href="https://github.com" target="_top">github.com</a> if you don't have one</li>
+    <li>Send your GitHub username to the team admin — they'll add you as a collaborator</li>
+    <li>Once added, you can edit files directly in the browser</li>
+  </ol>
 
-  <!-- Resources -->
-  <div class="section">
-    <h2 class="section-title">Key resources</h2>
-    <div class="resource-list">
+  <hr />
 
-      <a class="resource-item" href="https://github.com/gwc-betriebsrat/campaign" target="_top">
-        <div class="resource-icon">📁</div>
-        <div class="resource-text">
-          <strong>The Repository</strong>
-          <span>github.com/gwc-betriebsrat/campaign — all website files live here</span>
-        </div>
-        <div class="resource-arrow">↗</div>
-      </a>
+  <h2 id="structure">3. Project structure</h2>
+  <p>The repo looks like this:</p>
+  <pre style="background:#f0f0f0;border-radius:var(--radius);padding:14px 16px;font-size:0.82rem;line-height:1.8;overflow-x:auto;"><code>gwc/
+├── shared/
+│   └── _shared.css          ← shared styles (colours, fonts, layouts)
+└── pages/
+    ├── who-we-are/          ← candidate list, story, regions, ERGs
+    ├── mission/             ← mission statement + 3 principles (EN + DE)
+    ├── commitment/          ← 4 commitments + 10 beliefs
+    ├── values/              ← 6 value cards
+    ├── join/                ← volunteer + feedback forms
+    ├── accomplishments/     ← track record (work in progress)
+    └── contribute/          ← this page</code></pre>
+  <p>Each page is a single <code>index.html</code> file inside its folder.</p>
 
-      <a class="resource-item" href="https://github.com/gwc-betriebsrat/campaign/blob/main/CONTRIBUTING.md" target="_top">
-        <div class="resource-icon">📖</div>
-        <div class="resource-text">
-          <strong>Contribution Guide</strong>
-          <span>CONTRIBUTING.md — how to edit files, what to avoid, brand colours, and more</span>
-        </div>
-        <div class="resource-arrow">↗</div>
-      </a>
+  <hr />
 
-      <a class="resource-item" href="https://github.com/gwc-betriebsrat/campaign/blob/main/pages/who-we-are/README.md" target="_top">
-        <div class="resource-icon">👥</div>
-        <div class="resource-text">
-          <strong>Who We Are — Page Guide</strong>
-          <span>How to update candidates, photos, story text, regions, and ERGs</span>
-        </div>
-        <div class="resource-arrow">↗</div>
-      </a>
+  <h2 id="edits">4. Making an edit</h2>
+  <ol>
+    <li>Go to the repo and navigate to the file you want to change (e.g. <code>pages/commitment/index.html</code>)</li>
+    <li>Click the pencil icon ✏️ in the top-right of the file view</li>
+    <li>Make your change</li>
+    <li>Scroll to the bottom — write a short description of what you changed</li>
+    <li>Click <strong>Commit changes</strong></li>
+  </ol>
+  <p>To check it's live: wait ~60 seconds, then hard-refresh the page (<code>Ctrl+Shift+R</code> on Windows, <code>Cmd+Shift+R</code> on Mac).</p>
 
-      <a class="resource-item" href="https://github.com/gwc-betriebsrat/campaign/blob/main/pages/mission/README.md" target="_top">
-        <div class="resource-icon">🎯</div>
-        <div class="resource-text">
-          <strong>Our Mission — Page Guide</strong>
-          <span>How to update the mission statement and principle cards (EN + DE)</span>
-        </div>
-        <div class="resource-arrow">↗</div>
-      </a>
+  <hr />
 
-      <a class="resource-item" href="https://github.com/gwc-betriebsrat/campaign/blob/main/pages/commitment/README.md" target="_top">
-        <div class="resource-icon">✊</div>
-        <div class="resource-text">
-          <strong>Our Commitment — Page Guide</strong>
-          <span>How to update the 4 commitments and 10 beliefs</span>
-        </div>
-        <div class="resource-arrow">↗</div>
-      </a>
+  <h2 id="html">5. HTML basics</h2>
+  <p>You only need to know a few patterns:</p>
 
-      <a class="resource-item" href="https://github.com/gwc-betriebsrat/campaign/blob/main/pages/accomplishments/README.md" target="_top">
-        <div class="resource-icon">📈</div>
-        <div class="resource-text">
-          <strong>Accomplishments — Page Guide</strong>
-          <span>How to add milestones and fill in the track record over time</span>
-        </div>
-        <div class="resource-arrow">↗</div>
-      </a>
+  <h3>Paragraph</h3>
+  <pre style="background:#f0f0f0;border-radius:var(--radius);padding:10px 14px;font-size:0.82rem;"><code>&lt;p&gt;Your text here.&lt;/p&gt;</code></pre>
 
-      <a class="resource-item" href="https://github.com/gwc-betriebsrat/campaign/issues" target="_top">
-        <div class="resource-icon">💬</div>
-        <div class="resource-text">
-          <strong>Issues — Ask a question or flag something</strong>
-          <span>Open an issue in the repo to ask questions or report problems</span>
-        </div>
-        <div class="resource-arrow">↗</div>
-      </a>
+  <h3>Heading</h3>
+  <pre style="background:#f0f0f0;border-radius:var(--radius);padding:10px 14px;font-size:0.82rem;"><code>&lt;h2&gt;Section title&lt;/h2&gt;
+&lt;h3&gt;Sub-heading&lt;/h3&gt;</code></pre>
 
-    </div>
-  </div>
+  <h3>Bold / red text</h3>
+  <pre style="background:#f0f0f0;border-radius:var(--radius);padding:10px 14px;font-size:0.82rem;"><code>&lt;strong&gt;bold&lt;/strong&gt;
+&lt;strong style="color:var(--red);"&gt;red and bold&lt;/strong&gt;</code></pre>
 
-  <div class="closing-banner">
-    <div class="closing-banner-text">
-      <div class="vote-line">Works Council Election 2026</div>
-      <div class="voice-line"><span>A Works Council That Stands for You</span></div>
-      <div class="intl-line">Global Workforce Community</div>
-    </div>
-  </div>
+  <h3>Link</h3>
+  <pre style="background:#f0f0f0;border-radius:var(--radius);padding:10px 14px;font-size:0.82rem;"><code>&lt;a href="https://example.com" target="_top"&gt;link text&lt;/a&gt;</code></pre>
+  <p>Always use <code>target="_top"</code> on links so they open in the full browser tab, not inside the iframe.</p>
+
+  <h3>List</h3>
+  <pre style="background:#f0f0f0;border-radius:var(--radius);padding:10px 14px;font-size:0.82rem;"><code>&lt;ul&gt;
+  &lt;li&gt;First item&lt;/li&gt;
+  &lt;li&gt;Second item&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+  <p style="margin-top:12px;"><strong>Rule of thumb:</strong> only change text between tags. Don't rename, delete, or reorder the tags themselves.</p>
+
+  <hr />
+
+  <h2 id="pages">6. Page-by-page guides</h2>
+  <p>Each page folder has a <code>README.md</code> file with specific instructions for that page:</p>
+  <ul>
+    <li><a href="https://github.com/gwc-betriebsrat/campaign/blob/main/pages/who-we-are/README.md" target="_top">who-we-are</a> — candidates, story text, regions, ERGs</li>
+    <li><a href="https://github.com/gwc-betriebsrat/campaign/blob/main/pages/mission/README.md" target="_top">mission</a> — mission statement, principles (EN + DE)</li>
+    <li><a href="https://github.com/gwc-betriebsrat/campaign/blob/main/pages/commitment/README.md" target="_top">commitment</a> — commitments, beliefs, contact email</li>
+    <li><a href="https://github.com/gwc-betriebsrat/campaign/blob/main/pages/values/README.md" target="_top">values</a> — value cards</li>
+    <li><a href="https://github.com/gwc-betriebsrat/campaign/blob/main/pages/join/README.md" target="_top">join</a> — form dropdowns, checkboxes</li>
+    <li><a href="https://github.com/gwc-betriebsrat/campaign/blob/main/pages/accomplishments/README.md" target="_top">accomplishments</a> — timeline milestones</li>
+  </ul>
+
+  <hr />
+
+  <h2 id="candidates">7. Updating the candidate list</h2>
+  <p>The candidate list is in <code>pages/who-we-are/index.html</code> and appears twice — once in the English section and once in the German section. Always update both.</p>
+  <p>The source of truth is <code>archive/Candidates Details - v3.csv</code>. The rules:</p>
+  <ul>
+    <li><strong>Show on page:</strong> <code>OK to share their name</code> = YES</li>
+    <li><strong>Clickable card with photo:</strong> <code>Zlife published</code> = YES and <code>Link to introduction</code> is filled</li>
+    <li><strong>Photo URL:</strong> right-click the photo on the zLife article → Inspect → copy the <code>src</code> from the <code>&lt;img&gt;</code> tag</li>
+  </ul>
+
+  <h3>Card without article (initials, not clickable)</h3>
+  <pre style="background:#f0f0f0;border-radius:var(--radius);padding:10px 14px;font-size:0.82rem;line-height:1.7;"><code>&lt;div class="team-card"&gt;
+  &lt;div class="team-avatar"&gt;AB&lt;/div&gt;
+  &lt;div class="team-name"&gt;Alex Bauer&lt;/div&gt;
+  &lt;div class="team-role"&gt;Senior Engineer&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+  <h3>Card with article (photo, clickable)</h3>
+  <pre style="background:#f0f0f0;border-radius:var(--radius);padding:10px 14px;font-size:0.82rem;line-height:1.7;"><code>&lt;a class="team-card" href="ARTICLE_URL" target="_top"&gt;
+  &lt;div class="team-avatar"&gt;&lt;img src="PHOTO_URL" alt="Alex Bauer" /&gt;&lt;/div&gt;
+  &lt;div class="team-name"&gt;Alex Bauer&lt;/div&gt;
+  &lt;div class="team-role"&gt;Senior Engineer&lt;/div&gt;
+  &lt;div class="team-link-hint"&gt;Get to know me ↗&lt;/div&gt;
+&lt;/a&gt;</code></pre>
+
+  <hr />
+
+  <h2 id="revert">8. Reverting a change</h2>
+  <ol>
+    <li>Go to the file in the repo</li>
+    <li>Click <strong>History</strong> (top-right of the file view)</li>
+    <li>Find the last good version and click on it</li>
+    <li>Click <strong>Browse files</strong> → navigate to the file → click ✏️ → copy the old content back in → commit</li>
+  </ol>
+  <p>Nothing is ever permanently deleted — every version is stored.</p>
 
 </body>
 </html>
