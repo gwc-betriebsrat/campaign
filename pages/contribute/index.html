@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GWC — Contribute</title>
+  <link rel="stylesheet" href="../../shared/_shared.css" />
+  <style>
+    .step-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .step-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 22px 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--bg-soft);
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--red-light);
+      border: 2px solid var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: var(--dark);
+      flex-shrink: 0;
+    }
+
+    .step-card h3 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin: 0;
+    }
+
+    .step-card p {
+      font-size: 0.85rem;
+      color: var(--mid);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .resource-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .resource-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .resource-item:hover {
+      border-color: var(--red);
+      box-shadow: 0 2px 10px var(--red-dim);
+    }
+
+    .resource-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .resource-text strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--dark);
+    }
+
+    .resource-text span {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .resource-arrow {
+      margin-left: auto;
+      font-size: 1rem;
+      color: var(--red);
+      opacity: 0.7;
+    }
+
+    .callout {
+      background: var(--red-light);
+      border-left: 4px solid var(--red);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      font-size: 0.88rem;
+      color: var(--mid);
+      line-height: 1.75;
+    }
+
+    .callout strong {
+      color: var(--dark);
+    }
+  </style>
+</head>
+<body>
+
+  <iframe class="gwc-logo-frame" src="logo.html" title="GWC Logo" scrolling="no"></iframe>
+
+  <div class="page-header">
+    <div class="subtitle">For the team</div>
+    <h1>Contribute to the Website</h1>
+  </div>
+
+  <p class="hero-intro">
+    The GWC website is maintained by the team — not just engineers.
+    This page explains how to get access, where everything lives, and how to make changes,
+    even if you've never touched code before.
+  </p>
+
+  <!-- What is GitHub -->
+  <div class="section">
+    <h2 class="section-title">What is GitHub?</h2>
+    <p style="font-size:0.92rem;color:var(--mid);line-height:1.8;margin-bottom:16px;">
+      GitHub is where all the website files are stored and edited. Think of it like a shared Google Drive —
+      but every change is tracked, nothing is ever permanently lost, and updates go live automatically
+      within about 60 seconds of saving.
+    </p>
+    <div class="callout">
+      <strong>You don't need to be a software engineer.</strong> If you can edit a Word document,
+      you can make text changes to this website directly in your browser — no software to install.
+    </div>
+  </div>
+
+  <!-- 3 steps -->
+  <div class="section">
+    <h2 class="section-title">Getting started</h2>
+    <div class="step-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h3>Create a GitHub account</h3>
+        <p>Go to <strong>github.com</strong> and sign up for a free account. It takes two minutes.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h3>Request access</h3>
+        <p>Share your GitHub username with a team admin. They'll add you as a collaborator on the repository.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h3>Read the guide</h3>
+        <p>Open <strong>CONTRIBUTING.md</strong> in the repo — it walks you through everything step by step.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resources -->
+  <div class="section">
+    <h2 class="section-title">Key resources</h2>
+    <div class="resource-list">
+
+      <a class="resource-item" href="https://github.com/gwc-betriebsrat/campaign" target="_top">
+        <div class="resource-icon">📁</div>
+        <div class="resource-text">
+          <strong>The Repository</strong>
+          <span>github.com/gwc-betriebsrat/campaign — all website files live here</span>
+        </div>
+        <div class="resource-arrow">↗</div>
+      </a>
+
+      <a class="resource-item" href="https://github.com/gwc-betriebsrat/campaign/blob/main/CONTRIBUTING.md" target="_top">
+        <div class="resource-icon">📖</div>
+        <div class="resource-text">
+          <strong>Contribution Guide</strong>
+          <span>CONTRIBUTING.md — how to edit files, what to avoid, brand colours, and more</span>
+        </div>
+        <div class="resource-arrow">↗</div>
+      </a>
+
+      <a class="resource-item" href="https://github.com/gwc-betriebsrat/campaign/blob/main/pages/who-we-are/README.md" target="_top">
+        <div class="resource-icon">👥</div>
+        <div class="resource-text">
+          <strong>Who We Are — Page Guide</strong>
+          <span>How to update candidates, photos, story text, regions, and ERGs</span>
+        </div>
+        <div class="resource-arrow">↗</div>
+      </a>
+
+      <a class="resource-item" href="https://github.com/gwc-betriebsrat/campaign/blob/main/pages/mission/README.md" target="_top">
+        <div class="resource-icon">🎯</div>
+        <div class="resource-text">
+          <strong>Our Mission — Page Guide</strong>
+          <span>How to update the mission statement and principle cards (EN + DE)</span>
+        </div>
+        <div class="resource-arrow">↗</div>
+      </a>
+
+      <a class="resource-item" href="https://github.com/gwc-betriebsrat/campaign/blob/main/pages/commitment/README.md" target="_top">
+        <div class="resource-icon">✊</div>
+        <div class="resource-text">
+          <strong>Our Commitment — Page Guide</strong>
+          <span>How to update the 4 commitments and 10 beliefs</span>
+        </div>
+        <div class="resource-arrow">↗</div>
+      </a>
+
+      <a class="resource-item" href="https://github.com/gwc-betriebsrat/campaign/blob/main/pages/accomplishments/README.md" target="_top">
+        <div class="resource-icon">📈</div>
+        <div class="resource-text">
+          <strong>Accomplishments — Page Guide</strong>
+          <span>How to add milestones and fill in the track record over time</span>
+        </div>
+        <div class="resource-arrow">↗</div>
+      </a>
+
+      <a class="resource-item" href="https://github.com/gwc-betriebsrat/campaign/issues" target="_top">
+        <div class="resource-icon">💬</div>
+        <div class="resource-text">
+          <strong>Issues — Ask a question or flag something</strong>
+          <span>Open an issue in the repo to ask questions or report problems</span>
+        </div>
+        <div class="resource-arrow">↗</div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="closing-banner">
+    <div class="closing-banner-text">
+      <div class="vote-line">Works Council Election 2026</div>
+      <div class="voice-line"><span>A Works Council That Stands for You</span></div>
+      <div class="intl-line">Global Workforce Community</div>
+    </div>
+  </div>
+
+</body>
+</html>
