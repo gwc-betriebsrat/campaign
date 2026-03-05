@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GWC — Who We Are (Design Concepts)</title>
+  <link rel="stylesheet" href="../../shared/_shared.css" />
+  <style>
+    /* ── Base ──────────────────────────────────────────────────────────── */
+    .concept-block {
+      margin-bottom: 60px;
+    }
+
+    .concept-label {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--red);
+      border: 1.5px solid var(--red);
+      border-radius: 4px;
+      padding: 3px 10px;
+      margin-bottom: 8px;
+    }
+
+    .concept-title {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .concept-desc {
+      font-size: 0.83rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    /* ── Shared grid ───────────────────────────────────────────────────── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 16px;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════════
+       CONCEPT A — Tooltip on hover
+       A small popover appears above the card when you hover.
+    ══════════════════════════════════════════════════════════════════════ */
+    .card-a {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      text-align: center;
+      cursor: default;
+      transition: border-color 0.2s;
+    }
+
+    .card-a:hover {
+      border-color: var(--red);
+    }
+
+    .card-a .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--red-light);
+      border: 2.5px solid var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--red);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .card-a .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .card-a .name {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1.3;
+    }
+
+    .card-a .role {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    /* Tooltip */
+    .card-a .tooltip {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 280px;
+      background: var(--dark);
+      color: #f0f0f0;
+      font-size: 0.78rem;
+      line-height: 1.65;
+      padding: 14px 16px;
+      border-radius: var(--radius-lg);
+      text-align: left;
+      z-index: 100;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .card-a .tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 7px solid transparent;
+      border-top-color: var(--dark);
+    }
+
+    .card-a .tooltip .tip-name {
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+    }
+
+    .card-a:hover .tooltip {
+      display: block;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════════
+       CONCEPT B — Card flips to reveal bio on click
+       Click the card and it flips 180° to show the bio on the back.
+    ══════════════════════════════════════════════════════════════════════ */
+    .flip-wrapper {
+      perspective: 900px;
+      height: 220px;
+    }
+
+    .card-b {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease;
+      cursor: pointer;
+    }
+
+    .card-b.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-b .face {
+      position: absolute;
+      inset: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 12px;
+      text-align: center;
+    }
+
+    .card-b .front {
+      background: var(--bg);
+    }
+
+    .card-b .back {
+      background: var(--dark);
+      transform: rotateY(180deg);
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 0;
+      overflow: hidden;
+    }
+
+    .card-b .back .back-name {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
+
+    .card-b .back .back-bio {
+      font-size: 0.73rem;
+      color: #ccc;
+      line-height: 1.6;
+      overflow-y: auto;
+      max-height: 150px;
+      padding-right: 4px;
+    }
+
+    .card-b .back .back-bio::-webkit-scrollbar { width: 3px; }
+    .card-b .back .back-bio::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
+
+    .card-b .back .flip-hint {
+      margin-top: 8px;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.35);
+      flex-shrink: 0;
+    }
+
+    .card-b .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--red-light);
+      border: 2.5px solid var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--red);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .card-b .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .card-b .name {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1.3;
+    }
+
+    .card-b .role {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .card-b .flip-hint-front {
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════════
+       CONCEPT C — Click expands a panel below the row
+       Clicking a card opens a full-width panel beneath its row with the bio.
+    ══════════════════════════════════════════════════════════════════════ */
+    .grid-c {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 16px;
+    }
+
+    .card-c {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .card-c.active {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px var(--red-dim);
+    }
+
+    .card-c .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--red-light);
+      border: 2.5px solid var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--red);
+      overflow: hidden;
+      flex-shrink: 0;
+      transition: box-shadow 0.2s;
+    }
+
+    .card-c.active .avatar {
+      box-shadow: 0 0 14px 4px rgba(178,34,34,0.22);
+    }
+
+    .card-c .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .card-c .name {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1.3;
+    }
+
+    .card-c .role {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .card-c .click-hint {
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+
+    /* Expanded bio panel */
+    .bio-panel {
+      display: none;
+      grid-column: 1 / -1;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--red);
+      border-radius: var(--radius-lg);
+      padding: 20px 22px;
+      animation: slideDown 0.2s ease;
+    }
+
+    .bio-panel.open {
+      display: block;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .bio-panel .panel-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .bio-panel .panel-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--red-light);
+      border: 2px solid var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--red);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .bio-panel .panel-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .bio-panel .panel-name {
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--dark);
+    }
+
+    .bio-panel .panel-role {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-top: 2px;
+    }
+
+    .bio-panel .panel-bio {
+      font-size: 0.84rem;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+
+    .bio-panel .panel-close {
+      float: right;
+      font-size: 0.75rem;
+      color: var(--muted);
+      cursor: pointer;
+      margin-top: -4px;
+    }
+
+    .bio-panel .panel-close:hover {
+      color: var(--red);
+    }
+  </style>
+</head>
+<body>
+
+  <div style="margin-bottom:32px;">
+    <div style="font-size:0.72rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Internal — Design Review</div>
+    <h1 style="font-size:1.4rem;font-weight:900;color:var(--dark);margin-bottom:8px;">Who We Are — Candidate Card Concepts</h1>
+    <p style="font-size:0.88rem;color:var(--mid);line-height:1.7;max-width:560px;">
+      Three different ways to show candidate introductions without sending people to a separate article.
+      All use real bios. Pick the one you like and we'll build it out for the full page.
+    </p>
+  </div>
+
+  <hr style="border:none;border-top:1px solid var(--border);margin-bottom:40px;" />
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       CONCEPT A — Tooltip on hover
+  ══════════════════════════════════════════════════════════════════════ -->
+  <div class="concept-block">
+    <div class="concept-label">Concept A</div>
+    <div class="concept-title">Tooltip on hover</div>
+    <div class="concept-desc">Hover over any card to read the person's intro in a dark popover above it. No click needed.</div>
+
+    <div class="cards-grid">
+
+      <div class="card-a">
+        <div class="tooltip">
+          <div class="tip-name">Kim Ozor</div>
+          Hi I'm Kim! Originally from Florida, living in Berlin since 2017. I'm queer, chronically-ill, autistic, and disabled. I've been a Works Council member since 2022. I joined Global Workforce Community because it's the list with heart, the courage to do what's right even when it's hard, and the compassion to care for each and every worker.
+        </div>
+        <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/0dc8f072-9531-4ca9-8b91-7947adf7642a?type=XL" alt="Kim Ozor" /></div>
+        <div class="name">Kim Ozor</div>
+        <div class="role">Works Council Member</div>
+      </div>
+
+      <div class="card-a">
+        <div class="tooltip">
+          <div class="tip-name">Ahmed Ebaid</div>
+          Since 2018, I've helped build and secure our digital infrastructure. Standing in solidarity with our ERGs opened my eyes to the profound pressures our diverse colleagues endure. We can no longer wait for a disconnected WoCo — we must actively architect a system for fairness and equity that works for everyone.
+        </div>
+        <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/8df3a8e8-24c2-4a7a-9501-4d7293acf7e1?type=XL" alt="Ahmed Ebaid" /></div>
+        <div class="name">Ahmed Ebaid</div>
+        <div class="role">Senior Network Engineer</div>
+      </div>
+
+      <div class="card-a">
+        <div class="tooltip">
+          <div class="tip-name">Mosheera Salah</div>
+          My journey in project management began 21 years ago. My true north is Fairness — being the voice for those who aren't heard and standing my ground when it comes to doing what is right. I am deeply dedicated to authentic Diversity and Inclusion — moving beyond metrics to create a reality where everyone truly belongs.
+        </div>
+        <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/68e9642b-edb6-4aff-b963-6db5f0a83ba3?type=XL" alt="Mosheera Salah" /></div>
+        <div class="name">Mosheera Salah</div>
+        <div class="role">Lead of ZTF PMO</div>
+      </div>
+
+      <div class="card-a">
+        <div class="tooltip">
+          <div class="tip-name">Abdelrahman Saleh</div>
+          Originally from Egypt, I grew up across Syria, Lebanon, Libya, and Saudi Arabia before joining Zalando as a Data Engineer in 2022. I joined the Global Workforce Community to be a voice for my colleagues and to ensure no one has to fight for their rights alone. Our strength lies in unity.
+        </div>
+        <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/23b63caa-c500-4cbe-a239-e188e8731a47?type=XL" alt="Abdelrahman Saleh" /></div>
+        <div class="name">Abdelrahman Saleh</div>
+        <div class="role">Data Engineer</div>
+      </div>
+
+      <div class="card-a">
+        <div class="tooltip">
+          <div class="tip-name">Veda Maas</div>
+          Nine years at Zalando, 17 years in quality assurance. Growing up in South Africa during Apartheid instilled a fierce sense of responsibility. I've become increasingly aware of a culture of superficiality that drifts from the council's core mission. My philosophy: our first and only mandate is to stand up and represent the employees — nothing more and nothing less.
+        </div>
+        <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/37bfa26f-3048-4004-a581-3158fa547a03?type=XL" alt="Veda Maas" /></div>
+        <div class="name">Veda Maas</div>
+        <div class="role">Sr Product Quality Manager</div>
+      </div>
+
+      <div class="card-a">
+        <div class="tooltip">
+          <div class="tip-name">Bassma Elrafie</div>
+          I'm an Egyptian who's called Berlin home for 11 years and been part of Zalando since 2017. I've been a substitute member of the Works Council since 2022 — which means I come with zero ramp-up time and already have my priority list for where we need urgent improvements. This time I'm aiming for a permanent seat.
+        </div>
+        <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/21e94f92-c65c-495b-83fa-61b43b24a384?type=XL" alt="Bassma Elrafie" /></div>
+        <div class="name">Bassma Elrafie</div>
+        <div class="role">Principal Tech Consultant</div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr style="border:none;border-top:1px solid var(--border);margin-bottom:40px;" />
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       CONCEPT B — Card flip on click
+  ══════════════════════════════════════════════════════════════════════ -->
+  <div class="concept-block">
+    <div class="concept-label">Concept B</div>
+    <div class="concept-title">Card flip on click</div>
+    <div class="concept-desc">Click any card and it flips to reveal the person's intro on the back. Click again to flip back.</div>
+
+    <div class="cards-grid">
+
+      <div class="flip-wrapper">
+        <div class="card-b" onclick="this.classList.toggle('flipped')">
+          <div class="face front">
+            <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/0dc8f072-9531-4ca9-8b91-7947adf7642a?type=XL" alt="Kim Ozor" /></div>
+            <div class="name">Kim Ozor</div>
+            <div class="role">Works Council Member</div>
+            <div class="flip-hint-front">Click to read intro</div>
+          </div>
+          <div class="face back">
+            <div class="back-name">Kim Ozor</div>
+            <div class="back-bio">Hi I'm Kim! Originally from Florida, living in Berlin since 2017. I'm queer, chronically-ill, autistic, and disabled. I joined Global Workforce Community because it's the list with heart, the courage to do what's right even when it's hard, and the compassion to care for each and every worker. My problem solving approach is that we try everything, every path — and when we run out of paths, we make our own path.</div>
+            <div class="flip-hint">Click to flip back</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-wrapper">
+        <div class="card-b" onclick="this.classList.toggle('flipped')">
+          <div class="face front">
+            <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/8df3a8e8-24c2-4a7a-9501-4d7293acf7e1?type=XL" alt="Ahmed Ebaid" /></div>
+            <div class="name">Ahmed Ebaid</div>
+            <div class="role">Senior Network Engineer</div>
+            <div class="flip-hint-front">Click to read intro</div>
+          </div>
+          <div class="face back">
+            <div class="back-name">Ahmed Ebaid</div>
+            <div class="back-bio">Since 2018, I've helped build and secure our digital infrastructure. Standing in solidarity with our ERGs opened my eyes to the profound pressures our diverse colleagues endure. Sustainable fairness requires structure — when support depends only on permission rather than clear policy, it can leave people unprotected. That is why I am running with the Global Workforce Community.</div>
+            <div class="flip-hint">Click to flip back</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-wrapper">
+        <div class="card-b" onclick="this.classList.toggle('flipped')">
+          <div class="face front">
+            <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/68e9642b-edb6-4aff-b963-6db5f0a83ba3?type=XL" alt="Mosheera Salah" /></div>
+            <div class="name">Mosheera Salah</div>
+            <div class="role">Lead of ZTF PMO</div>
+            <div class="flip-hint-front">Click to read intro</div>
+          </div>
+          <div class="face back">
+            <div class="back-name">Mosheera Salah</div>
+            <div class="back-bio">My journey in project management began 21 years ago, leading me through diverse roles — from Head of PM Center of Excellence to Director of Global Operations. My true north is Fairness. I am deeply dedicated to authentic Diversity and Inclusion — moving beyond metrics to create a reality where everyone truly belongs. When I'm not driving projects, you'll find me at a pottery wheel or with an oil brush in hand.</div>
+            <div class="flip-hint">Click to flip back</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-wrapper">
+        <div class="card-b" onclick="this.classList.toggle('flipped')">
+          <div class="face front">
+            <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/04d0c277-9276-4148-97fb-9400441eba83?type=XL" alt="Andrea Sella" /></div>
+            <div class="name">Andrea Sella</div>
+            <div class="role">Principal Software Engineer</div>
+            <div class="flip-hint-front">Click to read intro</div>
+          </div>
+          <div class="face back">
+            <div class="back-name">Andrea Sella</div>
+            <div class="back-bio">I joined Zalando in May 2020 and have enjoyed tackling complex engineering challenges. I am a firm believer in taking full ownership and responsibility for my actions. I joined this list because transitions must be navigated with both mind and heart. Only by ensuring just and fair treatment for our colleagues can we guarantee their and their families' financial security. My pronouns are they/them.</div>
+            <div class="flip-hint">Click to flip back</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-wrapper">
+        <div class="card-b" onclick="this.classList.toggle('flipped')">
+          <div class="face front">
+            <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/37bfa26f-3048-4004-a581-3158fa547a03?type=XL" alt="Veda Maas" /></div>
+            <div class="name">Veda Maas</div>
+            <div class="role">Sr Product Quality Manager</div>
+            <div class="flip-hint-front">Click to read intro</div>
+          </div>
+          <div class="face back">
+            <div class="back-name">Veda Maas</div>
+            <div class="back-bio">Nine years at Zalando, 17 years in quality assurance across many countries. Growing up in South Africa during the final years of Apartheid instilled a fierce sense of responsibility. It is not enough to simply have privilege — it is my solemn duty to use it to advocate for the voiceless and fight against systemic injustice. Our first and only mandate is to represent the employees — nothing more and nothing less.</div>
+            <div class="flip-hint">Click to flip back</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-wrapper">
+        <div class="card-b" onclick="this.classList.toggle('flipped')">
+          <div class="face front">
+            <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/21e94f92-c65c-495b-83fa-61b43b24a384?type=XL" alt="Bassma Elrafie" /></div>
+            <div class="name">Bassma Elrafie</div>
+            <div class="role">Principal Tech Consultant</div>
+            <div class="flip-hint-front">Click to read intro</div>
+          </div>
+          <div class="face back">
+            <div class="back-name">Bassma Elrafie</div>
+            <div class="back-bio">I'm Bassma (which means "A smile" in Arabic). An Egyptian who's called Berlin home for 11 years and been part of Zalando since 2017. I've been a substitute Works Council member since 2022 — so I come with zero ramp-up time and already have my priority list for where we need urgent improvements. This time, I'm aiming for a permanent seat to turn up the volume.</div>
+            <div class="flip-hint">Click to flip back</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr style="border:none;border-top:1px solid var(--border);margin-bottom:40px;" />
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       CONCEPT C — Expand panel below row on click
+  ══════════════════════════════════════════════════════════════════════ -->
+  <div class="concept-block">
+    <div class="concept-label">Concept C</div>
+    <div class="concept-title">Expanding panel on click</div>
+    <div class="concept-desc">Click a card and a full-width panel opens below the row with the person's full intro. Click again (or the × button) to close.</div>
+
+    <div class="grid-c" id="grid-c">
+
+      <div class="card-c" onclick="togglePanel('panel-kim', this)"
+           data-name="Kim Ozor" data-role="Works Council Member"
+           data-img="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/0dc8f072-9531-4ca9-8b91-7947adf7642a?type=XL"
+           data-bio="Hi I'm Kim! Originally from the cursed state of Florida, I've been living in Europe since around 2012, and moved to Berlin to work at Zalando in 2017. I'm queer, chronically-ill, autistic, and disabled, and I have 2 dogs George (the blind one) and Milly (the elderly one) and a silly, mischievous cat named Alistair — all rescues. At Zalando, I've been a works council member since 2022. I joined Global Workforce Community because it's the list with heart, the courage to do what's right even when it's hard, and the compassion to care for each and every worker. My problem solving approach is that we try everything, every path — and when we run out of paths, we make our own path.">
+        <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/0dc8f072-9531-4ca9-8b91-7947adf7642a?type=XL" alt="Kim Ozor" /></div>
+        <div class="name">Kim Ozor</div>
+        <div class="role">Works Council Member</div>
+        <div class="click-hint">Click to read intro</div>
+      </div>
+
+      <div class="bio-panel" id="panel-kim">
+        <span class="panel-close" onclick="closePanel('panel-kim', event)">✕ close</span>
+        <div class="panel-header">
+          <div class="panel-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/0dc8f072-9531-4ca9-8b91-7947adf7642a?type=XL" alt="Kim Ozor" /></div>
+          <div><div class="panel-name">Kim Ozor</div><div class="panel-role">Works Council Member</div></div>
+        </div>
+        <div class="panel-bio">Hi I'm Kim! Originally from the cursed state of Florida, I've been living in Europe since around 2012, and moved to Berlin to work at Zalando in 2017. I'm queer, chronically-ill, autistic, and disabled, and I have 2 dogs George (the blind one) and Milly (the elderly one) and a silly, mischievous cat named Alistair — all rescues. At Zalando, I've been a works council member since 2022. I joined Global Workforce Community because it's the list with heart, the courage to do what's right even when it's hard, and the compassion to care for each and every worker. My problem solving approach is that we try everything, every path — and when we run out of paths, we make our own path.</div>
+      </div>
+
+      <div class="card-c" onclick="togglePanel('panel-ahmed', this)"
+           data-name="Ahmed Ebaid" data-role="Senior Network Engineer">
+        <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/8df3a8e8-24c2-4a7a-9501-4d7293acf7e1?type=XL" alt="Ahmed Ebaid" /></div>
+        <div class="name">Ahmed Ebaid</div>
+        <div class="role">Senior Network Engineer</div>
+        <div class="click-hint">Click to read intro</div>
+      </div>
+
+      <div class="bio-panel" id="panel-ahmed">
+        <span class="panel-close" onclick="closePanel('panel-ahmed', event)">✕ close</span>
+        <div class="panel-header">
+          <div class="panel-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/8df3a8e8-24c2-4a7a-9501-4d7293acf7e1?type=XL" alt="Ahmed Ebaid" /></div>
+          <div><div class="panel-name">Ahmed Ebaid</div><div class="panel-role">Senior Network Engineer</div></div>
+        </div>
+        <div class="panel-bio">Since 2018, I've helped build and secure our digital infrastructure as a Network and Security Engineer. Standing in solidarity with our Employee Resource Groups opened my eyes to the profound pressures and marginalization our diverse colleagues endure. Sustainable fairness requires structure — when support depends only on permission rather than clear policy, it can leave people unprotected. That is why I am running with the Global Workforce Community. We come from diverse nations, backgrounds, and experiences, yet we stand united in our commitment to fairness, transparency, and empowering each other.</div>
+      </div>
+
+      <div class="card-c" onclick="togglePanel('panel-mosheera', this)">
+        <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/68e9642b-edb6-4aff-b963-6db5f0a83ba3?type=XL" alt="Mosheera Salah" /></div>
+        <div class="name">Mosheera Salah</div>
+        <div class="role">Lead of ZTF PMO</div>
+        <div class="click-hint">Click to read intro</div>
+      </div>
+
+      <div class="bio-panel" id="panel-mosheera">
+        <span class="panel-close" onclick="closePanel('panel-mosheera', event)">✕ close</span>
+        <div class="panel-header">
+          <div class="panel-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/68e9642b-edb6-4aff-b963-6db5f0a83ba3?type=XL" alt="Mosheera Salah" /></div>
+          <div><div class="panel-name">Mosheera Salah</div><div class="panel-role">Lead of ZTF PMO</div></div>
+        </div>
+        <div class="panel-bio">My name is Mosheera Salah, and I joined Zalando in September 2023 as the Lead of ZTF PMO. My journey in project management began 21 years ago, leading me through diverse roles — from Head of PM Center of Excellence to Director of Global Operations for a major French firm. In 2023, I sought a new horizon and moved to Germany to embrace the challenge of the tech industry. My true north is Fairness. I am deeply dedicated to authentic Diversity and Inclusion — moving beyond metrics to create a reality where everyone truly belongs. When I'm not driving projects, you'll find me at a pottery wheel or with an oil brush in hand.</div>
+      </div>
+
+      <div class="card-c" onclick="togglePanel('panel-andrea', this)">
+        <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/04d0c277-9276-4148-97fb-9400441eba83?type=XL" alt="Andrea Sella" /></div>
+        <div class="name">Andrea Sella</div>
+        <div class="role">Principal Software Engineer</div>
+        <div class="click-hint">Click to read intro</div>
+      </div>
+
+      <div class="bio-panel" id="panel-andrea">
+        <span class="panel-close" onclick="closePanel('panel-andrea', event)">✕ close</span>
+        <div class="panel-header">
+          <div class="panel-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/04d0c277-9276-4148-97fb-9400441eba83?type=XL" alt="Andrea Sella" /></div>
+          <div><div class="panel-name">Andrea Sella</div><div class="panel-role">Principal Software Engineer</div></div>
+        </div>
+        <div class="panel-bio">I joined Zalando in May 2020, and since then, I have enjoyed tackling the complex engineering challenges inherent to our business. I am a firm believer in taking full ownership and responsibility for my actions — it is through our mistakes that we grow into better humans, both personally and professionally. I joined this list because such transitions must be navigated with both mind and heart. Only by ensuring just and fair treatment for our colleagues can we guarantee their and their families' financial security. My pronouns are they/them.</div>
+      </div>
+
+      <div class="card-c" onclick="togglePanel('panel-veda', this)">
+        <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/37bfa26f-3048-4004-a581-3158fa547a03?type=XL" alt="Veda Maas" /></div>
+        <div class="name">Veda Maas</div>
+        <div class="role">Sr Product Quality Manager</div>
+        <div class="click-hint">Click to read intro</div>
+      </div>
+
+      <div class="bio-panel" id="panel-veda">
+        <span class="panel-close" onclick="closePanel('panel-veda', event)">✕ close</span>
+        <div class="panel-header">
+          <div class="panel-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/37bfa26f-3048-4004-a581-3158fa547a03?type=XL" alt="Veda Maas" /></div>
+          <div><div class="panel-name">Veda Maas</div><div class="panel-role">Sr Product Quality Manager</div></div>
+        </div>
+        <div class="panel-bio">For the past nine years, I have been an integral part of Zalando Private Labels. My 17-year career in quality assurance has taken me across countless factories worldwide, giving me a deep understanding of the profound disparities in the treatment of workers globally. Growing up in South Africa during the final years of Apartheid instilled a fierce sense of responsibility: it is not enough to simply have privilege — it is my solemn duty to actively use it to advocate for the voiceless and fight against systemic injustice. My philosophy is simple: our first and only mandate is to stand up and represent the employees — nothing more and nothing less.</div>
+      </div>
+
+      <div class="card-c" onclick="togglePanel('panel-bassma', this)">
+        <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/21e94f92-c65c-495b-83fa-61b43b24a384?type=XL" alt="Bassma Elrafie" /></div>
+        <div class="name">Bassma Elrafie</div>
+        <div class="role">Principal Tech Consultant</div>
+        <div class="click-hint">Click to read intro</div>
+      </div>
+
+      <div class="bio-panel" id="panel-bassma">
+        <span class="panel-close" onclick="closePanel('panel-bassma', event)">✕ close</span>
+        <div class="panel-header">
+          <div class="panel-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/21e94f92-c65c-495b-83fa-61b43b24a384?type=XL" alt="Bassma Elrafie" /></div>
+          <div><div class="panel-name">Bassma Elrafie</div><div class="panel-role">Principal Tech Consultant</div></div>
+        </div>
+        <div class="panel-bio">Hey everyone! I'm Bassma — which, fun fact, means "A smile" in Arabic. I'm an Egyptian who's called Berlin home for 11 awesome years and been part of Zalando since 2017. I've been a substitute Works Council member since 2022, soaking up legal knowledge and dedicating energy to the health committee. That means I come with zero ramp-up time and already have my priority list set for where we need urgent improvements. This time, I'm aiming for a permanent seat because I'm ready to turn up the volume and dedicate all my energy to implementing the changes we need!</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function togglePanel(panelId, card) {
+      const panel = document.getElementById(panelId);
+      const isOpen = panel.classList.contains('open');
+
+      // Close all panels and deactivate all cards
+      document.querySelectorAll('.bio-panel').forEach(p => p.classList.remove('open'));
+      document.querySelectorAll('.card-c').forEach(c => c.classList.remove('active'));
+
+      if (!isOpen) {
+        panel.classList.add('open');
+        card.classList.add('active');
+        // Scroll panel into view
+        setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+      }
+    }
+
+    function closePanel(panelId, e) {
+      e.stopPropagation();
+      document.getElementById(panelId).classList.remove('open');
+      document.querySelectorAll('.card-c').forEach(c => c.classList.remove('active'));
+    }
+  </script>
+
+</body>
+</html>
