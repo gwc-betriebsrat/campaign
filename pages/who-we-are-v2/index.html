@@ -274,67 +274,54 @@
     }
 
     /* ══════════════════════════════════════════════════════════════════════
-       CONCEPT B.1 — Flip + expand to fill the grid
-       Hover tilts the card. Click flips it and expands it to span all columns,
-       hiding all other cards. Click again (or ×) to collapse back.
+       CONCEPT B.1 — Single card, flips + zooms toward you
+       One card element with a front and back face.
+       Click → card moves to fixed position, flips 180°, and expands.
+       Close → reverses exactly back to its grid slot.
     ══════════════════════════════════════════════════════════════════════ */
     .grid-b1 {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 16px;
-      transition: grid-template-columns 0.4s ease;
     }
 
-    /* Wrapper handles perspective + sizing */
-    .flip-wrapper-b1 {
-      perspective: 900px;
+    /* Perspective wrapper — stays in the grid always */
+    .b1-wrap {
+      perspective: 1200px;
       height: 220px;
-      transition: grid-column 0.05s, height 0.5s ease;
     }
 
-    /* When a sibling is expanded, hide this wrapper */
-    .grid-b1.has-expanded .flip-wrapper-b1:not(.expanded) {
-      display: none;
-    }
-
-    /* Expanded wrapper spans all columns and grows tall */
-    .flip-wrapper-b1.expanded {
-      grid-column: 1 / -1;
-      height: 340px;
-    }
-
-    .card-b1 {
+    /* The card itself: both faces, flips on .open */
+    .b1-card {
       position: relative;
       width: 100%;
       height: 100%;
       transform-style: preserve-3d;
-      transition: transform 0.55s ease;
       cursor: pointer;
+      border-radius: var(--radius-lg);
+      /* transition controlled by JS to sequence lift + flip + expand */
     }
 
-    /* Hover tilt — only when not expanded */
-    .flip-wrapper-b1:not(.expanded) .card-b1:hover {
+    /* Hover tilt when closed */
+    .b1-card:not(.open):hover {
       transform: rotateY(8deg);
+      transition: transform 0.25s ease-out;
     }
 
-    /* Flipped state */
-    .card-b1.flipped {
-      transform: rotateY(180deg);
-    }
-
-    /* Shared face styles */
-    .card-b1 .face {
+    /* Both faces */
+    .b1-card .b1-front,
+    .b1-card .b1-back {
       position: absolute;
       inset: 0;
-      border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       backface-visibility: hidden;
-      overflow: hidden;
+      -webkit-backface-visibility: hidden;
     }
 
     /* Front face */
-    .card-b1 .front {
+    .b1-card .b1-front {
       background: var(--bg);
+      border: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -342,128 +329,109 @@
       gap: 8px;
       padding: 16px 12px;
       text-align: center;
+      transition: border-color 0.2s ease-out;
     }
 
-    /* Back face */
-    .card-b1 .back {
+    .b1-card:not(.open):hover .b1-front {
+      border-color: var(--red);
+    }
+
+    .b1-card .b1-front .b1-avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--red-light);
+      border: 2.5px solid var(--red);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .b1-card .b1-front .b1-avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover; border-radius: 50%;
+    }
+
+    .b1-card .b1-front .b1-name {
+      font-size: 0.88rem; font-weight: 800;
+      color: var(--dark); line-height: 1.3;
+    }
+
+    .b1-card .b1-front .b1-role {
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.8px; text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .b1-card .b1-front .b1-hint {
+      font-size: 0.65rem; color: var(--muted); margin-top: 2px;
+    }
+
+    /* Back face — starts rotated so it's hidden */
+    .b1-card .b1-back {
       background: var(--dark);
+      border: 1px solid rgba(255,255,255,0.08);
       transform: rotateY(180deg);
       display: flex;
       flex-direction: row;
       align-items: flex-start;
       gap: 24px;
       padding: 28px 28px 24px;
+      overflow: hidden;
     }
 
-    .card-b1 .back .b1-back-avatar {
-      width: 80px;
-      height: 80px;
+    .b1-card .b1-back .b1-back-avatar {
+      width: 80px; height: 80px;
       border-radius: 50%;
       border: 2.5px solid var(--red);
-      overflow: hidden;
-      flex-shrink: 0;
+      overflow: hidden; flex-shrink: 0;
     }
 
-    .card-b1 .back .b1-back-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .b1-card .b1-back .b1-back-avatar img {
+      width: 100%; height: 100%; object-fit: cover;
     }
 
-    .card-b1 .back .b1-back-text {
-      flex: 1;
-      min-width: 0;
+    .b1-card .b1-back .b1-back-text {
+      flex: 1; min-width: 0;
+      overflow-y: auto; max-height: 100%;
+      padding-right: 4px;
     }
 
-    .card-b1 .back .b1-back-name {
-      font-size: 1.1rem;
-      font-weight: 900;
-      color: #fff;
-      margin-bottom: 4px;
+    .b1-card .b1-back .b1-back-text::-webkit-scrollbar { width: 3px; }
+    .b1-card .b1-back .b1-back-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
+    .b1-card .b1-back .b1-back-name {
+      font-size: 1.1rem; font-weight: 900;
+      color: #fff; margin-bottom: 4px;
     }
 
-    .card-b1 .back .b1-back-role {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.9px;
-      text-transform: uppercase;
+    .b1-card .b1-back .b1-back-role {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.9px; text-transform: uppercase;
       color: var(--red);
-      margin-bottom: 14px;
-      padding-bottom: 12px;
+      margin-bottom: 14px; padding-bottom: 12px;
       border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
-    .card-b1 .back .b1-back-bio {
-      font-size: 0.85rem;
-      color: #ccc;
-      line-height: 1.85;
-      overflow-y: auto;
-      max-height: 220px;
-      padding-right: 6px;
+    .b1-card .b1-back .b1-back-bio {
+      font-size: 0.85rem; color: #ccc; line-height: 1.85;
     }
 
-    .card-b1 .back .b1-back-bio::-webkit-scrollbar { width: 3px; }
-    .card-b1 .back .b1-back-bio::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
-
-    .card-b1 .back .b1-close {
-      position: absolute;
-      top: 14px;
-      right: 18px;
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.4);
-      cursor: pointer;
-      background: none;
-      border: none;
+    .b1-card .b1-back .b1-close {
+      position: absolute; top: 14px; right: 18px;
+      font-size: 0.75rem; color: rgba(255,255,255,0.4);
+      cursor: pointer; background: none; border: none;
       font-family: var(--font);
-      transform: rotateY(0deg); /* counteract parent flip */
     }
 
-    .card-b1 .back .b1-close:hover { color: #fff; }
+    .b1-card .b1-back .b1-close:hover { color: #fff; }
 
-    /* Front card content */
-    .card-b1 .b1-avatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: var(--red-light);
-      border: 2.5px solid var(--red);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      font-weight: 900;
-      color: var(--red);
-      overflow: hidden;
-      flex-shrink: 0;
+    /* Backdrop */
+    .b1-backdrop {
+      display: none;
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.55);
     }
 
-    .card-b1 .b1-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-
-    .card-b1 .b1-name {
-      font-size: 0.88rem;
-      font-weight: 800;
-      color: var(--dark);
-      line-height: 1.3;
-    }
-
-    .card-b1 .b1-role {
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: var(--red);
-    }
-
-    .card-b1 .b1-hint {
-      font-size: 0.65rem;
-      color: var(--muted);
-      margin-top: 2px;
-    }
+    .b1-backdrop.open { display: block; }
 
     /* ══════════════════════════════════════════════════════════════════════
        CONCEPT C — Click expands a panel below the row
@@ -1260,126 +1228,128 @@
   ══════════════════════════════════════════════════════════════════════ -->
   <div class="concept-block">
     <div class="concept-label">Concept B.1</div>
-    <div class="concept-title">Flip + expand to fill grid</div>
-    <div class="concept-desc">Hover tilts the card to hint at flipping. Click to flip it — it expands to span the full grid width while other cards hide. Click × to collapse back.</div>
+    <div class="concept-title">Pick up, flip &amp; zoom</div>
+    <div class="concept-desc">Hover tilts. Click — the card lifts off, flips toward you, and expands to fill the screen. The same card, no duplicates. Click × or the backdrop to flip it back and drop it home.</div>
 
-    <div class="grid-b1" id="grid-b1">
+    <div class="b1-backdrop" id="b1-backdrop" onclick="b1Close()"></div>
 
-      <div class="flip-wrapper-b1" id="wrap-b1-kim">
-        <div class="card-b1" id="card-b1-kim" onclick="toggleB1('b1-kim')">
-          <div class="face front">
+    <div class="grid-b1">
+
+      <div class="b1-wrap">
+        <div class="b1-card" id="b1-kim" onclick="b1Open(this)">
+          <div class="b1-front">
             <div class="b1-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/0dc8f072-9531-4ca9-8b91-7947adf7642a?type=XL" alt="Kim Ozor" /></div>
             <div class="b1-name">Kim Ozor</div>
             <div class="b1-role">Works Council Member</div>
             <div class="b1-hint">Click to read intro</div>
           </div>
-          <div class="face back">
-            <button class="b1-close" onclick="collapseB1(event, 'b1-kim')">✕ close</button>
+          <div class="b1-back">
+            <button class="b1-close" onclick="b1Close(event)">✕ close</button>
             <div class="b1-back-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/0dc8f072-9531-4ca9-8b91-7947adf7642a?type=XL" alt="Kim Ozor" /></div>
             <div class="b1-back-text">
               <div class="b1-back-name">Kim Ozor</div>
               <div class="b1-back-role">Works Council Member</div>
-              <div class="b1-back-bio">Hi I'm Kim! Originally from the cursed state of Florida, I've been living in Europe since around 2012, and moved to Berlin to work at Zalando in 2017. I'm queer, chronically-ill, autistic, and disabled, and I have 2 dogs George (the blind one) and Milly (the elderly one) and a silly, mischievous cat named Alistair — all rescues. At Zalando, I've been a works council member since 2022. I joined Global Workforce Community because it's the list with heart, the courage to do what's right even when it's hard, and the compassion to care for each and every worker. My problem solving approach is that we try everything, every path — and when we run out of paths, we make our own path.</div>
+              <div class="b1-back-bio">Hi I'm Kim! Originally from Florida, living in Berlin since 2017. I'm queer, chronically-ill, autistic, and disabled. I've been a works council member since 2022. I joined Global Workforce Community because it's the list with heart, the courage to do what's right even when it's hard, and the compassion to care for each and every worker.</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="flip-wrapper-b1" id="wrap-b1-ahmed">
-        <div class="card-b1" id="card-b1-ahmed" onclick="toggleB1('b1-ahmed')">
-          <div class="face front">
+      <div class="b1-wrap">
+        <div class="b1-card" id="b1-ahmed" onclick="b1Open(this)">
+          <div class="b1-front">
             <div class="b1-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/8df3a8e8-24c2-4a7a-9501-4d7293acf7e1?type=XL" alt="Ahmed Ebaid" /></div>
             <div class="b1-name">Ahmed Ebaid</div>
             <div class="b1-role">Senior Network Engineer</div>
             <div class="b1-hint">Click to read intro</div>
           </div>
-          <div class="face back">
-            <button class="b1-close" onclick="collapseB1(event, 'b1-ahmed')">✕ close</button>
+          <div class="b1-back">
+            <button class="b1-close" onclick="b1Close(event)">✕ close</button>
             <div class="b1-back-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/8df3a8e8-24c2-4a7a-9501-4d7293acf7e1?type=XL" alt="Ahmed Ebaid" /></div>
             <div class="b1-back-text">
               <div class="b1-back-name">Ahmed Ebaid</div>
               <div class="b1-back-role">Senior Network Engineer</div>
-              <div class="b1-back-bio">Since 2018, I've helped build and secure our digital infrastructure as a Network and Security Engineer. Standing in solidarity with our Employee Resource Groups opened my eyes to the profound pressures and marginalization our diverse colleagues endure. Sustainable fairness requires structure — when support depends only on permission rather than clear policy, it can leave people unprotected. That is why I am running with the Global Workforce Community. We come from diverse nations, backgrounds, and experiences, yet we stand united in our commitment to fairness, transparency, and empowering each other.</div>
+              <div class="b1-back-bio">Since 2018, I've helped build and secure our digital infrastructure. Standing in solidarity with our ERGs opened my eyes to the pressures diverse colleagues endure. Sustainable fairness requires structure — when support depends only on permission rather than policy, people are left unprotected. That is why I run with the Global Workforce Community.</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="flip-wrapper-b1" id="wrap-b1-mosheera">
-        <div class="card-b1" id="card-b1-mosheera" onclick="toggleB1('b1-mosheera')">
-          <div class="face front">
+      <div class="b1-wrap">
+        <div class="b1-card" id="b1-mosheera" onclick="b1Open(this)">
+          <div class="b1-front">
             <div class="b1-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/68e9642b-edb6-4aff-b963-6db5f0a83ba3?type=XL" alt="Mosheera Salah" /></div>
             <div class="b1-name">Mosheera Salah</div>
             <div class="b1-role">Lead of ZTF PMO</div>
             <div class="b1-hint">Click to read intro</div>
           </div>
-          <div class="face back">
-            <button class="b1-close" onclick="collapseB1(event, 'b1-mosheera')">✕ close</button>
+          <div class="b1-back">
+            <button class="b1-close" onclick="b1Close(event)">✕ close</button>
             <div class="b1-back-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/68e9642b-edb6-4aff-b963-6db5f0a83ba3?type=XL" alt="Mosheera Salah" /></div>
             <div class="b1-back-text">
               <div class="b1-back-name">Mosheera Salah</div>
               <div class="b1-back-role">Lead of ZTF PMO</div>
-              <div class="b1-back-bio">My name is Mosheera Salah, and I joined Zalando in September 2023 as the Lead of ZTF PMO. My journey in project management began 21 years ago, leading me through diverse roles — from Head of PM Center of Excellence to Director of Global Operations for a major French firm. In 2023, I sought a new horizon and moved to Germany to embrace the challenge of the tech industry. My true north is Fairness — being the voice for those who aren't heard. I am deeply dedicated to authentic Diversity and Inclusion — moving beyond metrics to create a reality where everyone truly belongs. When I'm not driving projects, you'll find me at a pottery wheel or with an oil brush in hand.</div>
+              <div class="b1-back-bio">My journey in project management began 21 years ago. My true north is Fairness. I am deeply dedicated to authentic Diversity and Inclusion — moving beyond metrics to create a reality where everyone truly belongs. When I'm not driving projects, you'll find me at a pottery wheel or with an oil brush in hand.</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="flip-wrapper-b1" id="wrap-b1-andrea">
-        <div class="card-b1" id="card-b1-andrea" onclick="toggleB1('b1-andrea')">
-          <div class="face front">
+      <div class="b1-wrap">
+        <div class="b1-card" id="b1-andrea" onclick="b1Open(this)">
+          <div class="b1-front">
             <div class="b1-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/04d0c277-9276-4148-97fb-9400441eba83?type=XL" alt="Andrea Sella" /></div>
             <div class="b1-name">Andrea Sella</div>
             <div class="b1-role">Principal Software Engineer</div>
             <div class="b1-hint">Click to read intro</div>
           </div>
-          <div class="face back">
-            <button class="b1-close" onclick="collapseB1(event, 'b1-andrea')">✕ close</button>
+          <div class="b1-back">
+            <button class="b1-close" onclick="b1Close(event)">✕ close</button>
             <div class="b1-back-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/04d0c277-9276-4148-97fb-9400441eba83?type=XL" alt="Andrea Sella" /></div>
             <div class="b1-back-text">
               <div class="b1-back-name">Andrea Sella</div>
               <div class="b1-back-role">Principal Software Engineer</div>
-              <div class="b1-back-bio">I joined Zalando in May 2020, and since then, I have enjoyed tackling the complex engineering challenges inherent to our business. I am a firm believer in taking full ownership and responsibility for my actions — it is through our mistakes that we grow into better humans, both personally and professionally. I joined this list because such transitions must be navigated with both mind and heart. Only by ensuring just and fair treatment for our colleagues can we guarantee their and their families' financial security. My pronouns are they/them.</div>
+              <div class="b1-back-bio">I joined Zalando in May 2020. I am a firm believer in taking full ownership and responsibility. I joined this list because transitions must be navigated with both mind and heart. Only by ensuring just and fair treatment can we guarantee our colleagues' financial security. My pronouns are they/them.</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="flip-wrapper-b1" id="wrap-b1-veda">
-        <div class="card-b1" id="card-b1-veda" onclick="toggleB1('b1-veda')">
-          <div class="face front">
+      <div class="b1-wrap">
+        <div class="b1-card" id="b1-veda" onclick="b1Open(this)">
+          <div class="b1-front">
             <div class="b1-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/37bfa26f-3048-4004-a581-3158fa547a03?type=XL" alt="Veda Maas" /></div>
             <div class="b1-name">Veda Maas</div>
             <div class="b1-role">Sr Product Quality Manager</div>
             <div class="b1-hint">Click to read intro</div>
           </div>
-          <div class="face back">
-            <button class="b1-close" onclick="collapseB1(event, 'b1-veda')">✕ close</button>
+          <div class="b1-back">
+            <button class="b1-close" onclick="b1Close(event)">✕ close</button>
             <div class="b1-back-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/37bfa26f-3048-4004-a581-3158fa547a03?type=XL" alt="Veda Maas" /></div>
             <div class="b1-back-text">
               <div class="b1-back-name">Veda Maas</div>
               <div class="b1-back-role">Sr Product Quality Manager</div>
-              <div class="b1-back-bio">For the past nine years, I have been an integral part of Zalando Private Labels. My 17-year career in quality assurance has taken me across countless factories worldwide, giving me a deep understanding of the profound disparities in the treatment of workers globally. Growing up in South Africa during the final years of Apartheid instilled a fierce sense of responsibility: it is not enough to simply have privilege — it is my solemn duty to actively use it to advocate for the voiceless and fight against systemic injustice. My philosophy: our first and only mandate is to stand up and represent the employees — nothing more and nothing less.</div>
+              <div class="b1-back-bio">Nine years at Zalando, 17 years in quality assurance worldwide. Growing up in South Africa during Apartheid instilled a fierce sense of responsibility. Our first and only mandate is to stand up and represent the employees — nothing more and nothing less.</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="flip-wrapper-b1" id="wrap-b1-bassma">
-        <div class="card-b1" id="card-b1-bassma" onclick="toggleB1('b1-bassma')">
-          <div class="face front">
+      <div class="b1-wrap">
+        <div class="b1-card" id="b1-bassma" onclick="b1Open(this)">
+          <div class="b1-front">
             <div class="b1-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/21e94f92-c65c-495b-83fa-61b43b24a384?type=XL" alt="Bassma Elrafie" /></div>
             <div class="b1-name">Bassma Elrafie</div>
             <div class="b1-role">Principal Tech Consultant</div>
             <div class="b1-hint">Click to read intro</div>
           </div>
-          <div class="face back">
-            <button class="b1-close" onclick="collapseB1(event, 'b1-bassma')">✕ close</button>
+          <div class="b1-back">
+            <button class="b1-close" onclick="b1Close(event)">✕ close</button>
             <div class="b1-back-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/21e94f92-c65c-495b-83fa-61b43b24a384?type=XL" alt="Bassma Elrafie" /></div>
             <div class="b1-back-text">
               <div class="b1-back-name">Bassma Elrafie</div>
               <div class="b1-back-role">Principal Tech Consultant</div>
-              <div class="b1-back-bio">Hey everyone! I'm Bassma — which means "A smile" in Arabic. I'm an Egyptian who's called Berlin home for 11 awesome years and been part of Zalando since 2017. I've been a substitute Works Council member since 2022, soaking up legal knowledge and dedicating energy to the health committee. That means I come with zero ramp-up time and already have my priority list set for where we need urgent improvements. This time, I'm aiming for a permanent seat because I'm ready to turn up the volume!</div>
+              <div class="b1-back-bio">I'm Bassma — "A smile" in Arabic. An Egyptian who's called Berlin home for 11 years and been at Zalando since 2017. I've been a substitute Works Council member since 2022 — zero ramp-up time, already have my priority list. This time I'm aiming for a permanent seat.</div>
             </div>
           </div>
         </div>
@@ -1828,37 +1798,114 @@
   </div>
 
   <script>
-    function toggleB1(key) {
-      const grid = document.getElementById('grid-b1');
-      const wrap = document.getElementById('wrap-' + key);
-      const card = document.getElementById('card-' + key);
-      const alreadyExpanded = wrap.classList.contains('expanded');
+    let b1Active = null;
 
-      // Collapse everything first
-      grid.classList.remove('has-expanded');
-      document.querySelectorAll('.flip-wrapper-b1').forEach(w => w.classList.remove('expanded'));
-      document.querySelectorAll('.card-b1').forEach(c => c.classList.remove('flipped'));
+    function b1Open(card) {
+      if (b1Active) return;
+      b1Active = card;
 
-      if (!alreadyExpanded) {
-        // Expand: flip the card, then after the flip starts, expand the wrapper
-        card.classList.add('flipped');
-        setTimeout(() => {
-          wrap.classList.add('expanded');
-          grid.classList.add('has-expanded');
-        }, 80); // slight delay so flip starts first
-      }
+      // Measure card's current position in viewport
+      const rect = card.getBoundingClientRect();
+
+      // Pull card out of flow into fixed positioning at exact same spot
+      card.style.position = 'fixed';
+      card.style.top      = rect.top  + 'px';
+      card.style.left     = rect.left + 'px';
+      card.style.width    = rect.width  + 'px';
+      card.style.height   = rect.height + 'px';
+      card.style.zIndex   = '510';
+      card.style.margin   = '0';
+
+      // Show backdrop
+      document.getElementById('b1-backdrop').classList.add('open');
+
+      // Force reflow
+      card.getBoundingClientRect();
+
+      // Target: centered, larger
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const tw = Math.min(580, vw - 48);
+      const th = Math.min(320, vh - 80);
+      const tx = (vw - tw) / 2;
+      const ty = (vh - th) / 2;
+
+      // Phase 1: slight lift (100ms)
+      card.style.transition = 'transform 0.15s ease-out, box-shadow 0.15s ease-out';
+      card.style.transform  = 'translateY(-12px) scale(1.04)';
+      card.style.boxShadow  = '0 20px 60px rgba(0,0,0,0.35)';
+
+      // Phase 2: flip first half — go to 90deg edge (200ms after start)
+      setTimeout(() => {
+        card.style.transition = 'transform 0.2s ease-in';
+        card.style.transform  = 'translateY(-12px) scale(1.04) rotateY(-90deg)';
+      }, 150);
+
+      // Phase 3: at edge (invisible), swap to back face visible, move+resize, flip second half
+      setTimeout(() => {
+        card.classList.add('open'); // shows back face
+        card.style.transition = [
+          'top 0.38s cubic-bezier(0.22,1,0.36,1)',
+          'left 0.38s cubic-bezier(0.22,1,0.36,1)',
+          'width 0.38s cubic-bezier(0.22,1,0.36,1)',
+          'height 0.38s cubic-bezier(0.22,1,0.36,1)',
+          'transform 0.22s ease-out',
+          'box-shadow 0.38s ease-out'
+        ].join(', ');
+        card.style.top       = ty + 'px';
+        card.style.left      = tx + 'px';
+        card.style.width     = tw + 'px';
+        card.style.height    = th + 'px';
+        card.style.transform = 'rotateY(0deg)';
+        card.style.boxShadow = '0 32px 80px rgba(0,0,0,0.5)';
+      }, 350);
     }
 
-    function collapseB1(e, key) {
-      e.stopPropagation();
-      const grid = document.getElementById('grid-b1');
-      const wrap = document.getElementById('wrap-' + key);
-      const card = document.getElementById('card-' + key);
-      card.classList.remove('flipped');
+    function b1Close(e) {
+      if (e) e.stopPropagation();
+      if (!b1Active) return;
+      const card = b1Active;
+
+      // Measure the ghost slot (its wrapper still has the original dimensions in flow)
+      const wrap = card.parentElement;
+      const rect = wrap.getBoundingClientRect();
+
+      // Phase 1: flip first half back to edge
+      card.style.transition = 'transform 0.2s ease-in, box-shadow 0.2s ease-in';
+      card.style.transform  = 'rotateY(-90deg)';
+      card.style.boxShadow  = '0 8px 24px rgba(0,0,0,0.2)';
+
+      // Phase 2: swap to front face, shrink back to slot
       setTimeout(() => {
-        wrap.classList.remove('expanded');
-        grid.classList.remove('has-expanded');
-      }, 280); // wait for flip to finish before collapsing width
+        card.classList.remove('open');
+        card.style.transition = [
+          'top 0.32s cubic-bezier(0.22,1,0.36,1)',
+          'left 0.32s cubic-bezier(0.22,1,0.36,1)',
+          'width 0.32s cubic-bezier(0.22,1,0.36,1)',
+          'height 0.32s cubic-bezier(0.22,1,0.36,1)',
+          'transform 0.2s ease-out',
+          'box-shadow 0.32s ease-out'
+        ].join(', ');
+        card.style.top       = rect.top  + 'px';
+        card.style.left      = rect.left + 'px';
+        card.style.width     = rect.width  + 'px';
+        card.style.height    = rect.height + 'px';
+        card.style.transform = 'rotateY(0deg)';
+        card.style.boxShadow = 'none';
+      }, 200);
+
+      // Phase 3: restore card to flow
+      setTimeout(() => {
+        card.style.position   = '';
+        card.style.top = card.style.left = card.style.width = card.style.height = '';
+        card.style.zIndex     = '';
+        card.style.margin     = '';
+        card.style.transition = '';
+        card.style.transform  = '';
+        card.style.boxShadow  = '';
+        document.getElementById('b1-backdrop').classList.remove('open');
+        b1Active = null;
+      }, 560);
     }
 
     function openModal(id) {
