@@ -59,7 +59,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       text-align: center;
-      cursor: default;
+      cursor: pointer;
       transition: border-color 0.2s;
     }
 
@@ -107,7 +107,6 @@
 
     /* Tooltip */
     .card-a .tooltip {
-      display: none;
       position: absolute;
       bottom: calc(100% + 10px);
       left: 50%;
@@ -122,6 +121,9 @@
       text-align: left;
       z-index: 100;
       box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease-out;
     }
 
     .card-a .tooltip::after {
@@ -142,7 +144,8 @@
     }
 
     .card-a:hover .tooltip {
-      display: block;
+      opacity: 1;
+      pointer-events: auto;
     }
 
     /* ══════════════════════════════════════════════════════════════════════
@@ -795,6 +798,7 @@
       overflow: hidden;
       transition: border-color 0.2s;
       cursor: pointer;
+      transition: border-color 0.2s ease-out;
     }
 
     .card-e:hover {
@@ -853,9 +857,20 @@
     }
 
     .card-e-chevron {
-      font-size: 0.65rem;
+      display: flex;
+      align-items: center;
       color: var(--muted);
-      transition: transform 0.25s;
+      transition: transform 0.25s ease-out;
+    }
+
+    .card-e-chevron svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .card-e.open .card-e-chevron {
@@ -1026,6 +1041,18 @@
       font-size: 0.8rem;
       color: var(--mid);
       line-height: 1.8;
+    }
+
+    /* ── Respect reduced motion preference ──────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .card-b, .card-b1, .flip-wrapper-b1,
+      .card-a .tooltip, .card-e-chevron,
+      .card-e-body, .bio-panel,
+      .modal-overlay, .modal-box,
+      .b1-card-expanded { transition: none !important; animation: none !important; }
+      .card-b:not(.flipped):hover { transform: none; }
+      .card-b1:not(.expanded):hover { transform: none; }
+      .flip-wrapper-b1:not(.expanded) .card-b1:hover { transform: none; }
     }
   </style>
 </head>
@@ -1617,7 +1644,7 @@
           <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/0dc8f072-9531-4ca9-8b91-7947adf7642a?type=XL" alt="Kim Ozor" /></div>
           <div class="name">Kim Ozor</div>
           <div class="role">Works Council Member</div>
-          <div class="card-e-chevron">▼</div>
+          <div class="card-e-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
         <div class="card-e-body">
           <div class="card-e-body-inner">
@@ -1631,7 +1658,7 @@
           <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/8df3a8e8-24c2-4a7a-9501-4d7293acf7e1?type=XL" alt="Ahmed Ebaid" /></div>
           <div class="name">Ahmed Ebaid</div>
           <div class="role">Senior Network Engineer</div>
-          <div class="card-e-chevron">▼</div>
+          <div class="card-e-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
         <div class="card-e-body">
           <div class="card-e-body-inner">
@@ -1645,7 +1672,7 @@
           <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/68e9642b-edb6-4aff-b963-6db5f0a83ba3?type=XL" alt="Mosheera Salah" /></div>
           <div class="name">Mosheera Salah</div>
           <div class="role">Lead of ZTF PMO</div>
-          <div class="card-e-chevron">▼</div>
+          <div class="card-e-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
         <div class="card-e-body">
           <div class="card-e-body-inner">
@@ -1659,7 +1686,7 @@
           <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/04d0c277-9276-4148-97fb-9400441eba83?type=XL" alt="Andrea Sella" /></div>
           <div class="name">Andrea Sella</div>
           <div class="role">Principal Software Engineer</div>
-          <div class="card-e-chevron">▼</div>
+          <div class="card-e-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
         <div class="card-e-body">
           <div class="card-e-body-inner">
@@ -1673,7 +1700,7 @@
           <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/37bfa26f-3048-4004-a581-3158fa547a03?type=XL" alt="Veda Maas" /></div>
           <div class="name">Veda Maas</div>
           <div class="role">Sr Product Quality Manager</div>
-          <div class="card-e-chevron">▼</div>
+          <div class="card-e-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
         <div class="card-e-body">
           <div class="card-e-body-inner">
@@ -1687,7 +1714,7 @@
           <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/21e94f92-c65c-495b-83fa-61b43b24a384?type=XL" alt="Bassma Elrafie" /></div>
           <div class="name">Bassma Elrafie</div>
           <div class="role">Principal Tech Consultant</div>
-          <div class="card-e-chevron">▼</div>
+          <div class="card-e-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
         <div class="card-e-body">
           <div class="card-e-body-inner">
