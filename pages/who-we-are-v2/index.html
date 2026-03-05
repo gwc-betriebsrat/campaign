@@ -271,12 +271,33 @@
     }
 
     /* ══════════════════════════════════════════════════════════════════════
-       CONCEPT B.1 — Flip + expand to near-fullscreen overlay
-       Hover tilts the card. Click flips it and expands it to fill the screen.
+       CONCEPT B.1 — Flip + expand to fill the grid
+       Hover tilts the card. Click flips it and expands it to span all columns,
+       hiding all other cards. Click again (or ×) to collapse back.
     ══════════════════════════════════════════════════════════════════════ */
+    .grid-b1 {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 16px;
+      transition: grid-template-columns 0.4s ease;
+    }
+
+    /* Wrapper handles perspective + sizing */
     .flip-wrapper-b1 {
       perspective: 900px;
       height: 220px;
+      transition: grid-column 0.05s, height 0.5s ease;
+    }
+
+    /* When a sibling is expanded, hide this wrapper */
+    .grid-b1.has-expanded .flip-wrapper-b1:not(.expanded) {
+      display: none;
+    }
+
+    /* Expanded wrapper spans all columns and grows tall */
+    .flip-wrapper-b1.expanded {
+      grid-column: 1 / -1;
+      height: 340px;
     }
 
     .card-b1 {
@@ -284,20 +305,33 @@
       width: 100%;
       height: 100%;
       transform-style: preserve-3d;
-      transition: transform 0.4s ease;
+      transition: transform 0.55s ease;
       cursor: pointer;
     }
 
-    .card-b1:not(.expanded):hover {
+    /* Hover tilt — only when not expanded */
+    .flip-wrapper-b1:not(.expanded) .card-b1:hover {
       transform: rotateY(8deg);
     }
 
+    /* Flipped state */
+    .card-b1.flipped {
+      transform: rotateY(180deg);
+    }
+
+    /* Shared face styles */
     .card-b1 .face {
       position: absolute;
       inset: 0;
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       backface-visibility: hidden;
+      overflow: hidden;
+    }
+
+    /* Front face */
+    .card-b1 .front {
+      background: var(--bg);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -307,11 +341,84 @@
       text-align: center;
     }
 
-    .card-b1 .front {
-      background: var(--bg);
+    /* Back face */
+    .card-b1 .back {
+      background: var(--dark);
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 24px;
+      padding: 28px 28px 24px;
     }
 
-    .card-b1 .avatar {
+    .card-b1 .back .b1-back-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2.5px solid var(--red);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .card-b1 .back .b1-back-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-b1 .back .b1-back-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card-b1 .back .b1-back-name {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .card-b1 .back .b1-back-role {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.9px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .card-b1 .back .b1-back-bio {
+      font-size: 0.85rem;
+      color: #ccc;
+      line-height: 1.85;
+      overflow-y: auto;
+      max-height: 220px;
+      padding-right: 6px;
+    }
+
+    .card-b1 .back .b1-back-bio::-webkit-scrollbar { width: 3px; }
+    .card-b1 .back .b1-back-bio::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
+    .card-b1 .back .b1-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      transform: rotateY(0deg); /* counteract parent flip */
+    }
+
+    .card-b1 .back .b1-close:hover { color: #fff; }
+
+    /* Front card content */
+    .card-b1 .b1-avatar {
       width: 72px;
       height: 72px;
       border-radius: 50%;
@@ -327,21 +434,21 @@
       flex-shrink: 0;
     }
 
-    .card-b1 .avatar img {
+    .card-b1 .b1-avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       border-radius: 50%;
     }
 
-    .card-b1 .name {
+    .card-b1 .b1-name {
       font-size: 0.88rem;
       font-weight: 800;
       color: var(--dark);
       line-height: 1.3;
     }
 
-    .card-b1 .role {
+    .card-b1 .b1-role {
       font-size: 0.65rem;
       font-weight: 600;
       letter-spacing: 0.8px;
@@ -349,107 +456,10 @@
       color: var(--red);
     }
 
-    .card-b1 .flip-hint-front {
+    .card-b1 .b1-hint {
       font-size: 0.65rem;
       color: var(--muted);
       margin-top: 2px;
-    }
-
-    /* The expanded overlay that appears after the flip */
-    .b1-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 600;
-      background: rgba(0,0,0,0.6);
-      align-items: center;
-      justify-content: center;
-      padding: 32px 24px;
-      animation: fadeIn 0.2s ease;
-    }
-
-    .b1-overlay.open {
-      display: flex;
-    }
-
-    .b1-card-expanded {
-      background: var(--dark);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
-      width: 100%;
-      max-width: 600px;
-      max-height: 85vh;
-      overflow-y: auto;
-      padding: 32px 32px 28px;
-      position: relative;
-      animation: expandIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    @keyframes expandIn {
-      from { opacity: 0; transform: scale(0.7) rotateY(-90deg); }
-      to   { opacity: 1; transform: scale(1) rotateY(0deg); }
-    }
-
-    .b1-card-expanded::-webkit-scrollbar { width: 4px; }
-    .b1-card-expanded::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
-
-    .b1-expanded-close {
-      position: absolute;
-      top: 16px;
-      right: 20px;
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.45);
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-family: var(--font);
-    }
-
-    .b1-expanded-close:hover { color: #fff; }
-
-    .b1-expanded-header {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 22px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .b1-expanded-avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      border: 2.5px solid var(--red);
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-
-    .b1-expanded-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .b1-expanded-name {
-      font-size: 1.2rem;
-      font-weight: 900;
-      color: #fff;
-      margin-bottom: 4px;
-    }
-
-    .b1-expanded-role {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.9px;
-      text-transform: uppercase;
-      color: var(--red);
-    }
-
-    .b1-expanded-bio {
-      font-size: 0.9rem;
-      color: #ccc;
-      line-height: 1.9;
     }
 
     /* ══════════════════════════════════════════════════════════════════════
@@ -1223,144 +1233,131 @@
   ══════════════════════════════════════════════════════════════════════ -->
   <div class="concept-block">
     <div class="concept-label">Concept B.1</div>
-    <div class="concept-title">Flip + expand to fullscreen</div>
-    <div class="concept-desc">Hover tilts the card slightly to hint at flipping. Clicking it flips and expands to a large overlay with room for the full intro.</div>
+    <div class="concept-title">Flip + expand to fill grid</div>
+    <div class="concept-desc">Hover tilts the card to hint at flipping. Click to flip it — it expands to span the full grid width while other cards hide. Click × to collapse back.</div>
 
-    <div class="cards-grid">
+    <div class="grid-b1" id="grid-b1">
 
-      <div class="flip-wrapper-b1">
-        <div class="card-b1" onclick="openB1('b1-kim')">
+      <div class="flip-wrapper-b1" id="wrap-b1-kim">
+        <div class="card-b1" id="card-b1-kim" onclick="toggleB1('b1-kim')">
           <div class="face front">
-            <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/0dc8f072-9531-4ca9-8b91-7947adf7642a?type=XL" alt="Kim Ozor" /></div>
-            <div class="name">Kim Ozor</div>
-            <div class="role">Works Council Member</div>
-            <div class="flip-hint-front">Click to read intro</div>
+            <div class="b1-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/0dc8f072-9531-4ca9-8b91-7947adf7642a?type=XL" alt="Kim Ozor" /></div>
+            <div class="b1-name">Kim Ozor</div>
+            <div class="b1-role">Works Council Member</div>
+            <div class="b1-hint">Click to read intro</div>
+          </div>
+          <div class="face back">
+            <button class="b1-close" onclick="collapseB1(event, 'b1-kim')">✕ close</button>
+            <div class="b1-back-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/0dc8f072-9531-4ca9-8b91-7947adf7642a?type=XL" alt="Kim Ozor" /></div>
+            <div class="b1-back-text">
+              <div class="b1-back-name">Kim Ozor</div>
+              <div class="b1-back-role">Works Council Member</div>
+              <div class="b1-back-bio">Hi I'm Kim! Originally from the cursed state of Florida, I've been living in Europe since around 2012, and moved to Berlin to work at Zalando in 2017. I'm queer, chronically-ill, autistic, and disabled, and I have 2 dogs George (the blind one) and Milly (the elderly one) and a silly, mischievous cat named Alistair — all rescues. At Zalando, I've been a works council member since 2022. I joined Global Workforce Community because it's the list with heart, the courage to do what's right even when it's hard, and the compassion to care for each and every worker. My problem solving approach is that we try everything, every path — and when we run out of paths, we make our own path.</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="flip-wrapper-b1">
-        <div class="card-b1" onclick="openB1('b1-ahmed')">
+      <div class="flip-wrapper-b1" id="wrap-b1-ahmed">
+        <div class="card-b1" id="card-b1-ahmed" onclick="toggleB1('b1-ahmed')">
           <div class="face front">
-            <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/8df3a8e8-24c2-4a7a-9501-4d7293acf7e1?type=XL" alt="Ahmed Ebaid" /></div>
-            <div class="name">Ahmed Ebaid</div>
-            <div class="role">Senior Network Engineer</div>
-            <div class="flip-hint-front">Click to read intro</div>
+            <div class="b1-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/8df3a8e8-24c2-4a7a-9501-4d7293acf7e1?type=XL" alt="Ahmed Ebaid" /></div>
+            <div class="b1-name">Ahmed Ebaid</div>
+            <div class="b1-role">Senior Network Engineer</div>
+            <div class="b1-hint">Click to read intro</div>
+          </div>
+          <div class="face back">
+            <button class="b1-close" onclick="collapseB1(event, 'b1-ahmed')">✕ close</button>
+            <div class="b1-back-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/8df3a8e8-24c2-4a7a-9501-4d7293acf7e1?type=XL" alt="Ahmed Ebaid" /></div>
+            <div class="b1-back-text">
+              <div class="b1-back-name">Ahmed Ebaid</div>
+              <div class="b1-back-role">Senior Network Engineer</div>
+              <div class="b1-back-bio">Since 2018, I've helped build and secure our digital infrastructure as a Network and Security Engineer. Standing in solidarity with our Employee Resource Groups opened my eyes to the profound pressures and marginalization our diverse colleagues endure. Sustainable fairness requires structure — when support depends only on permission rather than clear policy, it can leave people unprotected. That is why I am running with the Global Workforce Community. We come from diverse nations, backgrounds, and experiences, yet we stand united in our commitment to fairness, transparency, and empowering each other.</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="flip-wrapper-b1">
-        <div class="card-b1" onclick="openB1('b1-mosheera')">
+      <div class="flip-wrapper-b1" id="wrap-b1-mosheera">
+        <div class="card-b1" id="card-b1-mosheera" onclick="toggleB1('b1-mosheera')">
           <div class="face front">
-            <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/68e9642b-edb6-4aff-b963-6db5f0a83ba3?type=XL" alt="Mosheera Salah" /></div>
-            <div class="name">Mosheera Salah</div>
-            <div class="role">Lead of ZTF PMO</div>
-            <div class="flip-hint-front">Click to read intro</div>
+            <div class="b1-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/68e9642b-edb6-4aff-b963-6db5f0a83ba3?type=XL" alt="Mosheera Salah" /></div>
+            <div class="b1-name">Mosheera Salah</div>
+            <div class="b1-role">Lead of ZTF PMO</div>
+            <div class="b1-hint">Click to read intro</div>
+          </div>
+          <div class="face back">
+            <button class="b1-close" onclick="collapseB1(event, 'b1-mosheera')">✕ close</button>
+            <div class="b1-back-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/68e9642b-edb6-4aff-b963-6db5f0a83ba3?type=XL" alt="Mosheera Salah" /></div>
+            <div class="b1-back-text">
+              <div class="b1-back-name">Mosheera Salah</div>
+              <div class="b1-back-role">Lead of ZTF PMO</div>
+              <div class="b1-back-bio">My name is Mosheera Salah, and I joined Zalando in September 2023 as the Lead of ZTF PMO. My journey in project management began 21 years ago, leading me through diverse roles — from Head of PM Center of Excellence to Director of Global Operations for a major French firm. In 2023, I sought a new horizon and moved to Germany to embrace the challenge of the tech industry. My true north is Fairness — being the voice for those who aren't heard. I am deeply dedicated to authentic Diversity and Inclusion — moving beyond metrics to create a reality where everyone truly belongs. When I'm not driving projects, you'll find me at a pottery wheel or with an oil brush in hand.</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="flip-wrapper-b1">
-        <div class="card-b1" onclick="openB1('b1-andrea')">
+      <div class="flip-wrapper-b1" id="wrap-b1-andrea">
+        <div class="card-b1" id="card-b1-andrea" onclick="toggleB1('b1-andrea')">
           <div class="face front">
-            <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/04d0c277-9276-4148-97fb-9400441eba83?type=XL" alt="Andrea Sella" /></div>
-            <div class="name">Andrea Sella</div>
-            <div class="role">Principal Software Engineer</div>
-            <div class="flip-hint-front">Click to read intro</div>
+            <div class="b1-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/04d0c277-9276-4148-97fb-9400441eba83?type=XL" alt="Andrea Sella" /></div>
+            <div class="b1-name">Andrea Sella</div>
+            <div class="b1-role">Principal Software Engineer</div>
+            <div class="b1-hint">Click to read intro</div>
+          </div>
+          <div class="face back">
+            <button class="b1-close" onclick="collapseB1(event, 'b1-andrea')">✕ close</button>
+            <div class="b1-back-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/04d0c277-9276-4148-97fb-9400441eba83?type=XL" alt="Andrea Sella" /></div>
+            <div class="b1-back-text">
+              <div class="b1-back-name">Andrea Sella</div>
+              <div class="b1-back-role">Principal Software Engineer</div>
+              <div class="b1-back-bio">I joined Zalando in May 2020, and since then, I have enjoyed tackling the complex engineering challenges inherent to our business. I am a firm believer in taking full ownership and responsibility for my actions — it is through our mistakes that we grow into better humans, both personally and professionally. I joined this list because such transitions must be navigated with both mind and heart. Only by ensuring just and fair treatment for our colleagues can we guarantee their and their families' financial security. My pronouns are they/them.</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="flip-wrapper-b1">
-        <div class="card-b1" onclick="openB1('b1-veda')">
+      <div class="flip-wrapper-b1" id="wrap-b1-veda">
+        <div class="card-b1" id="card-b1-veda" onclick="toggleB1('b1-veda')">
           <div class="face front">
-            <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/37bfa26f-3048-4004-a581-3158fa547a03?type=XL" alt="Veda Maas" /></div>
-            <div class="name">Veda Maas</div>
-            <div class="role">Sr Product Quality Manager</div>
-            <div class="flip-hint-front">Click to read intro</div>
+            <div class="b1-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/37bfa26f-3048-4004-a581-3158fa547a03?type=XL" alt="Veda Maas" /></div>
+            <div class="b1-name">Veda Maas</div>
+            <div class="b1-role">Sr Product Quality Manager</div>
+            <div class="b1-hint">Click to read intro</div>
+          </div>
+          <div class="face back">
+            <button class="b1-close" onclick="collapseB1(event, 'b1-veda')">✕ close</button>
+            <div class="b1-back-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/37bfa26f-3048-4004-a581-3158fa547a03?type=XL" alt="Veda Maas" /></div>
+            <div class="b1-back-text">
+              <div class="b1-back-name">Veda Maas</div>
+              <div class="b1-back-role">Sr Product Quality Manager</div>
+              <div class="b1-back-bio">For the past nine years, I have been an integral part of Zalando Private Labels. My 17-year career in quality assurance has taken me across countless factories worldwide, giving me a deep understanding of the profound disparities in the treatment of workers globally. Growing up in South Africa during the final years of Apartheid instilled a fierce sense of responsibility: it is not enough to simply have privilege — it is my solemn duty to actively use it to advocate for the voiceless and fight against systemic injustice. My philosophy: our first and only mandate is to stand up and represent the employees — nothing more and nothing less.</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="flip-wrapper-b1">
-        <div class="card-b1" onclick="openB1('b1-bassma')">
+      <div class="flip-wrapper-b1" id="wrap-b1-bassma">
+        <div class="card-b1" id="card-b1-bassma" onclick="toggleB1('b1-bassma')">
           <div class="face front">
-            <div class="avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/21e94f92-c65c-495b-83fa-61b43b24a384?type=XL" alt="Bassma Elrafie" /></div>
-            <div class="name">Bassma Elrafie</div>
-            <div class="role">Principal Tech Consultant</div>
-            <div class="flip-hint-front">Click to read intro</div>
+            <div class="b1-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/21e94f92-c65c-495b-83fa-61b43b24a384?type=XL" alt="Bassma Elrafie" /></div>
+            <div class="b1-name">Bassma Elrafie</div>
+            <div class="b1-role">Principal Tech Consultant</div>
+            <div class="b1-hint">Click to read intro</div>
+          </div>
+          <div class="face back">
+            <button class="b1-close" onclick="collapseB1(event, 'b1-bassma')">✕ close</button>
+            <div class="b1-back-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/21e94f92-c65c-495b-83fa-61b43b24a384?type=XL" alt="Bassma Elrafie" /></div>
+            <div class="b1-back-text">
+              <div class="b1-back-name">Bassma Elrafie</div>
+              <div class="b1-back-role">Principal Tech Consultant</div>
+              <div class="b1-back-bio">Hey everyone! I'm Bassma — which means "A smile" in Arabic. I'm an Egyptian who's called Berlin home for 11 awesome years and been part of Zalando since 2017. I've been a substitute Works Council member since 2022, soaking up legal knowledge and dedicating energy to the health committee. That means I come with zero ramp-up time and already have my priority list set for where we need urgent improvements. This time, I'm aiming for a permanent seat because I'm ready to turn up the volume!</div>
+            </div>
           </div>
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- B.1 Expanded overlays -->
-  <div class="b1-overlay" id="b1-kim" onclick="closeB1OnBackdrop(event, 'b1-kim')">
-    <div class="b1-card-expanded">
-      <button class="b1-expanded-close" onclick="closeB1('b1-kim')">✕ close</button>
-      <div class="b1-expanded-header">
-        <div class="b1-expanded-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/0dc8f072-9531-4ca9-8b91-7947adf7642a?type=XL" alt="Kim Ozor" /></div>
-        <div><div class="b1-expanded-name">Kim Ozor</div><div class="b1-expanded-role">Works Council Member</div></div>
-      </div>
-      <div class="b1-expanded-bio">Hi I'm Kim! Originally from the cursed state of Florida, I've been living in Europe since around 2012, and moved to Berlin to work at Zalando in 2017. I'm queer, chronically-ill, autistic, and disabled, and I have 2 dogs George (the blind one) and Milly (the elderly one) and a silly, mischievous cat named Alistair — all rescues. At Zalando, I've been a works council member since 2022. I joined Global Workforce Community because it's the list with heart, the courage to do what's right even when it's hard, and the compassion to care for each and every worker. My problem solving approach is that we try everything, every path — and when we run out of paths, we make our own path.</div>
-    </div>
-  </div>
-
-  <div class="b1-overlay" id="b1-ahmed" onclick="closeB1OnBackdrop(event, 'b1-ahmed')">
-    <div class="b1-card-expanded">
-      <button class="b1-expanded-close" onclick="closeB1('b1-ahmed')">✕ close</button>
-      <div class="b1-expanded-header">
-        <div class="b1-expanded-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/8df3a8e8-24c2-4a7a-9501-4d7293acf7e1?type=XL" alt="Ahmed Ebaid" /></div>
-        <div><div class="b1-expanded-name">Ahmed Ebaid</div><div class="b1-expanded-role">Senior Network Engineer</div></div>
-      </div>
-      <div class="b1-expanded-bio">Since 2018, I've helped build and secure our digital infrastructure as a Network and Security Engineer. Standing in solidarity with our Employee Resource Groups opened my eyes to the profound pressures and marginalization our diverse colleagues endure. Sustainable fairness requires structure — when support depends only on permission rather than clear policy, it can leave people unprotected. That is why I am running with the Global Workforce Community. We come from diverse nations, backgrounds, and experiences, yet we stand united in our commitment to fairness, transparency, and empowering each other.</div>
-    </div>
-  </div>
-
-  <div class="b1-overlay" id="b1-mosheera" onclick="closeB1OnBackdrop(event, 'b1-mosheera')">
-    <div class="b1-card-expanded">
-      <button class="b1-expanded-close" onclick="closeB1('b1-mosheera')">✕ close</button>
-      <div class="b1-expanded-header">
-        <div class="b1-expanded-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/68e9642b-edb6-4aff-b963-6db5f0a83ba3?type=XL" alt="Mosheera Salah" /></div>
-        <div><div class="b1-expanded-name">Mosheera Salah</div><div class="b1-expanded-role">Lead of ZTF PMO</div></div>
-      </div>
-      <div class="b1-expanded-bio">My name is Mosheera Salah, and I joined Zalando in September 2023 as the Lead of ZTF PMO. My journey in project management began 21 years ago, leading me through diverse roles — from Head of PM Center of Excellence to Director of Global Operations for a major French firm. In 2023, I sought a new horizon and moved to Germany to embrace the challenge of the tech industry. My true north is Fairness — being the voice for those who aren't heard and standing my ground when it comes to doing what is right. I am deeply dedicated to authentic Diversity and Inclusion — moving beyond metrics to create a reality where everyone truly belongs. When I'm not driving projects, you'll find me at a pottery wheel or with an oil brush in hand.</div>
-    </div>
-  </div>
-
-  <div class="b1-overlay" id="b1-andrea" onclick="closeB1OnBackdrop(event, 'b1-andrea')">
-    <div class="b1-card-expanded">
-      <button class="b1-expanded-close" onclick="closeB1('b1-andrea')">✕ close</button>
-      <div class="b1-expanded-header">
-        <div class="b1-expanded-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/04d0c277-9276-4148-97fb-9400441eba83?type=XL" alt="Andrea Sella" /></div>
-        <div><div class="b1-expanded-name">Andrea Sella</div><div class="b1-expanded-role">Principal Software Engineer</div></div>
-      </div>
-      <div class="b1-expanded-bio">I joined Zalando in May 2020, and since then, I have enjoyed tackling the complex engineering challenges inherent to our business. I am a firm believer in taking full ownership and responsibility for my actions — it is through our mistakes that we grow into better humans, both personally and professionally. I joined this list because such transitions must be navigated with both mind and heart. Only by ensuring just and fair treatment for our colleagues can we guarantee their and their families' financial security. My pronouns are they/them.</div>
-    </div>
-  </div>
-
-  <div class="b1-overlay" id="b1-veda" onclick="closeB1OnBackdrop(event, 'b1-veda')">
-    <div class="b1-card-expanded">
-      <button class="b1-expanded-close" onclick="closeB1('b1-veda')">✕ close</button>
-      <div class="b1-expanded-header">
-        <div class="b1-expanded-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/37bfa26f-3048-4004-a581-3158fa547a03?type=XL" alt="Veda Maas" /></div>
-        <div><div class="b1-expanded-name">Veda Maas</div><div class="b1-expanded-role">Sr Product Quality Manager</div></div>
-      </div>
-      <div class="b1-expanded-bio">For the past nine years, I have been an integral part of Zalando Private Labels. My 17-year career in quality assurance has taken me across countless factories worldwide, giving me a deep understanding of the profound disparities in the treatment of workers globally. Growing up in South Africa during the final years of Apartheid instilled a fierce sense of responsibility: it is not enough to simply have privilege — it is my solemn duty to actively use it to advocate for the voiceless and fight against systemic injustice. I've become increasingly aware of a culture of superficiality that drifts from the council's core mission. My philosophy is simple: our first and only mandate is to stand up and represent the employees — nothing more and nothing less.</div>
-    </div>
-  </div>
-
-  <div class="b1-overlay" id="b1-bassma" onclick="closeB1OnBackdrop(event, 'b1-bassma')">
-    <div class="b1-card-expanded">
-      <button class="b1-expanded-close" onclick="closeB1('b1-bassma')">✕ close</button>
-      <div class="b1-expanded-header">
-        <div class="b1-expanded-avatar"><img src="https://zlife.zalando.net/web/senders/56266ee2-48ad-4b42-9d04-9dee0226c6ec/documents/21e94f92-c65c-495b-83fa-61b43b24a384?type=XL" alt="Bassma Elrafie" /></div>
-        <div><div class="b1-expanded-name">Bassma Elrafie</div><div class="b1-expanded-role">Principal Tech Consultant</div></div>
-      </div>
-      <div class="b1-expanded-bio">Hey everyone! I'm Bassma — which, fun fact, means "A smile" in Arabic. I'm an Egyptian who's called Berlin home for 11 awesome years and been part of Zalando since 2017. I've been a substitute Works Council member since 2022, soaking up legal knowledge and dedicating energy to the health committee. That means I come with zero ramp-up time and already have my priority list set for where we need urgent improvements. This time, I'm aiming for a permanent seat because I'm ready to turn up the volume and dedicate all my energy to implementing the changes we need!</div>
     </div>
   </div>
 
@@ -1804,16 +1801,37 @@
   </div>
 
   <script>
-    function openB1(id) {
-      document.getElementById(id).classList.add('open');
+    function toggleB1(key) {
+      const grid = document.getElementById('grid-b1');
+      const wrap = document.getElementById('wrap-' + key);
+      const card = document.getElementById('card-' + key);
+      const alreadyExpanded = wrap.classList.contains('expanded');
+
+      // Collapse everything first
+      grid.classList.remove('has-expanded');
+      document.querySelectorAll('.flip-wrapper-b1').forEach(w => w.classList.remove('expanded'));
+      document.querySelectorAll('.card-b1').forEach(c => c.classList.remove('flipped'));
+
+      if (!alreadyExpanded) {
+        // Expand: flip the card, then after the flip starts, expand the wrapper
+        card.classList.add('flipped');
+        setTimeout(() => {
+          wrap.classList.add('expanded');
+          grid.classList.add('has-expanded');
+        }, 80); // slight delay so flip starts first
+      }
     }
 
-    function closeB1(id) {
-      document.getElementById(id).classList.remove('open');
-    }
-
-    function closeB1OnBackdrop(e, id) {
-      if (e.target === e.currentTarget) closeB1(id);
+    function collapseB1(e, key) {
+      e.stopPropagation();
+      const grid = document.getElementById('grid-b1');
+      const wrap = document.getElementById('wrap-' + key);
+      const card = document.getElementById('card-' + key);
+      card.classList.remove('flipped');
+      setTimeout(() => {
+        wrap.classList.remove('expanded');
+        grid.classList.remove('has-expanded');
+      }, 280); // wait for flip to finish before collapsing width
     }
 
     function openModal(id) {
