@@ -1635,12 +1635,26 @@
       color: var(--red);
     }
 
-    details.card-g[open] .card-g-hint { display: none; }
+    .card-g.open .card-g-hint { display: none; }
 
+    /* Body: animated height expand */
     .card-g-body {
-      padding: 0 20px 20px 120px; /* indent to align with text column */
-      border-top: 1px solid var(--border);
-      margin-top: 0;
+      padding: 0 20px 0 120px;
+      border-top: 0px solid var(--border);
+      overflow: hidden;
+      height: 0;
+      transition: height 0.32s cubic-bezier(0.22,1,0.36,1),
+                  border-top-width 0s 0.32s,
+                  padding-bottom 0.32s cubic-bezier(0.22,1,0.36,1);
+      padding-bottom: 0;
+    }
+
+    .card-g.open .card-g-body {
+      border-top-width: 1px;
+      transition: height 0.32s cubic-bezier(0.22,1,0.36,1),
+                  border-top-width 0s,
+                  padding-bottom 0.32s cubic-bezier(0.22,1,0.36,1);
+      padding-bottom: 20px;
     }
 
     .card-g-body p {
@@ -1665,7 +1679,7 @@
   <div class="concept-block">
     <div class="concept-label">Concept G</div>
     <div class="concept-title">Inline expand (Your Voice style)</div>
-    <div class="concept-desc">Each row shows a photo, name, and teaser. Click anywhere on the row to expand the full bio inline — no modal, no overlay, no JS. Based on the native HTML <code style="font-size:0.8rem;background:#f0f0f0;padding:1px 5px;border-radius:3px;">&lt;details&gt;</code> element.</div>
+    <div class="concept-desc">Each row shows a photo, name, and teaser. Click to smoothly expand the full bio inline — the card grows in place with an animated height transition.</div>
 
     <details class="card-g">
       <summary>
@@ -1764,6 +1778,36 @@
     </details>
 
   </div>
+
+  <script>
+    // Concept G — animated expand/collapse
+    document.querySelectorAll('details.card-g').forEach(details => {
+      const summary = details.querySelector('summary');
+      const body    = details.querySelector('.card-g-body');
+
+      // Prevent native toggle; we drive it manually
+      summary.addEventListener('click', e => {
+        e.preventDefault();
+        const isOpen = details.classList.contains('open');
+
+        if (isOpen) {
+          // Collapse: set explicit height first, then animate to 0
+          body.style.height = body.scrollHeight + 'px';
+          requestAnimationFrame(() => {
+            body.style.height = '0';
+          });
+          details.classList.remove('open');
+        } else {
+          // Expand: animate from 0 to scrollHeight, then clear to 'auto'
+          details.classList.add('open');
+          body.style.height = body.scrollHeight + 'px';
+          body.addEventListener('transitionend', () => {
+            if (details.classList.contains('open')) body.style.height = 'auto';
+          }, { once: true });
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
