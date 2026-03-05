@@ -1639,11 +1639,14 @@
 
     /* Body: animated height expand */
     .card-g-body {
-      padding: 0 20px 20px 120px;
-      border-top: 1px solid var(--border);
       overflow: hidden;
       height: 0;
       transition: height 0.32s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .card-g-body-inner {
+      padding: 18px 20px 20px 120px;
+      border-top: 1px solid var(--border);
     }
 
     .card-g-body p {
@@ -1681,8 +1684,10 @@
         </div>
       </summary>
       <div class="card-g-body">
-        <h3>Why I joined GWC</h3>
-        <p>I joined Global Workforce Community because it's the list with heart, the courage to do what's right even when it's hard, and the compassion to care for each and every worker.</p>
+        <div class="card-g-body-inner">
+          <h3>Why I joined GWC</h3>
+          <p>I joined Global Workforce Community because it's the list with heart, the courage to do what's right even when it's hard, and the compassion to care for each and every worker.</p>
+        </div>
       </div>
     </details>
 
@@ -1697,8 +1702,10 @@
         </div>
       </summary>
       <div class="card-g-body">
-        <h3>Why I joined GWC</h3>
-        <p>Sustainable fairness requires structure — when support depends only on permission rather than policy, people are left unprotected. That is why I run with the Global Workforce Community.</p>
+        <div class="card-g-body-inner">
+          <h3>Why I joined GWC</h3>
+          <p>Sustainable fairness requires structure — when support depends only on permission rather than policy, people are left unprotected. That is why I run with the Global Workforce Community.</p>
+        </div>
       </div>
     </details>
 
@@ -1713,8 +1720,10 @@
         </div>
       </summary>
       <div class="card-g-body">
-        <h3>Outside of work</h3>
-        <p>When I'm not driving projects, you'll find me at a pottery wheel or with an oil brush in hand.</p>
+        <div class="card-g-body-inner">
+          <h3>Outside of work</h3>
+          <p>When I'm not driving projects, you'll find me at a pottery wheel or with an oil brush in hand.</p>
+        </div>
       </div>
     </details>
 
@@ -1729,8 +1738,10 @@
         </div>
       </summary>
       <div class="card-g-body">
-        <h3>Why I joined GWC</h3>
-        <p>Transitions must be navigated with both mind and heart. Only by ensuring just and fair treatment can we guarantee our colleagues' financial security. My pronouns are they/them.</p>
+        <div class="card-g-body-inner">
+          <h3>Why I joined GWC</h3>
+          <p>Transitions must be navigated with both mind and heart. Only by ensuring just and fair treatment can we guarantee our colleagues' financial security. My pronouns are they/them.</p>
+        </div>
       </div>
     </details>
 
@@ -1745,8 +1756,10 @@
         </div>
       </summary>
       <div class="card-g-body">
-        <h3>What I stand for</h3>
-        <p>Our first and only mandate is to stand up and represent the employees — nothing more and nothing less.</p>
+        <div class="card-g-body-inner">
+          <h3>What I stand for</h3>
+          <p>Our first and only mandate is to stand up and represent the employees — nothing more and nothing less.</p>
+        </div>
       </div>
     </details>
 
@@ -1761,8 +1774,10 @@
         </div>
       </summary>
       <div class="card-g-body">
-        <h3>My candidacy</h3>
-        <p>I've been a substitute Works Council member since 2022 — zero ramp-up time, already have my priority list. This time I'm aiming for a permanent seat.</p>
+        <div class="card-g-body-inner">
+          <h3>My candidacy</h3>
+          <p>I've been a substitute Works Council member since 2022 — zero ramp-up time, already have my priority list. This time I'm aiming for a permanent seat.</p>
+        </div>
       </div>
     </details>
 
@@ -1773,38 +1788,25 @@
     document.querySelectorAll('details.card-g').forEach(details => {
       const summary = details.querySelector('summary');
       const body    = details.querySelector('.card-g-body');
-
-      // Measure natural height by briefly removing the height constraint
-      function getBodyHeight() {
-        body.style.height = 'auto';
-        const h = body.scrollHeight;
-        body.style.height = '0';
-        return h;
-      }
-
-      // Prime the height so the browser knows the start state
-      getBodyHeight();
+      const inner   = details.querySelector('.card-g-body-inner');
 
       summary.addEventListener('click', e => {
         e.preventDefault();
-        const isOpen = details.classList.contains('open');
 
-        if (isOpen) {
-          // Pin current height, then animate to 0
-          body.style.height = body.scrollHeight + 'px';
-          requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (details.classList.contains('open')) {
+          // Collapse: pin height to current px value, then animate to 0
+          body.style.height = inner.offsetHeight + 'px';
+          requestAnimationFrame(() => {
             body.style.height = '0';
-          }));
+          });
           details.classList.remove('open');
         } else {
-          // Animate from 0 to natural height
-          const h = getBodyHeight();
+          // Expand: inner has no height constraint, so offsetHeight is its true height
+          const h = inner.offsetHeight;
           details.classList.add('open');
-          requestAnimationFrame(() => requestAnimationFrame(() => {
-            body.style.height = h + 'px';
-          }));
+          body.style.height = h + 'px';
           body.addEventListener('transitionend', () => {
-            if (details.classList.contains('open')) body.style.height = 'auto';
+            body.style.height = 'auto';
           }, { once: true });
         }
       });
