@@ -15,7 +15,6 @@
 
     /* ── Card scene: 3-D container ───────────────────────────────────── */
     .card-scene {
-      perspective: 1200px;
       aspect-ratio: 2 / 3;
     }
 
@@ -29,6 +28,7 @@
       will-change: transform;
       border-radius: 12px;
       cursor: pointer;
+      background: transparent;
     }
 
     /* Hover lift */
@@ -95,53 +95,29 @@
       line-height: 1.3;
     }
 
-    /* Holographic layers (front only) */
-    .card-shine, .card-foil, .card-glare {
+    /* Holographic foil layer (front only) */
+    .card-foil {
       position: absolute;
       inset: 0;
       border-radius: 12px;
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.25s;
-    }
-
-    .card-shine {
-      mix-blend-mode: screen;
-      background: radial-gradient(
-        ellipse at var(--mx, 50%) var(--my, 50%),
-        rgba(255,255,255,0.5) 0%,
-        rgba(178,34,34,0.18) 30%,
-        rgba(100,160,255,0.1) 55%,
-        transparent 75%
-      );
-    }
-
-    .card-foil {
       mix-blend-mode: color-dodge;
       background: linear-gradient(
-        calc(var(--angle, 135deg)),
-        rgba(255,0,128,0.14) 0%,
-        rgba(255,165,0,0.09) 20%,
-        rgba(255,255,0,0.09) 35%,
-        rgba(0,255,128,0.09) 50%,
-        rgba(0,128,255,0.11) 65%,
-        rgba(128,0,255,0.09) 80%,
-        rgba(255,0,128,0.14) 100%
+        calc(var(--angle, 135deg) + 90deg),
+        rgba(255,0,128,0.16) 0%,
+        rgba(255,165,0,0.11) 20%,
+        rgba(255,255,0,0.11) 35%,
+        rgba(0,255,128,0.11) 50%,
+        rgba(0,128,255,0.13) 65%,
+        rgba(128,0,255,0.11) 80%,
+        rgba(255,0,128,0.16) 100%
       );
     }
 
-    .card-glare {
-      mix-blend-mode: overlay;
-      background: radial-gradient(
-        circle at var(--mx, 50%) var(--my, 50%),
-        rgba(255,255,255,0.3) 0%,
-        transparent 50%
-      );
-    }
-
-    .card-scene:not(.inspecting):hover .card-shine,
     .card-scene:not(.inspecting):hover .card-foil,
-    .card-scene:not(.inspecting):hover .card-glare {
+    .card-scene.inspecting .card-foil {
       opacity: 1;
     }
 
@@ -150,10 +126,15 @@
       transform: rotateY(180deg);
       background: linear-gradient(145deg, #fefefe 0%, #f5f0f0 100%);
       border: 1.5px solid rgba(178,34,34,0.2);
-      box-shadow: 0 8px 40px rgba(0,0,0,0.15);
       display: flex;
       flex-direction: column;
       overflow: hidden;
+    }
+
+    /* Back face hidden until flipped (JS toggles this) */
+    .card-back.face-hidden,
+    .card-front.face-hidden {
+      visibility: hidden;
     }
 
     /* Back header strip */
@@ -233,12 +214,13 @@
       pointer-events: none;
     }
 
+
     /* ── Inspect overlay ─────────────────────────────────────────────── */
     #inspect-overlay {
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.7);
-      z-index: 999;
+      z-index: 1000;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease;
@@ -249,11 +231,13 @@
       pointer-events: all;
     }
 
-    /* ── Inspected card: pulled out of flow, fixed on screen ─────────── */
+/* ── Inspected card: pulled out of flow, fixed on screen ─────────── */
     .card-scene.inspecting {
       position: fixed;
-      z-index: 1000;
+      z-index: 1001;
       cursor: pointer;
+      background: transparent !important;
+      aspect-ratio: unset;
       /* transition set by JS once positioned */
     }
 
@@ -462,15 +446,13 @@ const INTROS = {
       info.innerHTML = `<div class="card-name">${escHtml(name)}</div><div class="card-role">${escHtml(role)}</div>`;
       front.appendChild(info);
 
-      ['card-shine','card-foil','card-glare'].forEach(cls => {
-        const el = document.createElement('div');
-        el.className = cls;
-        front.appendChild(el);
-      });
+      const foil = document.createElement('div');
+      foil.className = 'card-foil';
+      front.appendChild(foil);
 
-      // ── BACK ──
+      // ── BACK — hidden until card flips ──
       const back = document.createElement('div');
-      back.className = 'card-back';
+      back.className = 'card-back face-hidden';
 
       back.innerHTML = `
         <div class="back-header">
@@ -512,12 +494,8 @@ const INTROS = {
         const cy = rect.top  + rect.height / 2;
         const dx = (e.clientX - cx) / (rect.width / 2);
         const dy = (e.clientY - cy) / (rect.height / 2);
-        const mx = ((e.clientX - rect.left) / rect.width * 100).toFixed(1) + '%';
-        const my = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + '%';
         const angle = (Math.atan2(dy, dx) * 180 / Math.PI + 180).toFixed(1) + 'deg';
         inner.style.transform = `perspective(900px) rotateX(${(-dy * MAX_TILT).toFixed(2)}deg) rotateY(${(dx * MAX_TILT).toFixed(2)}deg) translateZ(20px) scale3d(1.05,1.05,1.05)`;
-        front.style.setProperty('--mx', mx);
-        front.style.setProperty('--my', my);
         front.style.setProperty('--angle', angle);
       });
 
@@ -538,48 +516,65 @@ const INTROS = {
     const overlay = document.getElementById('inspect-overlay');
     let isInspecting = false;
     let activeScene  = null;
-    let placeholder  = null; // invisible div that holds grid space
+    let placeholder  = null;
+
+    // ── Inspect tilt handler (lives on window while a card is open) ──
+    const MAX_INSPECT_TILT = 12;
+    function onInspectMouseMove(e) {
+      if (!activeScene) return;
+      const inner = activeScene.querySelector('.card-inner');
+      const front = activeScene.querySelector('.card-front');
+      const rect  = activeScene.getBoundingClientRect();
+      const cx = rect.left + rect.width  / 2;
+      const cy = rect.top  + rect.height / 2;
+      const dx = (e.clientX - cx) / (rect.width  / 2);
+      const dy = (e.clientY - cy) / (rect.height / 2);
+      // Clamp so tilt doesn't go wild when mouse is far outside card
+      const cdx = Math.max(-1, Math.min(1, dx));
+      const cdy = Math.max(-1, Math.min(1, dy));
+      const angle = (Math.atan2(cdy, cdx) * 180 / Math.PI + 180).toFixed(1) + 'deg';
+
+      inner.style.transform = `perspective(1200px) rotateX(${(-cdy * MAX_INSPECT_TILT).toFixed(2)}deg) rotateY(${(180 + cdx * MAX_INSPECT_TILT).toFixed(2)}deg) translateZ(10px)`;
+
+      if (front) {
+        front.style.setProperty('--angle', angle);
+      }
+    }
 
     function openInspect(scene, inner) {
       isInspecting = true;
       activeScene  = scene;
 
-      // Clear any hover tilt
       inner.style.transition = '';
       inner.style.transform  = '';
 
-      // 1. Measure where the card sits in the grid RIGHT NOW
       const rect = scene.getBoundingClientRect();
 
-      // 2. Insert an invisible placeholder to hold the grid space
       placeholder = document.createElement('div');
       placeholder.className = 'card-placeholder';
       scene.parentNode.insertBefore(placeholder, scene);
 
-      // 3. Pin the real scene to exactly that same spot using fixed positioning
       scene.style.cssText = `
         position: fixed;
         left: ${rect.left}px;
         top: ${rect.top}px;
         width: ${rect.width}px;
         height: ${rect.height}px;
-        z-index: 1000;
+        z-index: 1001;
         margin: 0;
         transition: left 0.6s cubic-bezier(0.4,0,0.15,1),
                     top 0.6s cubic-bezier(0.4,0,0.15,1),
                     width 0.6s cubic-bezier(0.4,0,0.15,1),
-                    height 0.6s cubic-bezier(0.4,0,0.15,1),
-                    box-shadow 0.6s ease;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+                    height 0.6s cubic-bezier(0.4,0,0.15,1);
+        box-shadow: none;
         cursor: pointer;
       `;
+      scene.classList.add('inspecting');
 
-      // Set up flip transition on inner
       inner.style.transition = 'transform 0.6s cubic-bezier(0.4,0,0.15,1)';
 
       overlay.classList.add('active');
 
-      // 4. On next frame: fly to centre + flip simultaneously
       requestAnimationFrame(() => requestAnimationFrame(() => {
         const TW = Math.min(320, window.innerWidth * 0.85);
         const TH = TW * 1.5;
@@ -587,42 +582,65 @@ const INTROS = {
         scene.style.top       = `${(window.innerHeight - TH) / 2}px`;
         scene.style.width     = `${TW}px`;
         scene.style.height    = `${TH}px`;
-        scene.style.boxShadow = '0 40px 120px rgba(0,0,0,0.6), 0 0 60px rgba(178,34,34,0.3)';
+        scene.style.boxShadow = 'none';
 
-        // Flip to back at the same time
         inner.style.transform = 'perspective(900px) rotateY(180deg)';
+
+        // At flip midpoint: hide front, reveal back
+        const backEl  = scene.querySelector('.card-back');
+        const frontEl = scene.querySelector('.card-front');
+        setTimeout(() => {
+          if (frontEl) frontEl.classList.add('face-hidden');
+          if (backEl)  backEl.classList.remove('face-hidden');
+        }, 300);
+
+        // Attach tilt handler after fly animation completes
+        setTimeout(() => {
+          inner.style.transition = 'transform 0.08s linear';
+          window.addEventListener('mousemove', onInspectMouseMove);
+        }, 650);
       }));
     }
 
     function closeInspect() {
       if (!isInspecting || !activeScene) return;
+
+      window.removeEventListener('mousemove', onInspectMouseMove);
+
       const scene = activeScene;
       const inner = scene.querySelector('.card-inner');
 
-      // Measure where the placeholder now sits (grid may have scrolled)
       const rect2 = placeholder.getBoundingClientRect();
 
-      // Fly back + flip front simultaneously
       scene.style.transition = `left 0.5s cubic-bezier(0.4,0,0.15,1),
                                  top 0.5s cubic-bezier(0.4,0,0.15,1),
                                  width 0.5s cubic-bezier(0.4,0,0.15,1),
-                                 height 0.5s cubic-bezier(0.4,0,0.15,1),
-                                 box-shadow 0.5s ease`;
-      scene.style.left      = `${rect2.left}px`;
-      scene.style.top       = `${rect2.top}px`;
-      scene.style.width     = `${rect2.width}px`;
-      scene.style.height    = `${rect2.height}px`;
-      scene.style.boxShadow = '0 4px 16px rgba(0,0,0,0.15)';
+                                 height 0.5s cubic-bezier(0.4,0,0.15,1)`;
+      scene.style.left   = `${rect2.left}px`;
+      scene.style.top    = `${rect2.top}px`;
+      scene.style.width  = `${rect2.width}px`;
+      scene.style.height = `${rect2.height}px`;
 
       inner.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.15,1)';
       inner.style.transform  = 'perspective(900px) rotateY(0deg)';
 
+      // At flip midpoint: hide back, reveal front
+      const backEl  = scene.querySelector('.card-back');
+      const frontEl = scene.querySelector('.card-front');
+      setTimeout(() => {
+        if (backEl)  backEl.classList.add('face-hidden');
+        if (frontEl) frontEl.classList.remove('face-hidden');
+      }, 250);
+
       overlay.classList.remove('active');
 
-      // After transition: put scene back in the grid, remove placeholder
       scene.addEventListener('transitionend', () => {
-        scene.style.cssText   = '';
-        inner.style.cssText   = '';
+        scene.classList.remove('inspecting');
+        scene.style.cssText = '';
+        inner.style.cssText = '';
+        // Ensure clean state: back hidden, front visible
+        if (backEl)  backEl.classList.add('face-hidden');
+        if (frontEl) frontEl.classList.remove('face-hidden');
         placeholder.replaceWith(scene);
         placeholder  = null;
         isInspecting = false;
