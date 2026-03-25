@@ -62,11 +62,60 @@
     }
 
     .contact-footer a:hover { text-decoration: underline; }
+
+    /* ── Language toggle ────────────────────────────────────────────── */
+    .lang-toggle {
+      display: flex;
+      gap: 0;
+      margin-bottom: 28px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      width: fit-content;
+    }
+
+    .lang-btn {
+      padding: 8px 20px;
+      font-family: var(--font);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .lang-btn.active {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .lang-btn:not(.active):hover {
+      background: var(--red-light);
+      color: var(--red);
+    }
+
+    .lang-section { display: none; }
+    .lang-section.active { display: block; }
   </style>
 </head>
 <body>
 
   <iframe class="gwc-logo-frame" src="logo.html" title="GWC Logo" scrolling="no"></iframe>
+
+  <!-- ── Language toggle ──────────────────────────────────────────────── -->
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('de')">DE</button>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <!-- ENGLISH                                                           -->
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <div class="lang-section active" id="section-en">
 
   <!-- ── Hero ───────────────────────────────────────────────────────── -->
   <p class="hero-intro">
@@ -99,7 +148,7 @@
         <div class="commitment-number">3</div>
         <div class="commitment-body">
           <h3>We will prioritize your mental health</h3>
-          <p>These are uncertain times. Uncertainty breeds anxiety. We have all had our fair share of rough patches to understand that deeply — and how it affects your mental health. We believe that your psychological safety is more important than any macroeconomic statistic or internal KPI. We will be there if you have any specific needs. We will press for better flexibility in your work life, protection for your private life, your rights as a caregiver, and your time in general. We believe that the long term mental well-being of employees is an essential ingredient for our organization's well-being.</p>
+          <p>These are uncertain times. Uncertainty breeds anxiety. We have all had our fair share of rough patches to understand that deeply. And how it affects your mental health. We believe that your psychological safety is more important than any macroeconomic statistic or internal KPI. We will be there if you have any specific needs. We will press for better flexibility in your work life, protection for your private life, your rights as a caregiver, and your time in general. We believe that the long term mental well-being of employees is an essential ingredient for our organization's well-being.</p>
         </div>
       </div>
 
@@ -107,7 +156,7 @@
         <div class="commitment-number">4</div>
         <div class="commitment-body">
           <h3>We will bring transparency in your performance evaluation</h3>
-          <p>Opaque evaluations lead to opaque decisions. The result is a stagnant career. We commit to fixing this. We will advocate for structured and transparent career paths and accessible training programs. Whether you want to deepen expertise or explore new roles, we'll work to ensure the company invests in your professional growth with concrete programs and budgets. <span class="bold red">When you grow, Zalando grows.</span></p>
+          <p>Opaque evaluations lead to opaque decisions. The result is a stagnant career. We commit to fixing this. We will advocate for structured and transparent career paths, accessible training programs. Whether you want to deepen expertise or explore new roles, we'll work to ensure the company invests in your professional growth with concrete programs and budgets. <span class="bold red">When you grow, Zalando grows.</span></p>
         </div>
       </div>
 
@@ -122,12 +171,12 @@
 
       <div class="philosophy-card">
         <h3>We are transparent</h3>
-        <p>No more decisions behind closed doors. We will ensure management consults the Works Council on all matters affecting working conditions — from reorganizations to policy changes. You'll receive clear, timely communication about what's being discussed and why. Every quarter, we'll publish a transparent report on active negotiations and outcomes.</p>
+        <p>No more decisions behind closed doors. We will ensure management consults the Works Council on all matters affecting working conditions; from reorganizations to policy changes. You'll receive clear, timely communication about what's being discussed and why. Every quarter, we'll publish a transparent report on active negotiations and outcomes.</p>
       </div>
 
       <div class="philosophy-card">
         <h3>We are inclusive</h3>
-        <p>Every worker's perspective counts. We will create regular channels for feedback through monthly town halls, anonymous suggestion systems, listening sessions specific to groups impacted by management decisions, published summaries of all negotiations, and quarterly accountability reports showing what we've achieved and where we've fallen short. We represent all workers: new hires and veterans, technical and support staff, full-time and part-time employees alike.</p>
+        <p>Every worker's perspective counts. We will create regular channels for feedback through monthly town halls, anonymous suggestion systems, listening sessions specific to groups impacted by management decisions, published summaries of all negotiations, and quarterly accountability reports showing what we've achieved and where we've fallen short. We represent all workers: new hires and veterans, different job families, full-time and part-time employees alike. We will engage with you and consult you on all major decisions during the decision-making process, because only together can we create the change that we all want to see.</p>
       </div>
 
     </div>
@@ -151,6 +200,98 @@
     </div>
   </div>
 
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <!-- GERMAN                                                            -->
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <div class="lang-section" id="section-de">
+
+  <!-- ── Hero ───────────────────────────────────────────────────────── -->
+  <p class="hero-intro">
+    Wir kennen die Probleme, mit denen du jeden Tag zu tun hast: unklare Entscheidungen, die deine Arbeit beeinflussen, undurchsichtige Gehaltsstrukturen und gehemmte Möglichkeiten zur Weiterentwicklung. Und üblicherweise sind Mitarbeitende die letzten, die Entscheidungen mitbekommen, die ihren Lebensunterhalt beeinflussen. Du verdienst mehr. Du verdienst einen Betriebsrat, der mit Empathie zuhört, mit Transparenz handelt und messbare Verbesserungen auch über dein Arbeitsleben hinaus liefert.
+  </p>
+
+  <!-- ── Unsere Versprechen ──────────────────────────────────────────── -->
+  <div class="section">
+    <h2 class="section-title">Unsere Versprechen</h2>
+
+    <div class="commitment-list">
+
+      <div class="commitment-card">
+        <div class="commitment-number">1</div>
+        <div class="commitment-body">
+          <h3>Wir setzen deine Rechte durch</h3>
+          <p>Du verdienst es, dass deine Arbeitnehmerrechte respektiert werden. Jeden Tag leiden Kollegen unter unfairen Leistungsverbesserungsplänen, irreführenden Kündigungsversuchen, Schikanen/Belästigung und undurchsichtigen Versetzungen mit wenig Unterstützung und noch weniger Wahl. Wir sind überzeugt, dass ein starker, gut ausgebildeter Betriebsrat das ändern kann. Wir lernen von führenden Experten, nutzen dieses Wissen, um eure Interessen durchzusetzen und halten euch über jeden Schritt auf dem Laufenden.</p>
+        </div>
+      </div>
+
+      <div class="commitment-card">
+        <div class="commitment-number">2</div>
+        <div class="commitment-body">
+          <h3>Wir kämpfen für gleiche Bezahlung</h3>
+          <p>Gleiche Arbeit verdient gleichen Lohn für alle. Wir werden uns für transparente und gerechte Gehaltsbänder einsetzen, sowie klare und faire Prozesse für Beförderungen und Gehaltserhöhungen. Kein weiteres Hoffen, dass du fair bezahlt wirst. Und natürlich werden wir sicherstellen, dass die Prozesse dokumentiert, konsistent und für alle Mitarbeitenden zugänglich sind.</p>
+        </div>
+      </div>
+
+      <div class="commitment-card">
+        <div class="commitment-number">3</div>
+        <div class="commitment-body">
+          <h3>Wir priorisieren deine mentale Gesundheit</h3>
+          <p>Wir leben in unsicheren Zeiten. Unsicherheit erzeugt Angst. Wir hatten alle unschöne Momente im Leben, um das gut zu verstehen. Auch wie solche Situationen die mentale Gesundheit angreifen. Wir glauben, dass deine psychische Sicherheit wichtiger ist als makroökonomische Statistiken oder interne KPIs. Wir werden da sein, wenn du Hilfe brauchst. Wir fordern mehr Flexibilität im Arbeitsleben und Schutz des Privatlebens, treten für deine Rechte als Pflegeperson und deine Zeit generell ein. Wir glauben, dass die langfristige geistige Gesundheit der Mitarbeitenden essentiell für die Gesundheit des Betriebes ist.</p>
+        </div>
+      </div>
+
+      <div class="commitment-card">
+        <div class="commitment-number">4</div>
+        <div class="commitment-body">
+          <h3>Wir werden Transparenz für deine Leistungsbeurteilung umsetzen</h3>
+          <p>Undurchsichtige Bewertungen führen zu undurchsichtigen Entscheidungen. Das Resultat ist eine stagnierende Karriere. Wir wollen das ändern. Wir setzen uns für strukturierte und transparente Karriereverläufe und zugängliche Weiterbildungsangebote ein. Egal ob du dein Wissen vertiefen oder neue Tätigkeiten erforschen willst, wir werden dafür arbeiten, dass die Firma mit spezifischen Weiterbildungen und Budgets in deine Fähigkeiten investiert. <span class="bold red">Wenn du wächst, wächst auch Zalando.</span></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Unsere Philosophie ──────────────────────────────────────────── -->
+  <div class="section">
+    <h2 class="section-title">Unsere Philosophie</h2>
+
+    <div class="philosophy-grid">
+
+      <div class="philosophy-card">
+        <h3>Wir sind transparent</h3>
+        <p>Schluss mit Entscheidungen hinter verschlossenen Türen. Wir werden sicherstellen, dass Zalandos Management den Betriebsrat ins Boot holt, sobald es um Arbeitsbedingungen geht; von Umstrukturierungen bis hin zu Anpassungen von Richtlinien. Du wirst klare, rechtzeitige Informationen erhalten, was besprochen wird und warum. Wir werden jedes Quartal einen transparenten Bericht über aktive Verhandlungen und deren Resultate veröffentlichen.</p>
+      </div>
+
+      <div class="philosophy-card">
+        <h3>Wir sind inklusiv</h3>
+        <p>Die Perspektive jedes Mitarbeitenden zählt. Wir werden Transparenz und regelmäßige Kanäle für Feedback durch folgende Maßnahmen schaffen: monatliche Mitarbeiterversammlungen, anonyme Vorschlagssysteme, Gesprächsrunden für spezifische Mitarbeitergruppen, die von Managemententscheidungen betroffen sind, Veröffentlichung von Zusammenfassungen aller Verhandlungen mit Zalandos Führungsebene und vierteljährlicher Berichte was wir geschafft haben und wo wir hinter den Erwartungen zurückgeblieben sind. Eure Sorgen werden unsere Prioritäten formen. Wir repräsentieren alle Mitarbeitenden: von Neulingen zu alten Hasen. Von technischen Rollen zu Personalern und dem Einkauf. Egal ob Vollzeit- oder Teilzeitkräfte. Wir werden dich während Entscheidungsprozessen in alle wichtigen Entscheidungen einbeziehen und beraten. Denn nur zusammen können wir die Veränderungen erreichen, die wir alle sehen wollen.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 10 Dinge an die wir glauben ─────────────────────────────────── -->
+  <div class="section">
+    <h2 class="section-title">10 Dinge an die wir glauben</h2>
+
+    <div class="beliefs-list">
+      <div class="belief-item"><span class="belief-num">01</span>Mentale Gesundheit und psychische Sicherheit sind wichtiger als KPIs.</div>
+      <div class="belief-item"><span class="belief-num">02</span>Kompromisse sind keine Einbahnstraße.</div>
+      <div class="belief-item"><span class="belief-num">03</span>Ignorierte Rechte sind verweigerte Rechte.</div>
+      <div class="belief-item"><span class="belief-num">04</span>Gleiche Arbeit verdient gleiche Entlohnung.</div>
+      <div class="belief-item"><span class="belief-num">05</span>Wissen ist eine Stärke.</div>
+      <div class="belief-item"><span class="belief-num">06</span>Ein Betriebsrat muss kraftvoll vorangehen.</div>
+      <div class="belief-item"><span class="belief-num">07</span>Karrierechancen dürfen kein Rätselraten sein.</div>
+      <div class="belief-item"><span class="belief-num">08</span>Transparenz ist nicht optional.</div>
+      <div class="belief-item"><span class="belief-num">09</span>Unklare Kommunikation zerstört Vertrauen.</div>
+      <div class="belief-item"><span class="belief-num">10</span>Kein Mitarbeitender soll dem Management allein gegenüberstehen.</div>
+    </div>
+  </div>
+
+  </div>
+
   <!-- ── Closing banner ────────────────────────────────────────────── -->
   <div class="closing-banner">
     <div class="closing-banner-text">
@@ -162,9 +303,21 @@
 
   <!-- ── Contact ───────────────────────────────────────────────────── -->
   <div class="contact-footer">
-    Questions? Want to get involved?<br>
+    <span id="contact-en">Questions? Want to get involved?</span>
+    <span id="contact-de" style="display:none">Du hast Fragen? Willst du dich involvieren?</span><br>
     <a href="mailto:global-workforce-community@zalando.de">global-workforce-community@zalando.de</a>
   </div>
+
+  <script>
+    function setLang(lang) {
+      document.querySelectorAll('.lang-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('section-' + lang).classList.add('active');
+      event.target.classList.add('active');
+      document.getElementById('contact-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('contact-de').style.display = lang === 'de' ? '' : 'none';
+    }
+  </script>
 
 </body>
 </html>
