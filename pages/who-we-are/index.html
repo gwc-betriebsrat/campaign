@@ -528,7 +528,9 @@
     /* ── Inspect overlay ─────────────────────────────────────────────── */
     #inspect-overlay {
       position: fixed;
-      inset: 0;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100vh;
       background: rgba(0, 0, 0, 0.7);
       z-index: 1000;
       opacity: 0;
@@ -541,14 +543,13 @@
       pointer-events: all;
     }
 
-    /* ── Inspected card: pulled out of flow, fixed on screen ─────────── */
+    /* ── Inspected card: positioned absolutely at same row ────────────── */
     .card-scene.inspecting {
-      position: fixed;
+      position: absolute;
       z-index: 1001;
       cursor: pointer;
       background: transparent !important;
       aspect-ratio: unset;
-      /* transition set by JS once positioned */
     }
 
     /* Hint row */
@@ -1623,19 +1624,26 @@ const CANDIDATES = [
       inner.style.transform  = '';
 
       const rect = scene.getBoundingClientRect();
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      const absTop = rect.top + scrollY;
+      const absLeft = rect.left;
 
       placeholder = document.createElement('div');
       placeholder.className = 'card-placeholder';
       scene.parentNode.insertBefore(placeholder, scene);
 
+      // Target size and position: horizontally centered, same vertical position as card
+      const TW = Math.min(480, window.innerWidth * 0.85);
+      const TH = TW * 1.5;
+      const targetLeft = (window.innerWidth - TW) / 2;
+      const targetTop = absTop + rect.height / 2 - TH / 2;
+
       if (reducedMotion) {
         // ── Reduced-motion: fade transition ──
-        const TW = Math.min(480, window.innerWidth * 0.85);
-        const TH = TW * 1.5;
         scene.style.cssText = `
-          position: fixed;
-          left: ${(window.innerWidth  - TW) / 2}px;
-          top: ${(window.innerHeight - TH) / 2}px;
+          position: absolute;
+          left: ${targetLeft}px;
+          top: ${targetTop}px;
           width: ${TW}px;
           height: ${TH}px;
           z-index: 1001;
@@ -1664,9 +1672,9 @@ const CANDIDATES = [
       } else {
         // ── Full-motion: fly + flip ──
         scene.style.cssText = `
-          position: fixed;
-          left: ${rect.left}px;
-          top: ${rect.top}px;
+          position: absolute;
+          left: ${absLeft}px;
+          top: ${absTop}px;
           width: ${rect.width}px;
           height: ${rect.height}px;
           z-index: 1001;
@@ -1685,10 +1693,8 @@ const CANDIDATES = [
         overlay.classList.add('active');
 
         requestAnimationFrame(() => requestAnimationFrame(() => {
-          const TW = Math.min(480, window.innerWidth * 0.85);
-          const TH = TW * 1.5;
-          scene.style.left      = `${(window.innerWidth  - TW) / 2}px`;
-          scene.style.top       = `${(window.innerHeight - TH) / 2}px`;
+          scene.style.left      = `${targetLeft}px`;
+          scene.style.top       = `${targetTop}px`;
           scene.style.width     = `${TW}px`;
           scene.style.height    = `${TH}px`;
           scene.style.boxShadow = 'none';
@@ -1804,13 +1810,14 @@ const CANDIDATES = [
 
       // ── Full-motion: fly back + flip to front ──
       const rect2 = placeholder.getBoundingClientRect();
+      const scrollY2 = window.pageYOffset || document.documentElement.scrollTop;
 
       scene.style.transition = `left 0.5s cubic-bezier(0.4,0,0.15,1),
                                  top 0.5s cubic-bezier(0.4,0,0.15,1),
                                  width 0.5s cubic-bezier(0.4,0,0.15,1),
                                  height 0.5s cubic-bezier(0.4,0,0.15,1)`;
       scene.style.left   = `${rect2.left}px`;
-      scene.style.top    = `${rect2.top}px`;
+      scene.style.top    = `${rect2.top + scrollY2}px`;
       scene.style.width  = `${rect2.width}px`;
       scene.style.height = `${rect2.height}px`;
 
