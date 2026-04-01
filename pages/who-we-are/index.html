@@ -1833,6 +1833,28 @@ const CANDIDATES = [
     }
 
     overlay.addEventListener('click', closeInspect);
+
+    // ── Auto-resize iframe to fit content ──────────────────────────────
+    // Sends height to parent so Haiilo can resize the iframe widget.
+    function notifyParentHeight() {
+      const h = document.documentElement.scrollHeight;
+      // Try common iframe resize message formats
+      if (window.parent !== window) {
+        // Generic postMessage with height
+        window.parent.postMessage({ type: 'resize', height: h }, '*');
+        // Haiilo/Coyo format
+        window.parent.postMessage({ event: 'iframeResize', height: h }, '*');
+        window.parent.postMessage(JSON.stringify({ event: 'iframeResize', height: h }), '*');
+        // iframe-resizer library format
+        window.parent.postMessage('[iFrameSizer]height:' + h + ':0', '*');
+      }
+    }
+    // Notify on load and on resize/mutations
+    notifyParentHeight();
+    window.addEventListener('resize', notifyParentHeight);
+    new MutationObserver(notifyParentHeight).observe(document.body, { childList: true, subtree: true, attributes: true });
+    // Also re-notify periodically for dynamic content
+    setInterval(notifyParentHeight, 2000);
   </script>
 
 </body>

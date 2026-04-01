@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../../shared/_shared.css" />
+  <style>
+    body { padding: 0; background: transparent; }
+
+    .lang-section { display: none; }
+    .lang-section.active { display: block; }
+
+    .mission-close {
+      font-size: 0.92rem;
+      color: var(--mid);
+      line-height: 1.85;
+      padding: 20px 24px;
+      border-radius: var(--radius-lg);
+      background: var(--red-light);
+      border-left: 4px solid var(--red);
+    }
+    .mission-close strong { color: var(--dark); }
+  </style>
+</head>
+<body>
+
+  <div class="lang-section active" id="section-en">
+    <div class="mission-close">
+      A Works Council is only as strong as the trust it has from those it represents. By voting for <strong>Global Workforce Community</strong>, you demand change, and you set a standard of quality for what a Works Council should be. We give voice to those who have been silenced, we commit to being the steadfast guardian who stays accountable to you, and we will be the purposeful empowered shield that protects every employee, regardless of the economic and political situation at the time.
+    </div>
+  </div>
+
+  <div class="lang-section" id="section-de">
+    <div class="mission-close">
+      Ein Betriebsrat ist nur so stark wie das Vertrauen derer, die er vertritt. Mit einer Stimme für die <strong>Global Workforce Community</strong> forderst du Veränderung und einen neuen Qualitätsstandard für unseren Betriebsrat. Wir werden eine Stimme für die Kollegen sein, die die eigene nicht nutzen dürfen. Wir verpflichten uns, unerschütterliche Verteidiger für euch und eure Anliegen zu sein und euch immer und konsequent Rechenschaft abzulegen. Wir werden alle Mitarbeitenden schützen, unabhängig von der aktuellen wirtschaftlichen oder politischen Situation.
+    </div>
+  </div>
+
+  <script>
+    const KEY = 'gwc-lang';
+    function applyLang() {
+      const lang = localStorage.getItem(KEY) || 'en';
+      document.querySelectorAll('.lang-section').forEach(s => s.classList.remove('active'));
+      const el = document.getElementById('section-' + lang);
+      if (el) el.classList.add('active');
+    }
+    applyLang();
+    window.addEventListener('storage', (e) => { if (e.key === KEY) applyLang(); });
+    setInterval(applyLang, 500);
+  </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../../shared/_shared.css" />
+  <style>
+    body { padding: 8px 0; background: transparent; }
+    .lang-toggle {
+      display: flex;
+      gap: 0;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      width: fit-content;
+    }
+    .lang-btn {
+      padding: 8px 20px;
+      font-family: var(--font);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .lang-btn.active {
+      background: var(--red);
+      color: #fff;
+    }
+    .lang-btn:not(.active):hover {
+      background: var(--red-light);
+      color: var(--red);
+    }
+  </style>
+</head>
+<body>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en">EN</button>
+    <button class="lang-btn" id="btn-de">DE</button>
+  </div>
+
+  <script>
+    const KEY = 'gwc-lang';
+    function setLang(lang) {
+      localStorage.setItem(KEY, lang);
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+    }
+    // Init from stored preference
+    const stored = localStorage.getItem(KEY) || 'en';
+    setLang(stored);
+    document.getElementById('btn-en').addEventListener('click', () => setLang('en'));
+    document.getElementById('btn-de').addEventListener('click', () => setLang('de'));
+  </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../../shared/_shared.css" />
+  <style>
+    body { padding: 0; background: transparent; }
+
+    .lang-section { display: none; }
+    .lang-section.active { display: block; }
+
+    .principle-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .principle-card {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 18px;
+      padding: 22px 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--bg-soft);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .principle-card:hover {
+      border-color: var(--red);
+      box-shadow: 0 4px 16px var(--red-dim);
+    }
+
+    .principle-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--red-light);
+      border: 2px solid var(--red);
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .principle-body h3 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .principle-body p {
+      font-size: 0.88rem;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="lang-section active" id="section-en">
+    <div class="principle-list">
+      <div class="principle-card">
+        <div class="principle-icon">⚡</div>
+        <div class="principle-body">
+          <h3>A Fighter in Your Corner</h3>
+          <p>We don't want a Works Council that is passive and reactive to the changes proposed by the employer, due to a lack of labour training. It's time to move from reacting to leading with awareness. By partnering with other Works Councils, top experts and by securing legal backing, we will transform the Works Council into a proactive, competent force that protects your interests through transparent, high-impact negotiations.</p>
+        </div>
+      </div>
+
+      <div class="principle-card">
+        <div class="principle-icon">🤝</div>
+        <div class="principle-body">
+          <h3>No One Left Behind</h3>
+          <p>Everyone deserves equal support, regardless of contract type, background, familial situation, or department. We're more than a voice. We're active advocates for the workforce community. We will fight against harassment and unfair terminations. We will address each individual concern specifically and ensure everyone gets the specific support they need. We stand for you; we uphold fairness for all.</p>
+        </div>
+      </div>
+
+      <div class="principle-card">
+        <div class="principle-icon">🔎</div>
+        <div class="principle-body">
+          <h3>Radical Transparency</h3>
+          <p>We end the era of filtered information. Your representatives owe you transparency, not discretion. No more hiding the truth through "expectation management"; you deserve clarity and transparency. You'll see the process. You'll know the why. We carry your voice to negotiations and return the unfiltered truth to you. Accountability runs both ways: we'll make sure we act on your needs, give you a voice, and make your feedback actionable as company life evolves.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lang-section" id="section-de">
+    <div class="principle-list">
+      <div class="principle-card">
+        <div class="principle-icon">⚡</div>
+        <div class="principle-body">
+          <h3>Wir kämpfen für dich</h3>
+          <p>Wir wollen keinen Betriebsrat, der aufgrund von mangelnder Schulung passiv ist und nur auf Initiativen des Arbeitgebers reagiert. Es ist Zeit nicht nur zu reagieren, sondern bewusst Initiative zu ergreifen. Durch die Zusammenarbeit mit anderen Betriebsräten, Experten und mit sichergestellten rechtlicher Unterstützung werden wir den Betriebsrat in eine proaktive und kompetente Kraft verwandeln, die deine Interessen durch transparente und wirkungsvolle Verhandlungen schützt.</p>
+        </div>
+      </div>
+
+      <div class="principle-card">
+        <div class="principle-icon">🤝</div>
+        <div class="principle-body">
+          <h3>Wir lassen niemanden zurück</h3>
+          <p>Jeder verdient die gleiche Unterstützung, unabhängig von Vertragsart, Hintergrund, familiärer Situation oder Abteilung. Wir sind mehr als eine Stimme. Wir vertreten die Belegschaft, kämpfen gegen Schikanen, unfaire Kündigungen und individuelle Bedürfnisse. Damit jeder die spezifische Unterstützung hat, die er/sie braucht. Wir stehen für euch ein; wir kämpfen für Fairness für alle.</p>
+        </div>
+      </div>
+
+      <div class="principle-card">
+        <div class="principle-icon">🔎</div>
+        <div class="principle-body">
+          <h3>Absolute Transparenz</h3>
+          <p>Wir beenden die Ära von gefilterten Informationen. Eure Vertreter schulden euch Transparenz, nicht Verschwiegenheit. Kein Verstecken der Wahrheit hinter "Erwartungsmanagement"; ihr verdient Klarheit und Transparenz. Wir werden euch die Prozesse zeigen und erklären, warum wir tun, was wir tun und was passiert. Wir tragen eure Stimme in Verhandlungen und bieten im Gegenzug die ungefilterte Wahrheit über die Gespräche an. Verantwortlichkeit funktioniert in beide Richtungen: wir garantieren, dass wir für eure Bedürfnisse vertreten, euch eine Stimme geben und euer Feedback umsetzbar machen, während die Firma sich entwickelt.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const KEY = 'gwc-lang';
+    function applyLang() {
+      const lang = localStorage.getItem(KEY) || 'en';
+      document.querySelectorAll('.lang-section').forEach(s => s.classList.remove('active'));
+      const el = document.getElementById('section-' + lang);
+      if (el) el.classList.add('active');
+    }
+    applyLang();
+    window.addEventListener('storage', (e) => { if (e.key === KEY) applyLang(); });
+    // Also poll in case storage event doesn't fire within same origin
+    setInterval(applyLang, 500);
+  </script>
+</body>
+</html>
