@@ -1501,11 +1501,20 @@ const CANDIDATES = [
       backContent.dataset.design = '5';
 
       backContent.innerHTML = `
-        ${docId && backContent.dataset.design === '5' ? `<div class="back-photo-bg" style="background-image:url('${BASE_IMG}${docId}.jpg')"></div>` : ''}
+        ${docId && backContent.dataset.design === '5' ? `<div class="back-photo-bg" data-docid="${docId}"></div>` : ''}
         <div class="back-header">
           <div class="back-name">${escHtml(name)}</div>
           <div class="back-role">${escHtml(role)}</div>
         </div>`;
+
+      // Set back-photo-bg with .png fallback
+      const bgEl = backContent.querySelector('.back-photo-bg');
+      if (bgEl && docId) {
+        const testImg = new Image();
+        testImg.onload = () => { bgEl.style.backgroundImage = `url('${BASE_IMG}${docId}.jpg')`; };
+        testImg.onerror = () => { bgEl.style.backgroundImage = `url('${BASE_IMG}${docId}.png')`; };
+        testImg.src = BASE_IMG + docId + '.jpg';
+      }
 
       const intro = INTROS[name];
       if (intro) {
