@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GWC — Our Accomplishments (Accordion)</title>
+  <link rel="stylesheet" href="../../shared/_shared.css" />
+  <style>
+    /* ── Intro ───────────────────────────────────────────────────────── */
+    .accomplishments-intro {
+      font-size: 0.93rem;
+      color: var(--mid);
+      line-height: 1.85;
+      margin-bottom: 32px;
+      border-left: 3px solid var(--red-dim);
+      padding-left: 16px;
+    }
+
+    /* ── Color tokens ────────────────────────────────────────────────── */
+    :root {
+      --lavender:      #9A9CF5;
+      --lavender-bg:   #f0f0fe;
+      --lavender-dim:  rgba(154,156,245,0.15);
+      --peach:         #F5BB9A;
+      --peach-bg:      #fef5ee;
+      --peach-dim:     rgba(245,187,154,0.2);
+      --steel:         #5576A4;
+      --steel-bg:      #edf1f7;
+      --steel-dim:     rgba(85,118,164,0.12);
+    }
+
+    /* ── Accordion container ─────────────────────────────────────────── */
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* ── <details> reset + styling ───────────────────────────────────── */
+    details {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    details[open] {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    /* ── <summary> = clickable header ───────────────────────────────── */
+    summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 20px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    /* Chevron indicator */
+    summary::after {
+      content: '›';
+      margin-left: auto;
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.8);
+      transition: transform 0.25s ease;
+      line-height: 1;
+    }
+
+    details[open] > summary::after {
+      transform: rotate(90deg);
+    }
+
+    /* Fighters header */
+    .pillar--fighters > summary {
+      background: var(--lavender);
+    }
+    .pillar--fighters > summary:hover {
+      background: #888af0;
+    }
+
+    /* No One Left Behind header */
+    .pillar--nolb > summary {
+      background: var(--peach);
+    }
+    .pillar--nolb > summary:hover {
+      background: #f0a87d;
+    }
+    .pillar--nolb > summary .summary-title,
+    .pillar--nolb > summary .summary-count {
+      color: #3a1a00;
+    }
+    .pillar--nolb > summary::after {
+      color: rgba(0,0,0,0.35);
+    }
+
+    /* Transparency header */
+    .pillar--transparency > summary {
+      background: var(--steel);
+    }
+    .pillar--transparency > summary:hover {
+      background: #46658f;
+    }
+
+    /* ── Summary inner layout ────────────────────────────────────────── */
+    .summary-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+
+    .summary-body {
+      flex: 1;
+    }
+
+    .summary-title {
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .summary-subtitle {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.75);
+      margin-top: 2px;
+    }
+
+    .pillar--nolb > summary .summary-subtitle {
+      color: rgba(0,0,0,0.5);
+    }
+
+    .summary-count {
+      background: rgba(255,255,255,0.25);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Accordion body ──────────────────────────────────────────────── */
+    .accordion-body {
+      padding: 0 20px 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .pillar--fighters  .accordion-body { background: var(--lavender-bg); }
+    .pillar--nolb      .accordion-body { background: var(--peach-bg); }
+    .pillar--transparency .accordion-body { background: var(--steel-bg); }
+
+    /* ── Person card inside accordion ───────────────────────────────── */
+    .person-item {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .person-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .person-name-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .person-initial {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .pillar--fighters  .person-initial { color: #5052a8; border: 1.5px solid var(--lavender); }
+    .pillar--nolb      .person-initial { color: #a05a2c; border: 1.5px solid var(--peach); }
+    .pillar--transparency .person-initial { color: var(--steel); border: 1.5px solid var(--steel); }
+
+    .person-name {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--dark);
+    }
+
+    .person-item ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .person-item li {
+      font-size: 0.85rem;
+      color: var(--mid);
+      line-height: 1.72;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .person-item li::before {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 9px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .pillar--fighters  .person-item li::before { background: var(--lavender); }
+    .pillar--nolb      .person-item li::before { background: var(--peach); }
+    .pillar--transparency .person-item li::before { background: var(--steel); }
+
+    /* ── Hint text at bottom of closed state ─────────────────────────── */
+    .accordion-hint {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 20px;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <iframe class="gwc-logo-frame" src="logo.html" title="GWC Logo" scrolling="no"></iframe>
+
+  <div class="page-header">
+    <div class="subtitle">Track record</div>
+    <h1>Our Accomplishments</h1>
+  </div>
+
+  <p class="accomplishments-intro">
+    If you've ever reached out to us for help or support, you know we are forever the fighters in your corner. We care about you all so much, sometimes it keeps us up at night. Before we joined the works council, we used to think "Who is looking out for us?". The world can be a hostile place, and sometimes even when everything seems to be going right, something goes wrong, and you just don't know where to turn.
+  </p>
+
+  <div class="accordion">
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- Pillar 1: The Fighters in Your Corner                      -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <details class="pillar--fighters" open>
+      <summary>
+        <div class="summary-icon">⚡</div>
+        <div class="summary-body">
+          <div class="summary-title">The Fighters in Your Corner</div>
+          <div class="summary-subtitle">Wilfredo · Kim · Daniel · Mahmoud · Veda · Bassma</div>
+        </div>
+        <span class="summary-count">12 accomplishments</span>
+      </summary>
+
+      <div class="accordion-body">
+
+        <div class="person-item">
+          <div class="person-name-row">
+            <div class="person-initial">WM</div>
+            <div class="person-name">Wilfredo Manrique</div>
+          </div>
+          <ul>
+            <li>Consistently voted against individual arbitrary dismissals and in favour of preserving jobs during restructuring and reorgs.</li>
+            <li>Initiated negotiations for a Special Leave Policy Works Agreement securing bereavement rights beyond the statutory minimum.</li>
+          </ul>
+        </div>
+
+        <div class="person-item">
+          <div class="person-name-row">
+            <div class="person-initial">KO</div>
+            <div class="person-name">Kim Ozor</div>
+          </div>
+          <ul>
+            <li>When a reorg threatened to move four teams to an entity with worse conditions (Saturday shifts, more office days), she successfully negotiated to keep the Monday-Friday schedule and port hybrid work charters to the new entity.</li>
+            <li>When her own job family was discontinued, fought for legal counsel, fair severance, and social funds for her colleagues.</li>
+          </ul>
+        </div>
+
+        <div class="person-item">
+          <div class="person-name-row">
+            <div class="person-initial">DC</div>
+            <div class="person-name">Daniel Calderon</div>
+          </div>
+          <ul>
+            <li>Maintained a high dismissal rejection rate on the Personnel Committee, ensuring every case receives maximum scrutiny.</li>
+            <li>On the IT &amp; Data Taskforce, negotiated strict limitations on employee monitoring tools (Palo Alto Cortex XDR, hybrid attendance tracking).</li>
+            <li>Stayed the course through years of complex negotiations on the Workday Time-Tracking Works Agreement and the Compliance Works Agreement.</li>
+          </ul>
+        </div>
+
+        <div class="person-item">
+          <div class="person-name-row">
+            <div class="person-initial">MG</div>
+            <div class="person-name">Mahmoud Gaballah</div>
+          </div>
+          <ul>
+            <li>A pioneer in the use of formal grievance procedures under Section 85, which had sat dormant since 2020, turning theoretical rights into a functional reality.</li>
+            <li>Leading negotiator in the 2026 reorganizations, consistently pushing for maximum legal and financial protections on dismissals and transfers.</li>
+            <li>A driver of the Internal Investigation Policy negotiations to ensure every colleague can exercise their legal rights to the fullest.</li>
+          </ul>
+        </div>
+
+        <div class="person-item">
+          <div class="person-name-row">
+            <div class="person-initial">VM</div>
+            <div class="person-name">Veda Maas</div>
+          </div>
+          <ul>
+            <li>Negotiated better packages and terms for 32 employees affected by the Project Nova restructuring.</li>
+            <li>Serves as substitute assessor on the Electronic Time Tracking conciliation board.</li>
+          </ul>
+        </div>
+
+        <div class="person-item">
+          <div class="person-name-row">
+            <div class="person-initial">BE</div>
+            <div class="person-name">Bassma Elrafie</div>
+          </div>
+          <ul>
+            <li>Extensive legal training on works council responsibilities and labour law brings zero-onboarding-needed expertise.</li>
+          </ul>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- Pillar 2: No One Left Behind                               -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <details class="pillar--nolb">
+      <summary>
+        <div class="summary-icon">🤝</div>
+        <div class="summary-body">
+          <div class="summary-title">No One Left Behind</div>
+          <div class="summary-subtitle">Wilfredo · Kim · Mahmoud · Veda · Bassma</div>
+        </div>
+        <span class="summary-count">11 accomplishments</span>
+      </summary>
+
+      <div class="accordion-body">
+
+        <div class="person-item">
+          <div class="person-name-row">
+            <div class="person-initial">WM</div>
+            <div class="person-name">Wilfredo Manrique</div>
+          </div>
+          <ul>
+            <li>Provided immediate individual support for parents, caregivers, LGBTQIA+, international, and disabled employees navigating Performance Support Plans (PSPs).</li>
+            <li>Served as WoCo companion during BEM (re-integration after sick leave). Prioritised employee agency and health over output pressure.</li>
+            <li>Voting member on the Corona and Program23 Social Funds, approving direct financial relief for employees in crisis.</li>
+          </ul>
+        </div>
+
+        <div class="person-item">
+          <div class="person-name-row">
+            <div class="person-initial">KO</div>
+            <div class="person-name">Kim Ozor</div>
+          </div>
+          <ul>
+            <li>Secured a dog-free, allergy-safe zone on BHW 6th floor after a colleague could no longer safely come to the office.</li>
+            <li>Facilitated exception payments for employees who fell through the gap between the old and new home office furniture policy.</li>
+            <li>Secured changing cabins at the workplace gym so everyone can use the shared space safely.</li>
+            <li>As Chair of the D&amp;I Committee and Speaker of the D&amp;I Working Group, kept pressure on the Internal Investigations Policy and ensured inclusion stays a practice, not a buzzword.</li>
+          </ul>
+        </div>
+
+        <div class="person-item">
+          <div class="person-name-row">
+            <div class="person-initial">MG</div>
+            <div class="person-name">Mahmoud Gaballah</div>
+          </div>
+          <ul>
+            <li>Co-founded the D&amp;I Committee, partnering with specialist organisations to build awareness, sensitivity, and a legal/psychological support network for employees facing harassment or unfair treatment.</li>
+            <li>Personally handled multiple grievances using all available legal instruments.</li>
+          </ul>
+        </div>
+
+        <div class="person-item">
+          <div class="person-name-row">
+            <div class="person-initial">VM</div>
+            <div class="person-name">Veda Maas</div>
+          </div>
+          <ul>
+            <li>Project Nova: negotiated better packages specifically for the 32 affected employees, as individuals.</li>
+          </ul>
+        </div>
+
+        <div class="person-item">
+          <div class="person-name-row">
+            <div class="person-initial">BE</div>
+            <div class="person-name">Bassma Elrafie</div>
+          </div>
+          <ul>
+            <li>Active in the Health Committee, supporting employee well-being initiatives; frames her candidacy explicitly around delivering better outcomes for a broader range of employees.</li>
+          </ul>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- Pillar 3: Radical Transparency                             -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <details class="pillar--transparency">
+      <summary>
+        <div class="summary-icon">🔎</div>
+        <div class="summary-body">
+          <div class="summary-title">Radical Transparency</div>
+          <div class="summary-subtitle">Daniel · Kim · Veda</div>
+        </div>
+        <span class="summary-count">5 accomplishments</span>
+      </summary>
+
+      <div class="accordion-body">
+
+        <div class="person-item">
+          <div class="person-name-row">
+            <div class="person-initial">DC</div>
+            <div class="person-name">Daniel Calderon</div>
+          </div>
+          <ul>
+            <li>Spoke at nearly every Employee Assembly and personally guided 100+ colleagues through complex consultation cases, making the WoCo visible and accessible.</li>
+            <li>As the driving force behind the Petitions Process, turned employee ideas into concrete, actionable outcomes on the WoCo agenda.</li>
+            <li>Explicitly frames his work around making the workplace "fairer and more transparent".</li>
+          </ul>
+        </div>
+
+        <div class="person-item">
+          <div class="person-name-row">
+            <div class="person-initial">KO</div>
+            <div class="person-name">Kim Ozor</div>
+          </div>
+          <ul>
+            <li>As Vice-Chair of the Petitions Committee, acted as petition ghostwriter for colleagues who had concerns but did not know how to formalise them — lowering the barrier to having your voice heard.</li>
+          </ul>
+        </div>
+
+        <div class="person-item">
+          <div class="person-name-row">
+            <div class="person-initial">VM</div>
+            <div class="person-name">Veda Maas</div>
+          </div>
+          <ul>
+            <li>Explicitly rejects obfuscation and political maneuvering and frames her entire approach around employees deserving the truth and clear rationale for decisions.</li>
+          </ul>
+        </div>
+
+      </div>
+    </details>
+
+  </div><!-- /accordion -->
+
+  <p class="accordion-hint">Tap any pillar header to expand or collapse</p>
+
+  <!-- ── Closing banner ──────────────────────────────────────────── -->
+  <div class="closing-banner">
+    <div class="closing-banner-text">
+      <div class="vote-line">Works Council Election 2026</div>
+      <div class="voice-line"><span>A Works Council That Stands for You</span></div>
+      <div class="intl-line">Global Workforce Community</div>
+    </div>
+  </div>
+
+</body>
+</html>

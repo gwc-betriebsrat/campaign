@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GWC — Our Accomplishments (Card Grid)</title>
+  <link rel="stylesheet" href="../../shared/_shared.css" />
+  <style>
+    /* ── Color tokens ────────────────────────────────────────────────── */
+    :root {
+      --lavender:      #9A9CF5;
+      --lavender-bg:   #f3f3fe;
+      --lavender-mid:  #d0d1fb;
+      --peach:         #F5BB9A;
+      --peach-bg:      #fef7f2;
+      --peach-mid:     #f8d4b6;
+      --steel:         #5576A4;
+      --steel-bg:      #edf1f8;
+      --steel-mid:     #bfcfe5;
+      --green:         #B1F59A;
+      --gold:          #F5D67A;
+      --brown:         #755648;
+    }
+
+    /* ── Intro ───────────────────────────────────────────────────────── */
+    .accomplishments-intro {
+      font-size: 0.93rem;
+      color: var(--mid);
+      line-height: 1.85;
+      margin-bottom: 36px;
+      border-left: 3px solid var(--red-dim);
+      padding-left: 16px;
+    }
+
+    /* ── Bento grid ──────────────────────────────────────────────────── */
+    .bento-section {
+      margin-bottom: 40px;
+    }
+
+    /* Pillar header card — full width */
+    .pillar-header-card {
+      border-radius: var(--radius-lg);
+      padding: 22px 26px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .pillar--fighters  .pillar-header-card { background: var(--lavender); }
+    .pillar--nolb      .pillar-header-card { background: var(--peach); }
+    .pillar--transparency .pillar-header-card { background: var(--steel); }
+
+    .pillar-header-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+
+    .pillar-header-text {}
+
+    .pillar-header-title {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .pillar--nolb .pillar-header-title { color: #3a1a00; }
+
+    .pillar-header-meta {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.8);
+      margin-top: 3px;
+    }
+
+    .pillar--nolb .pillar-header-meta { color: rgba(0,0,0,0.45); }
+
+    /* ── Card grid ───────────────────────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 10px;
+    }
+
+    /* ── Individual accomplishment card ──────────────────────────────── */
+    .acc-card {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px 16px 16px 20px;
+      border-left: 4px solid;
+      position: relative;
+      transition: box-shadow 0.18s, transform 0.18s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .acc-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    /* Pillar-specific border accent */
+    .pillar--fighters  .acc-card { border-left-color: var(--lavender); }
+    .pillar--nolb      .acc-card { border-left-color: var(--peach); }
+    .pillar--transparency .acc-card { border-left-color: var(--steel); }
+
+    /* ── Card person tag ─────────────────────────────────────────────── */
+    .card-person {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 900;
+      flex-shrink: 0;
+      color: #fff;
+    }
+
+    /* Person color coding */
+    .avatar--wm { background: #9A9CF5; }
+    .avatar--ko { background: #F5BB9A; color: #3a1a00; }
+    .avatar--dc { background: #5576A4; }
+    .avatar--mg { background: #B22222; }
+    .avatar--vm { background: #755648; }
+    .avatar--be { background: #B1F59A; color: #2a5a1a; }
+
+    .card-person-name {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Card body text ──────────────────────────────────────────────── */
+    .card-text {
+      font-size: 0.85rem;
+      color: var(--mid);
+      line-height: 1.72;
+      flex: 1;
+    }
+
+    /* ── Card that spans 2 columns (for long entries) ────────────────── */
+    .acc-card--wide {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 560px) {
+      .acc-card--wide { grid-column: span 1; }
+    }
+
+    /* ── People legend ───────────────────────────────────────────────── */
+    .people-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+      padding: 16px 18px;
+      background: var(--bg-soft);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+    }
+
+    .legend-person {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .legend-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <iframe class="gwc-logo-frame" src="logo.html" title="GWC Logo" scrolling="no"></iframe>
+
+  <div class="page-header">
+    <div class="subtitle">Track record</div>
+    <h1>Our Accomplishments</h1>
+  </div>
+
+  <p class="accomplishments-intro">
+    If you've ever reached out to us for help or support, you know we are forever the fighters in your corner. We care about you all so much, sometimes it keeps us up at night. Before we joined the works council, we used to think "Who is looking out for us?". The world can be a hostile place, and sometimes even when everything seems to be going right, something goes wrong, and you just don't know where to turn.
+  </p>
+
+  <!-- People color key -->
+  <div class="people-legend">
+    <div class="legend-person">
+      <div class="legend-dot avatar--wm">WM</div>Wilfredo Manrique
+    </div>
+    <div class="legend-person">
+      <div class="legend-dot avatar--ko">KO</div>Kim Ozor
+    </div>
+    <div class="legend-person">
+      <div class="legend-dot avatar--dc">DC</div>Daniel Calderon
+    </div>
+    <div class="legend-person">
+      <div class="legend-dot avatar--mg">MG</div>Mahmoud Gaballah
+    </div>
+    <div class="legend-person">
+      <div class="legend-dot avatar--vm">VM</div>Veda Maas
+    </div>
+    <div class="legend-person">
+      <div class="legend-dot avatar--be">BE</div>Bassma Elrafie
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- Pillar 1: The Fighters in Your Corner                    -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div class="bento-section pillar--fighters">
+    <div class="pillar-header-card">
+      <div class="pillar-header-icon">⚡</div>
+      <div class="pillar-header-text">
+        <div class="pillar-header-title">The Fighters in Your Corner</div>
+        <div class="pillar-header-meta">Wilfredo · Kim · Daniel · Mahmoud · Veda · Bassma — 12 accomplishments</div>
+      </div>
+    </div>
+
+    <div class="card-grid">
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--wm">WM</div>
+          <div class="card-person-name">Wilfredo Manrique</div>
+        </div>
+        <div class="card-text">Consistently voted against individual arbitrary dismissals and in favour of preserving jobs during restructuring and reorgs.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--wm">WM</div>
+          <div class="card-person-name">Wilfredo Manrique</div>
+        </div>
+        <div class="card-text">Initiated negotiations for a Special Leave Policy Works Agreement securing bereavement rights beyond the statutory minimum.</div>
+      </div>
+
+      <div class="acc-card acc-card--wide">
+        <div class="card-person">
+          <div class="card-avatar avatar--ko">KO</div>
+          <div class="card-person-name">Kim Ozor</div>
+        </div>
+        <div class="card-text">When a reorg threatened to move four teams to an entity with worse conditions (Saturday shifts, more office days), she successfully negotiated to keep the Monday-Friday schedule and port hybrid work charters to the new entity.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--ko">KO</div>
+          <div class="card-person-name">Kim Ozor</div>
+        </div>
+        <div class="card-text">When her own job family was discontinued, fought for legal counsel, fair severance, and social funds for her colleagues.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--dc">DC</div>
+          <div class="card-person-name">Daniel Calderon</div>
+        </div>
+        <div class="card-text">Maintained a high dismissal rejection rate on the Personnel Committee, ensuring every case receives maximum scrutiny.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--dc">DC</div>
+          <div class="card-person-name">Daniel Calderon</div>
+        </div>
+        <div class="card-text">On the IT &amp; Data Taskforce, negotiated strict limitations on employee monitoring tools (Palo Alto Cortex XDR, hybrid attendance tracking).</div>
+      </div>
+
+      <div class="acc-card acc-card--wide">
+        <div class="card-person">
+          <div class="card-avatar avatar--dc">DC</div>
+          <div class="card-person-name">Daniel Calderon</div>
+        </div>
+        <div class="card-text">Stayed the course through years of complex negotiations on the Workday Time-Tracking Works Agreement and the Compliance Works Agreement.</div>
+      </div>
+
+      <div class="acc-card acc-card--wide">
+        <div class="card-person">
+          <div class="card-avatar avatar--mg">MG</div>
+          <div class="card-person-name">Mahmoud Gaballah</div>
+        </div>
+        <div class="card-text">A pioneer in the use of formal grievance procedures under Section 85, which had sat dormant since 2020, turning theoretical rights into a functional reality.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--mg">MG</div>
+          <div class="card-person-name">Mahmoud Gaballah</div>
+        </div>
+        <div class="card-text">Leading negotiator in the 2026 reorganizations, consistently pushing for maximum legal and financial protections on dismissals and transfers.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--mg">MG</div>
+          <div class="card-person-name">Mahmoud Gaballah</div>
+        </div>
+        <div class="card-text">A driver of the Internal Investigation Policy negotiations to ensure every colleague can exercise their legal rights to the fullest.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--vm">VM</div>
+          <div class="card-person-name">Veda Maas</div>
+        </div>
+        <div class="card-text">Negotiated better packages and terms for 32 employees affected by the Project Nova restructuring.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--vm">VM</div>
+          <div class="card-person-name">Veda Maas</div>
+        </div>
+        <div class="card-text">Serves as substitute assessor on the Electronic Time Tracking conciliation board.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--be">BE</div>
+          <div class="card-person-name">Bassma Elrafie</div>
+        </div>
+        <div class="card-text">Extensive legal training on works council responsibilities and labour law brings zero-onboarding-needed expertise.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- Pillar 2: No One Left Behind                             -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div class="bento-section pillar--nolb">
+    <div class="pillar-header-card">
+      <div class="pillar-header-icon">🤝</div>
+      <div class="pillar-header-text">
+        <div class="pillar-header-title">No One Left Behind</div>
+        <div class="pillar-header-meta">Wilfredo · Kim · Mahmoud · Veda · Bassma — 11 accomplishments</div>
+      </div>
+    </div>
+
+    <div class="card-grid">
+
+      <div class="acc-card acc-card--wide">
+        <div class="card-person">
+          <div class="card-avatar avatar--wm">WM</div>
+          <div class="card-person-name">Wilfredo Manrique</div>
+        </div>
+        <div class="card-text">Provided immediate individual support for parents, caregivers, LGBTQIA+, international, and disabled employees navigating Performance Support Plans (PSPs).</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--wm">WM</div>
+          <div class="card-person-name">Wilfredo Manrique</div>
+        </div>
+        <div class="card-text">Served as WoCo companion during BEM (re-integration after sick leave). Prioritised employee agency and health over output pressure.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--wm">WM</div>
+          <div class="card-person-name">Wilfredo Manrique</div>
+        </div>
+        <div class="card-text">Voting member on the Corona and Program23 Social Funds, approving direct financial relief for employees in crisis.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--ko">KO</div>
+          <div class="card-person-name">Kim Ozor</div>
+        </div>
+        <div class="card-text">Secured a dog-free, allergy-safe zone on BHW 6th floor after a colleague could no longer safely come to the office.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--ko">KO</div>
+          <div class="card-person-name">Kim Ozor</div>
+        </div>
+        <div class="card-text">Facilitated exception payments for employees who fell through the gap between the old and new home office furniture policy.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--ko">KO</div>
+          <div class="card-person-name">Kim Ozor</div>
+        </div>
+        <div class="card-text">Secured changing cabins at the workplace gym so everyone can use the shared space safely.</div>
+      </div>
+
+      <div class="acc-card acc-card--wide">
+        <div class="card-person">
+          <div class="card-avatar avatar--ko">KO</div>
+          <div class="card-person-name">Kim Ozor</div>
+        </div>
+        <div class="card-text">As Chair of the D&amp;I Committee and Speaker of the D&amp;I Working Group, kept pressure on the Internal Investigations Policy and ensured inclusion stays a practice, not a buzzword.</div>
+      </div>
+
+      <div class="acc-card acc-card--wide">
+        <div class="card-person">
+          <div class="card-avatar avatar--mg">MG</div>
+          <div class="card-person-name">Mahmoud Gaballah</div>
+        </div>
+        <div class="card-text">Co-founded the D&amp;I Committee, partnering with specialist organisations to build awareness, sensitivity, and a legal/psychological support network for employees facing harassment or unfair treatment.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--mg">MG</div>
+          <div class="card-person-name">Mahmoud Gaballah</div>
+        </div>
+        <div class="card-text">Personally handled multiple grievances using all available legal instruments.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--vm">VM</div>
+          <div class="card-person-name">Veda Maas</div>
+        </div>
+        <div class="card-text">Project Nova: negotiated better packages specifically for the 32 affected employees, as individuals.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--be">BE</div>
+          <div class="card-person-name">Bassma Elrafie</div>
+        </div>
+        <div class="card-text">Active in the Health Committee, supporting employee well-being initiatives; frames her candidacy explicitly around delivering better outcomes for a broader range of employees.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- Pillar 3: Radical Transparency                           -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div class="bento-section pillar--transparency">
+    <div class="pillar-header-card">
+      <div class="pillar-header-icon">🔎</div>
+      <div class="pillar-header-text">
+        <div class="pillar-header-title">Radical Transparency</div>
+        <div class="pillar-header-meta">Daniel · Kim · Veda — 5 accomplishments</div>
+      </div>
+    </div>
+
+    <div class="card-grid">
+
+      <div class="acc-card acc-card--wide">
+        <div class="card-person">
+          <div class="card-avatar avatar--dc">DC</div>
+          <div class="card-person-name">Daniel Calderon</div>
+        </div>
+        <div class="card-text">Spoke at nearly every Employee Assembly and personally guided 100+ colleagues through complex consultation cases, making the WoCo visible and accessible.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--dc">DC</div>
+          <div class="card-person-name">Daniel Calderon</div>
+        </div>
+        <div class="card-text">As the driving force behind the Petitions Process, turned employee ideas into concrete, actionable outcomes on the WoCo agenda.</div>
+      </div>
+
+      <div class="acc-card">
+        <div class="card-person">
+          <div class="card-avatar avatar--dc">DC</div>
+          <div class="card-person-name">Daniel Calderon</div>
+        </div>
+        <div class="card-text">Explicitly frames his work around making the workplace "fairer and more transparent".</div>
+      </div>
+
+      <div class="acc-card acc-card--wide">
+        <div class="card-person">
+          <div class="card-avatar avatar--ko">KO</div>
+          <div class="card-person-name">Kim Ozor</div>
+        </div>
+        <div class="card-text">As Vice-Chair of the Petitions Committee, acted as petition ghostwriter for colleagues who had concerns but did not know how to formalise them — lowering the barrier to having your voice heard.</div>
+      </div>
+
+      <div class="acc-card acc-card--wide">
+        <div class="card-person">
+          <div class="card-avatar avatar--vm">VM</div>
+          <div class="card-person-name">Veda Maas</div>
+        </div>
+        <div class="card-text">Explicitly rejects obfuscation and political maneuvering and frames her entire approach around employees deserving the truth and clear rationale for decisions.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Closing banner ──────────────────────────────────────────── -->
+  <div class="closing-banner">
+    <div class="closing-banner-text">
+      <div class="vote-line">Works Council Election 2026</div>
+      <div class="voice-line"><span>A Works Council That Stands for You</span></div>
+      <div class="intl-line">Global Workforce Community</div>
+    </div>
+  </div>
+
+</body>
+</html>
