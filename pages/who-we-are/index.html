@@ -1654,7 +1654,7 @@ const CANDIDATES = [
         scene.classList.add('inspecting');
 
         const bcEl = scene.querySelector('.back-content');
-        if (bcEl) bcEl.style.transform = 'scale(1)';
+        if (bcEl) bcEl.style.transform = `scale(${TW / 480})`;
 
         // Show back, hide front (no flip)
         const backEl  = scene.querySelector('.card-back');
@@ -1703,7 +1703,7 @@ const CANDIDATES = [
 
           // Scale back-content to full size immediately
           const bcEl = scene.querySelector('.back-content');
-          if (bcEl) bcEl.style.transform = 'scale(1)';
+          if (bcEl) bcEl.style.transform = `scale(${TW / 480})`;
 
           // Reveal back immediately so it's ready when the flip passes 90°
           const backEl  = scene.querySelector('.card-back');
