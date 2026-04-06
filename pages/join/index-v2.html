@@ -425,15 +425,17 @@
   <!-- ── Combined Vote CTA + Countdown ────────────────────────────────── -->
   <div class="section" style="margin-bottom:36px;">
 
-    <div id="vote-hero" style="background:var(--red);border-radius:var(--radius-lg);padding:28px 32px;margin-bottom:20px;">
-      <div style="font-size:0.75rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:8px;">Works Council Election 2026</div>
-      <div style="font-size:1.6rem;font-weight:900;color:#fff;line-height:1.25;margin-bottom:6px;">Your Vote is Your Voice.</div>
-      <div style="font-size:0.95rem;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:20px;">
-        This is your chance to stop watching from the sidelines and take an active role in shaping your workplace. When election day comes — vote for <strong style="color:#fff;">GWC</strong>.
+    <div id="vote-hero" style="border-radius:var(--radius-lg);overflow:hidden;margin-bottom:20px;">
+      <div style="background:var(--red);padding:28px 32px;">
+        <div style="font-size:0.75rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:8px;">Works Council Election 2026</div>
+        <div style="font-size:1.6rem;font-weight:900;color:#fff;line-height:1.25;margin-bottom:6px;">Your Vote is Your Voice.</div>
+        <div style="font-size:0.95rem;color:rgba(255,255,255,0.85);line-height:1.7;">
+          This is your chance to stop watching from the sidelines and take an active role in shaping your workplace. When election day comes — vote for <strong style="color:#fff;">GWC</strong>.
+        </div>
       </div>
 
       <!-- Countdown + date row -->
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.2);">
+      <div id="countdown-row" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:20px 32px;background:linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">
         <div>
           <div class="countdown-label" style="color:rgba(255,255,255,0.6);">Election starts in</div>
           <div class="countdown-timer" id="countdown">
@@ -707,7 +709,7 @@
         if (now >= electionStart) {
           // Voting is live — change the hero
           document.getElementById('countdown').innerHTML = '<div style="font-size:1.3rem;font-weight:900;color:#fff;">🗳️ Voting is LIVE — go vote for List 3!</div>';
-          document.getElementById('vote-hero').style.background = 'linear-gradient(135deg, #1a6b1a 0%, #2d8a2d 100%)';
+          document.getElementById('countdown-row').style.background = 'linear-gradient(135deg, #1a6b1a 0%, #2d8a2d 100%)';
           return;
         }
         const diff = electionStart - now;
