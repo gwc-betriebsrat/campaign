@@ -301,27 +301,40 @@
 
     .countdown-timer {
       display: flex;
-      gap: 16px;
+      gap: 10px;
     }
 
     .countdown-unit {
       text-align: center;
+      background: rgba(0,0,0,0.25);
+      border-radius: 8px;
+      padding: 10px 14px 8px;
+      min-width: 56px;
     }
 
     .countdown-value {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       font-weight: 900;
       line-height: 1;
-      color: #fff;
+      color: #F5D67A;
+      font-variant-numeric: tabular-nums;
     }
 
     .countdown-unit-label {
-      font-size: 0.6rem;
+      font-size: 0.58rem;
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
       color: rgba(255,255,255,0.5);
-      margin-top: 4px;
+      margin-top: 6px;
+    }
+
+    .countdown-separator {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: rgba(255,255,255,0.3);
+      align-self: center;
+      margin-top: -8px;
     }
 
     .vote-date {
@@ -424,14 +437,17 @@
               <div class="countdown-value" id="cd-days">--</div>
               <div class="countdown-unit-label">Days</div>
             </div>
+            <div class="countdown-separator">:</div>
             <div class="countdown-unit">
               <div class="countdown-value" id="cd-hours">--</div>
               <div class="countdown-unit-label">Hours</div>
             </div>
+            <div class="countdown-separator">:</div>
             <div class="countdown-unit">
               <div class="countdown-value" id="cd-mins">--</div>
               <div class="countdown-unit-label">Min</div>
             </div>
+            <div class="countdown-separator">:</div>
             <div class="countdown-unit">
               <div class="countdown-value" id="cd-secs">--</div>
               <div class="countdown-unit-label">Sec</div>
@@ -672,8 +688,11 @@
 
     /* ── Countdown timer ──────────────────────────────────────────── */
     (function countdown() {
-      const electionStart = new Date('2026-05-05T08:00:00+02:00');
-      const electionEnd   = new Date('2026-05-08T18:00:00+02:00');
+      // DEBUG: 10 seconds from now for testing. Revert to real dates before go-live.
+      const electionStart = new Date(Date.now() + 10000);
+      const electionEnd   = new Date(Date.now() + 20000);
+      // const electionStart = new Date('2026-05-05T08:00:00+02:00');
+      // const electionEnd   = new Date('2026-05-08T18:00:00+02:00');
       function tick() {
         const now = new Date();
         if (now >= electionEnd) {
