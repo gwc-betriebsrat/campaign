@@ -425,7 +425,7 @@
   <!-- ── Combined Vote CTA + Countdown ────────────────────────────────── -->
   <div class="section" style="margin-bottom:36px;">
 
-    <div id="vote-hero" style="border-radius:var(--radius-lg);overflow:hidden;margin-bottom:20px;background:linear-gradient(180deg, #b22222 0%, #7a1a1a 55%, #1a1a2e 100%);">
+    <div id="vote-hero" style="border-radius:var(--radius-lg);overflow:hidden;margin-bottom:20px;background:linear-gradient(180deg, #b22222 0%, #7a1a1a 35%, #1a1a2e 75%);">
       <div style="padding:28px 32px;">
         <div style="font-size:0.75rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:8px;">Works Council Election 2026</div>
         <div style="font-size:1.6rem;font-weight:900;color:#fff;line-height:1.25;margin-bottom:6px;">Your Vote is Your Voice.</div>
@@ -709,7 +709,8 @@
         if (now >= electionStart) {
           // Voting is live — change the hero
           document.getElementById('countdown').innerHTML = '<div style="font-size:1.3rem;font-weight:900;color:#fff;">🗳️ Voting is LIVE — go vote for List 3!</div>';
-          document.getElementById('countdown-row').style.background = 'linear-gradient(135deg, #1a6b1a 0%, #2d8a2d 100%)';
+          document.getElementById('countdown-row').style.background = 'rgba(30,120,50,0.5)';
+          document.getElementById('countdown-row').style.borderTop = '1px solid rgba(255,255,255,0.1)';
           return;
         }
         const diff = electionStart - now;
