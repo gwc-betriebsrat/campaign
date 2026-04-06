@@ -308,15 +308,13 @@
       text-align: center;
       background: rgba(255,255,255,0.15);
       border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 10px;
-      padding: 12px 14px 10px;
-      min-width: 58px;
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      border-radius: 6px;
+      padding: 6px 10px 5px;
+      min-width: 42px;
     }
 
     .countdown-value {
-      font-size: 1.5rem;
+      font-size: 1.1rem;
       font-weight: 900;
       line-height: 1;
       color: #fff;
@@ -324,20 +322,20 @@
     }
 
     .countdown-unit-label {
-      font-size: 0.55rem;
+      font-size: 0.48rem;
       font-weight: 700;
-      letter-spacing: 1.2px;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
-      margin-top: 6px;
+      color: rgba(255,255,255,0.45);
+      margin-top: 3px;
     }
 
     .countdown-separator {
-      font-size: 1.3rem;
+      font-size: 1rem;
       font-weight: 300;
-      color: rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.3);
       align-self: center;
-      margin-top: -8px;
+      margin-top: -6px;
     }
 
     .vote-date {
@@ -422,48 +420,46 @@
     <div class="list-badge-name">Global Workforce Community</div>
   </div>
 
-  <!-- ── Combined Vote CTA + Countdown ────────────────────────────────── -->
-  <div class="section" style="margin-bottom:36px;">
-
-    <div id="vote-hero" style="border-radius:var(--radius-lg);overflow:hidden;margin-bottom:20px;background:linear-gradient(180deg, #b22222 0%, #7a1a1a 35%, #1a1a2e 75%);">
-      <div style="padding:28px 32px;">
-        <div style="font-size:0.75rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:8px;">Works Council Election 2026</div>
-        <div style="font-size:1.6rem;font-weight:900;color:#fff;line-height:1.25;margin-bottom:6px;">Your Vote is Your Voice.</div>
-        <div style="font-size:0.95rem;color:rgba(255,255,255,0.85);line-height:1.7;">
-          This is your chance to stop watching from the sidelines and take an active role in shaping your workplace. When election day comes — vote for <strong style="color:#fff;">GWC</strong>.
+  <!-- ── Countdown bar (thin, top) ─────────────────────────────────────── -->
+  <div id="countdown-row" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:12px 20px;background:linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);border-radius:var(--radius-lg);margin-bottom:16px;">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div class="countdown-label" style="color:rgba(255,255,255,0.6);margin:0;">Election starts in</div>
+      <div class="countdown-timer" id="countdown">
+        <div class="countdown-unit">
+          <div class="countdown-value" id="cd-days">--</div>
+          <div class="countdown-unit-label">Days</div>
+        </div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-unit">
+          <div class="countdown-value" id="cd-hours">--</div>
+          <div class="countdown-unit-label">Hours</div>
+        </div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-unit">
+          <div class="countdown-value" id="cd-mins">--</div>
+          <div class="countdown-unit-label">Min</div>
+        </div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-unit">
+          <div class="countdown-value" id="cd-secs">--</div>
+          <div class="countdown-unit-label">Sec</div>
         </div>
       </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <div class="vote-date">📅 <span>5 – 8 May</span></div>
+      <a class="save-date-link" href="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=N3NvYmQ2cGg0dnFjbTQ1NG9pbWVkOXN0ZzcgY18xYjE0NjQ5YjliMmU5NTM3YTFhMWNlYWI0ZjJjYzNmYjRhNDNkZGU5ZWMwMzliZjZmMDhhOWVmNmI0YWMxODFmQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20%3D&tmsrc=c_1b14649b9b2e9537a1a1ceab4f2cc3fb4a43dde9ec039bf6f08a9ef6b4ac181f%40group.calendar.google.com" target="_blank">📌 Save the date →</a>
+    </div>
+  </div>
 
-      <!-- Countdown + date row -->
-      <div id="countdown-row" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:20px 32px;">
-        <div>
-          <div class="countdown-label" style="color:rgba(255,255,255,0.6);">Election starts in</div>
-          <div class="countdown-timer" id="countdown">
-            <div class="countdown-unit">
-              <div class="countdown-value" id="cd-days">--</div>
-              <div class="countdown-unit-label">Days</div>
-            </div>
-            <div class="countdown-separator">:</div>
-            <div class="countdown-unit">
-              <div class="countdown-value" id="cd-hours">--</div>
-              <div class="countdown-unit-label">Hours</div>
-            </div>
-            <div class="countdown-separator">:</div>
-            <div class="countdown-unit">
-              <div class="countdown-value" id="cd-mins">--</div>
-              <div class="countdown-unit-label">Min</div>
-            </div>
-            <div class="countdown-separator">:</div>
-            <div class="countdown-unit">
-              <div class="countdown-value" id="cd-secs">--</div>
-              <div class="countdown-unit-label">Sec</div>
-            </div>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
-          <div class="vote-date">📅 Voting: <span>5 – 8 May 2026</span></div>
-          <a class="save-date-link" href="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=N3NvYmQ2cGg0dnFjbTQ1NG9pbWVkOXN0ZzcgY18xYjE0NjQ5YjliMmU5NTM3YTFhMWNlYWI0ZjJjYzNmYjRhNDNkZGU5ZWMwMzliZjZmMDhhOWVmNmI0YWMxODFmQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20%3D&tmsrc=c_1b14649b9b2e9537a1a1ceab4f2cc3fb4a43dde9ec039bf6f08a9ef6b4ac181f%40group.calendar.google.com" target="_blank">📌 Save the date →</a>
-        </div>
+  <!-- ── Vote CTA ─────────────────────────────────────────────────────── -->
+  <div class="section" style="margin-bottom:36px;">
+
+    <div id="vote-hero" style="background:var(--red);border-radius:var(--radius-lg);padding:28px 32px;margin-bottom:20px;">
+      <div style="font-size:0.75rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:8px;">Works Council Election 2026</div>
+      <div style="font-size:1.6rem;font-weight:900;color:#fff;line-height:1.25;margin-bottom:6px;">Your Vote is Your Voice.</div>
+      <div style="font-size:0.95rem;color:rgba(255,255,255,0.85);line-height:1.7;">
+        This is your chance to stop watching from the sidelines and take an active role in shaping your workplace. When election day comes — vote for <strong style="color:#fff;">GWC</strong>.
       </div>
     </div>
 
