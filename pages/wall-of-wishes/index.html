@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GWC - Wall of Wishes</title>
+  <link rel="stylesheet" href="../../shared/_shared.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Page intro ──────────────────────────────────────────────────── */
+    .wall-intro {
+      font-size: 0.95rem;
+      color: var(--mid);
+      line-height: 1.85;
+      margin-bottom: 24px;
+    }
+
+    .wall-intro strong { color: var(--dark); }
+
+    /* ── Submit form (top) ───────────────────────────────────────────── */
+    .wish-form {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px 24px;
+      margin-bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .wish-form-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 4px;
+    }
+
+    .wish-form-subtitle {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1.3;
+    }
+
+    .wish-form textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-size: 0.92rem;
+      color: var(--dark);
+      background: #fff;
+      outline: none;
+      resize: vertical;
+      min-height: 80px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .wish-form textarea:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px var(--red-dim);
+    }
+
+    .wish-form input[type="text"] {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-size: 0.88rem;
+      color: var(--dark);
+      background: #fff;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .wish-form input[type="text"]:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px var(--red-dim);
+    }
+
+    .wish-form .form-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .wish-form .form-row > input[type="text"] {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .wish-form button {
+      padding: 11px 22px;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      white-space: nowrap;
+    }
+
+    .wish-form button:hover { background: #9a1c1c; }
+    .wish-form button:active { transform: scale(0.98); }
+    .wish-form button:disabled { background: #ccc; cursor: not-allowed; }
+
+    .wish-form .char-count {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: right;
+      margin-top: -6px;
+    }
+
+    .wish-form .char-count.over { color: var(--red); }
+
+    .wish-form-success {
+      display: none;
+      background: #e8f5e9;
+      border: 1px solid #a5d6a7;
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      color: #1b5e20;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .wish-form-success.show { display: block; }
+
+    /* ── The wall ────────────────────────────────────────────────────── */
+    .wall-section-title {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .wall-section-title::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+    }
+
+    .wall-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .wall {
+      position: relative;
+      background:
+        radial-gradient(ellipse at top, rgba(255,255,255,0.4) 0%, transparent 70%),
+        repeating-radial-gradient(circle at 30% 40%, #c79968 0px, #b88955 2px, #c79968 4px),
+        #b88955;
+      background-blend-mode: overlay, normal, normal;
+      border-radius: var(--radius-lg);
+      padding: 30px 20px 40px;
+      box-shadow:
+        inset 0 0 80px rgba(0,0,0,0.25),
+        inset 0 0 0 6px #8b6840,
+        0 4px 20px rgba(0,0,0,0.15);
+      min-height: 400px;
+    }
+
+    .wall-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 24px 18px;
+    }
+
+    /* ── Post-it note ────────────────────────────────────────────────── */
+    .wish {
+      position: relative;
+      padding: 18px 16px 22px;
+      min-height: 140px;
+      box-shadow:
+        2px 4px 8px rgba(0,0,0,0.18),
+        0 0 0 1px rgba(0,0,0,0.04);
+      font-family: 'Caveat', 'Kalam', cursive;
+      color: #2a2a2a;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: default;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .wish:hover {
+      transform: rotate(0deg) scale(1.04) !important;
+      box-shadow: 4px 8px 16px rgba(0,0,0,0.25);
+      z-index: 5;
+    }
+
+    .wish-text {
+      font-size: 1.15rem;
+      line-height: 1.35;
+      font-weight: 500;
+      flex: 1;
+    }
+
+    .wish-author {
+      font-size: 0.85rem;
+      color: rgba(0,0,0,0.55);
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      align-self: flex-end;
+    }
+
+    /* Post-it tape strip at top */
+    .wish::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      width: 56px;
+      height: 14px;
+      background: rgba(220,210,180,0.7);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      border-radius: 1px;
+    }
+
+    /* Color variants */
+    .wish--yellow { background: #FFF59D; }
+    .wish--peach  { background: #F5BB9A; }
+    .wish--lavender { background: #C7C9F9; }
+    .wish--mint   { background: #B1F59A; }
+    .wish--gold   { background: #F5D67A; }
+    .wish--pink   { background: #F5B5C6; }
+    .wish--blue   { background: #A7C8F2; }
+
+    /* Random rotation classes (we'll set inline as well via JS) */
+    .wish--r1 { transform: rotate(-3deg); }
+    .wish--r2 { transform: rotate(2deg); }
+    .wish--r3 { transform: rotate(-1deg); }
+    .wish--r4 { transform: rotate(4deg); }
+    .wish--r5 { transform: rotate(-5deg); }
+    .wish--r6 { transform: rotate(1deg); }
+
+    .wall-empty {
+      text-align: center;
+      padding: 40px 20px;
+      color: rgba(255,255,255,0.85);
+      font-family: 'Caveat', cursive;
+      font-size: 1.4rem;
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .wall-loading {
+      text-align: center;
+      padding: 40px 20px;
+      color: rgba(255,255,255,0.85);
+      font-size: 0.9rem;
+    }
+
+    /* ── List 3 badge (floating) ───────────────────────────────────── */
+    .list-badge {
+      position: fixed; top: 16px; right: 16px; z-index: 50;
+      background: var(--red); color: #fff; border-radius: 12px;
+      padding: 10px 16px; text-align: center;
+      box-shadow: 0 4px 20px rgba(178,34,34,0.3); line-height: 1.2;
+    }
+    .list-badge-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.8; }
+    .list-badge-number { font-size: 1.8rem; font-weight: 900; }
+    .list-badge-name { font-size: 0.55rem; font-weight: 600; letter-spacing: 0.5px; opacity: 0.75; }
+    @media (max-width: 600px) {
+      .list-badge { top: 8px; right: 8px; padding: 5px 9px; border-radius: 8px; }
+      .list-badge-label { font-size: 0.5rem; letter-spacing: 1px; }
+      .list-badge-number { font-size: 1rem; }
+      .list-badge-name { font-size: 0.42rem; letter-spacing: 0.3px; }
+    }
+
+    /* ── Toast ──────────────────────────────────────────────────────── */
+    #wow-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--dark);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 100;
+    }
+    #wow-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    #wow-toast.error { background: #9a1c1c; }
+  </style>
+</head>
+<body>
+
+  <div class="list-badge">
+    <div class="list-badge-label">Vote for</div>
+    <div class="list-badge-number">List 3</div>
+    <div class="list-badge-name">Global Workforce Community</div>
+  </div>
+
+  <iframe class="gwc-logo-frame" src="logo.html" title="GWC Logo" scrolling="no"></iframe>
+
+  <div class="page-header">
+    <div class="subtitle">Your voice matters</div>
+    <h1>Wall of Wishes</h1>
+  </div>
+
+  <p class="wall-intro">
+    If you were in the Works Council for a day, what would <strong>you</strong> change? Write a wish, share an idea, name a frustration that needs fixing. Every wish on this wall shapes what we fight for. Big or small, anonymous or signed - we're listening.
+  </p>
+
+  <!-- ── Submit form ─────────────────────────────────────────────────── -->
+  <form class="wish-form" id="wish-form" onsubmit="submitWish(event)">
+    <div class="wish-form-title">Add your wish</div>
+    <div class="wish-form-subtitle">If I were in the Works Council for a day, I would...</div>
+    <textarea id="wish-text" placeholder="...change something. Type your wish here." required maxlength="280"></textarea>
+    <div class="char-count" id="char-count">280 characters left</div>
+    <div class="form-row">
+      <input type="text" id="wish-author" placeholder="Your name (optional - leave blank to post anonymously)" maxlength="40" />
+      <button type="submit" id="wish-submit">Pin to wall →</button>
+    </div>
+    <div class="wish-form-success" id="wish-form-success">
+      Thanks! Your wish has been pinned to the wall. (Refresh to see it appear.)
+    </div>
+  </form>
+
+  <!-- ── The wall ────────────────────────────────────────────────────── -->
+  <h2 class="wall-section-title">The wall</h2>
+  <p class="wall-meta">Hover over a wish to read it more clearly. New wishes appear after a refresh.</p>
+
+  <div class="wall">
+    <div class="wall-grid" id="wall-grid">
+      <div class="wall-loading">Loading wishes...</div>
+    </div>
+  </div>
+
+  <!-- ── Closing banner ──────────────────────────────────────────────── -->
+  <div class="closing-banner">
+    <div class="closing-banner-text">
+      <div class="vote-line">Works Council Election 2026</div>
+      <div class="voice-line"><span>A Works Council That Stands for You</span></div>
+      <div class="intl-line">Global Workforce Community</div>
+    </div>
+  </div>
+
+  <div id="wow-toast"></div>
+
+  <script>
+    // ── Config ───────────────────────────────────────────────────────
+    const FORM_SUBMIT_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSe-eiMkanB8U4XmaOvTB2Cc9oVkeNFLxAdusnT_C3fVZdDnbQ/formResponse';
+    const ENTRY_WISH = 'entry.816398369';
+    const ENTRY_NAME = 'entry.1003119880';
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vShNq7Ixvd0MKhCkszo2zVl6rFDS2vkFMZ0hN1GylKgxfLfp5YG9aWZh51VQECoRTYE0jgD41sJOmKr/pub?gid=992292506&single=true&output=csv';
+
+    // ── Mock wishes (used until CSV is wired up) ─────────────────────
+    const MOCK_WISHES = [
+      { text: "Make 'I don't know' a valid answer in performance reviews.", author: "" },
+      { text: "Mandatory mental health days that don't count against sick leave.", author: "Anon" },
+      { text: "Fix the chairs in BHW 4F. Or at least let us know who to bribe.", author: "" },
+      { text: "Real career paths for non-engineering roles, not just 'figure it out yourself'.", author: "Maria" },
+      { text: "Bring back the all-hands Q&A. The written ones feel sanitised.", author: "" },
+      { text: "Better protection against opaque PIPs.", author: "" },
+      { text: "Stop announcing reorgs on Friday afternoons.", author: "Tired Engineer" },
+      { text: "Childcare allowance for parents of kids under 6.", author: "" },
+      { text: "Quiet rooms on every floor, not just one per building.", author: "" },
+      { text: "Fairer process for promotions - documented criteria, not vibes.", author: "" },
+      { text: "Make compensation bands public. The mystery hurts trust.", author: "" },
+      { text: "I want a Works Council that calls things by their name.", author: "" },
+    ];
+
+    // ── Toast ────────────────────────────────────────────────────────
+    function toast(msg, type) {
+      const el = document.getElementById('wow-toast');
+      el.textContent = msg;
+      el.className = 'show' + (type === 'error' ? ' error' : '');
+      clearTimeout(el._t);
+      el._t = setTimeout(() => { el.className = ''; }, 3500);
+    }
+
+    // ── Char count ───────────────────────────────────────────────────
+    const wishText = document.getElementById('wish-text');
+    const charCount = document.getElementById('char-count');
+    wishText.addEventListener('input', () => {
+      const left = 280 - wishText.value.length;
+      charCount.textContent = `${left} character${left === 1 ? '' : 's'} left`;
+      charCount.classList.toggle('over', left < 0);
+    });
+
+    // ── Submit wish ──────────────────────────────────────────────────
+    function submitWish(e) {
+      e.preventDefault();
+      const btn = document.getElementById('wish-submit');
+      const text = wishText.value.trim();
+      const author = document.getElementById('wish-author').value.trim();
+      if (!text) return;
+      btn.disabled = true;
+      btn.textContent = 'Pinning...';
+
+      const fd = new URLSearchParams();
+      fd.append(ENTRY_WISH, text);
+      fd.append(ENTRY_NAME, author);
+
+      const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 8000));
+      Promise.race([
+        fetch(FORM_SUBMIT_URL, { method: 'POST', mode: 'no-cors', body: fd }),
+        timeout
+      ]).then(() => {
+        document.getElementById('wish-form-success').classList.add('show');
+        wishText.value = '';
+        document.getElementById('wish-author').value = '';
+        charCount.textContent = '280 characters left';
+        // Optimistically add to the wall
+        addWishToWall({ text, author }, true);
+      }).catch(() => {
+        toast('Could not submit - please try again.', 'error');
+      }).finally(() => {
+        btn.disabled = false;
+        btn.textContent = 'Pin to wall →';
+      });
+    }
+
+    // ── Render the wall ──────────────────────────────────────────────
+    const COLORS = ['yellow', 'peach', 'lavender', 'mint', 'gold', 'pink', 'blue'];
+
+    function addWishToWall(wish, prepend) {
+      const grid = document.getElementById('wall-grid');
+      // Remove loading/empty state
+      const loading = grid.querySelector('.wall-loading, .wall-empty');
+      if (loading) loading.remove();
+
+      const note = document.createElement('div');
+      const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      const rotation = (Math.random() * 8 - 4).toFixed(1); // -4 to +4 deg
+      note.className = `wish wish--${color}`;
+      note.style.transform = `rotate(${rotation}deg)`;
+
+      const textEl = document.createElement('div');
+      textEl.className = 'wish-text';
+      textEl.textContent = wish.text;
+      note.appendChild(textEl);
+
+      if (wish.author && wish.author.trim()) {
+        const authorEl = document.createElement('div');
+        authorEl.className = 'wish-author';
+        authorEl.textContent = '— ' + wish.author.trim();
+        note.appendChild(authorEl);
+      }
+
+      if (prepend) {
+        grid.insertBefore(note, grid.firstChild);
+      } else {
+        grid.appendChild(note);
+      }
+    }
+
+    function renderWishes(wishes) {
+      const grid = document.getElementById('wall-grid');
+      grid.innerHTML = '';
+      if (!wishes || !wishes.length) {
+        grid.innerHTML = '<div class="wall-empty">The wall is empty - be the first to add a wish!</div>';
+        return;
+      }
+      // Shuffle a bit so order isn't strictly chronological (more wall-like)
+      const shuffled = [...wishes].sort(() => Math.random() - 0.5);
+      shuffled.forEach(w => addWishToWall(w, false));
+    }
+
+    // ── Load wishes ──────────────────────────────────────────────────
+    function loadWishes() {
+      if (!CSV_URL) {
+        // Fall back to mock data
+        renderWishes(MOCK_WISHES);
+        return;
+      }
+      fetch(CSV_URL)
+        .then(r => r.text())
+        .then(csv => {
+          const wishes = parseCSV(csv);
+          renderWishes(wishes);
+        })
+        .catch(() => {
+          renderWishes(MOCK_WISHES);
+        });
+    }
+
+    // Minimal CSV parser (handles quoted values, commas, newlines inside quotes)
+    function parseCSV(csv) {
+      const lines = [];
+      let cur = [];
+      let field = '';
+      let inQuotes = false;
+      for (let i = 0; i < csv.length; i++) {
+        const c = csv[i];
+        if (inQuotes) {
+          if (c === '"' && csv[i + 1] === '"') { field += '"'; i++; }
+          else if (c === '"') { inQuotes = false; }
+          else { field += c; }
+        } else {
+          if (c === '"') { inQuotes = true; }
+          else if (c === ',') { cur.push(field); field = ''; }
+          else if (c === '\n') { cur.push(field); lines.push(cur); cur = []; field = ''; }
+          else if (c === '\r') { /* skip */ }
+          else { field += c; }
+        }
+      }
+      if (field || cur.length) { cur.push(field); lines.push(cur); }
+      // Skip header row
+      const rows = lines.slice(1).filter(r => r.length >= 2 && r.some(v => v.trim()));
+      // Sheet columns: Timestamp, Wish, Name (adjust if different)
+      return rows.map(r => ({
+        text: (r[1] || '').trim(),
+        author: (r[2] || '').trim()
+      })).filter(w => w.text);
+    }
+
+    loadWishes();
+  </script>
+
+</body>
+</html>
