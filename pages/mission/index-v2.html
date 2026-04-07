@@ -181,7 +181,7 @@
       A Works Council That <span>Stands</span> for You
     </div>
 
-    <div class="intro-video" data-vimeo="globalworkforcecommunity/intro">
+    <div class="intro-video" data-vimeo="1180571084" data-vimeo-hash="1b23f4799b">
       <iframe src="about:blank" title="GWC intro video" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
     </div>
 
@@ -240,7 +240,7 @@
       Ein Betriebsrat der <span>für dich</span> einsteht
     </div>
 
-    <div class="intro-video" data-vimeo="globalworkforcecommunity/intro">
+    <div class="intro-video" data-vimeo="1180571084" data-vimeo-hash="1b23f4799b">
       <iframe src="about:blank" title="GWC intro video" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
     </div>
 
@@ -317,13 +317,10 @@
           const wrap = entry.target;
           const iframe = wrap.querySelector('iframe');
           if (!iframe) return;
-          const path = wrap.dataset.vimeo;
-          // Vimeo embed URL with autoplay, muted, looping
-          // Supports both numeric IDs (e.g. "123456789") and slugs (e.g. "globalworkforcecommunity/intro")
-          const isNumeric = /^\d+$/.test(path);
-          const src = isNumeric
-            ? `https://player.vimeo.com/video/${path}?autoplay=1&muted=1&loop=1&badge=0&autopause=0`
-            : `https://vimeo.com/${path}/embed?autoplay=1&muted=1&loop=1`;
+          const id = wrap.dataset.vimeo;
+          const hash = wrap.dataset.vimeoHash;
+          const hashParam = hash ? `&h=${hash}` : '';
+          const src = `https://player.vimeo.com/video/${id}?autoplay=1&muted=1&loop=1&badge=0&autopause=0${hashParam}`;
           if (entry.isIntersecting) {
             if (iframe.src === 'about:blank' || !iframe.src.includes('vimeo.com')) {
               iframe.src = src;
