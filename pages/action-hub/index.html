@@ -8,6 +8,13 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
+   SCROLLBAR HIDING (for iframe usage)
+   ============================================================ */
+html { scrollbar-width: none; scroll-behavior: smooth; }
+html::-webkit-scrollbar { display: none; }
+body { overflow-y: scroll; -ms-overflow-style: none; }
+
+/* ============================================================
    THEME TOKENS
    ============================================================ */
 .gwc-hub {
@@ -890,7 +897,9 @@
     </div>
 
   </div>
-</section> ===== -->
+</section>
+
+<!-- ===== CAMPAIGN SERIES ===== -->
 <section class="series-section" id="series">
   <div class="container">
     <div class="section-header">
@@ -902,7 +911,7 @@
 
     <div style="margin-top: 8px;">
 
-      <!-- The Case for Change -->
+      <!-- The Case for Change — April 7 -->
       <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <div class="series-card__status series-card__status--live" style="flex-shrink: 0;"></div>
         <span class="series-card__type series-card__type--video" style="flex-shrink: 0;">Video</span>
@@ -911,16 +920,7 @@
         <a href="#featured-video" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">Watch ↑</a>
       </div>
 
-      <!-- Standardized Reorgs Article -->
-      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
-        <div class="series-card__status series-card__status--soon" style="flex-shrink: 0;"></div>
-        <span class="series-card__type series-card__type--article" style="flex-shrink: 0;">Article</span>
-        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">Standardized Reorganizations</span>
-        <span style="font-size: 11px; color: var(--text-tertiary);">April 17</span>
-        <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="openCapture('Notify Publication Drops','Standardized Reorganizations');return false;">Notify me →</a>
-      </div>
-
-      <!-- The Accountability Gap -->
+      <!-- The Accountability Gap — April 13 -->
       <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <div class="series-card__status series-card__status--soon" style="flex-shrink: 0;"></div>
         <span class="series-card__type series-card__type--video" style="flex-shrink: 0;">Video</span>
@@ -929,7 +929,16 @@
         <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="openCapture('Notify Video Drops','The Accountability Gap');return false;">Notify me →</a>
       </div>
 
-      <!-- The Case for Change — Live Event -->
+      <!-- Redrawing the Line — April 14 -->
+      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+        <div class="series-card__status series-card__status--soon" style="flex-shrink: 0;"></div>
+        <span class="series-card__type series-card__type--article" style="flex-shrink: 0;">Article</span>
+        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">Redrawing the Line</span>
+        <span style="font-size: 11px; color: var(--text-tertiary);">April 14</span>
+        <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="openCapture('Notify Publication Drops','Redrawing the Line');return false;">Notify me →</a>
+      </div>
+
+      <!-- The Case for Change — Live Event — April 15 -->
       <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <div class="series-card__status series-card__status--soon" style="flex-shrink: 0;"></div>
         <span class="series-card__type" style="color: #1a6b8a; background: rgba(26,107,138,0.08); flex-shrink: 0;">Live Event</span>
@@ -938,13 +947,22 @@
         <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="openCapture('Book Event','The Case for Change — Live, April 15');return false;">Register →</a>
       </div>
 
-      <!-- The Protection Gap -->
+      <!-- The Protection Gap — April 17 -->
       <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <div class="series-card__status series-card__status--coming" style="flex-shrink: 0;"></div>
         <span class="series-card__type series-card__type--video" style="flex-shrink: 0;">Video</span>
         <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">The Protection Gap</span>
         <span style="font-size: 11px; color: var(--text-tertiary);">April 17</span>
         <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="openCapture('Notify Video Drops','The Protection Gap');return false;">Notify me →</a>
+      </div>
+
+      <!-- Standardized Reorganizations — April 17 -->
+      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+        <div class="series-card__status series-card__status--coming" style="flex-shrink: 0;"></div>
+        <span class="series-card__type series-card__type--article" style="flex-shrink: 0;">Article</span>
+        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">Standardized Reorganizations</span>
+        <span style="font-size: 11px; color: var(--text-tertiary);">April 17</span>
+        <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="openCapture('Notify Publication Drops','Standardized Reorganizations');return false;">Notify me →</a>
       </div>
 
       <!-- More coming -->
