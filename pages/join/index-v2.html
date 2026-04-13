@@ -429,19 +429,20 @@
 
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;">
 
-      <div style="padding:20px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--bg-soft);">
+      <div style="padding:20px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--bg-soft);display:flex;flex-direction:column;">
         <div style="font-size:0.75rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:8px;">How to vote</div>
-        <p style="font-size:0.88rem;color:var(--mid);line-height:1.75;margin:0;">
+        <p style="font-size:0.88rem;color:var(--mid);line-height:1.75;margin:0 0 10px;">
           Voting takes place <strong>onsite</strong> by default. You'll receive a physical ballot paper - find <strong>GWC</strong> on the list and make your mark.
         </p>
+        <a href="#voting-schedule" onclick="document.getElementById('voting-schedule').scrollIntoView({behavior:'smooth'});return false;" style="font-size:0.82rem;font-weight:700;color:var(--red);text-decoration:none;margin-top:auto;">See dates, times &amp; locations ↓</a>
       </div>
 
-      <div style="padding:20px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--bg-soft);">
+      <div style="padding:20px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--bg-soft);display:flex;flex-direction:column;">
         <div style="font-size:0.75rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Can't make it in?</div>
-        <p style="font-size:0.88rem;color:var(--mid);line-height:1.75;margin:0;">
+        <p style="font-size:0.88rem;color:var(--mid);line-height:1.75;margin:0 0 10px;">
           On long-term absence or working remotely that day? <strong>Proactively request a postal ballot</strong> from the Electoral Board - don't wait, deadlines are strict.
         </p>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScSLmTHmPT2LACePMpk2kFPf-Ufr0iLjvy_Rv_s3dx_sruCWA/viewform" target="_blank" style="display:inline-block;margin-top:12px;font-size:0.82rem;font-weight:700;color:var(--red);text-decoration:none;">Request postal ballot →</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScSLmTHmPT2LACePMpk2kFPf-Ufr0iLjvy_Rv_s3dx_sruCWA/viewform" target="_blank" style="font-size:0.82rem;font-weight:700;color:var(--red);text-decoration:none;margin-top:auto;">Request postal ballot →</a>
       </div>
 
       <div style="padding:20px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--bg-soft);">
@@ -453,6 +454,35 @@
 
     </div>
   </div>
+
+  <!-- ── Voting schedule ──────────────────────────────────────────────── -->
+  <div id="voting-schedule" style="margin-top:24px;border:1.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;">
+    <div style="padding:12px 20px;border-bottom:1px solid var(--border);background:var(--bg-soft);">
+      <div style="font-size:0.7rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);">Works Council Election 2026</div>
+      <div style="font-size:1rem;font-weight:900;color:var(--dark);margin-top:2px;">When &amp; Where to Vote</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
+      <div style="padding:16px 20px;border-right:1px solid var(--border);">
+        <div style="font-size:0.7rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--dark);margin-bottom:10px;">Schedule</div>
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-size:0.84rem;align-items:baseline;">
+          <span style="font-weight:700;color:var(--dark);">Tue 05.05</span><span style="color:var(--mid);">08:00 – 18:00</span>
+          <span style="font-weight:700;color:var(--dark);">Wed 06.05</span><span style="color:var(--mid);">08:00 – 18:00</span>
+          <span style="font-weight:700;color:var(--dark);">Thu 07.05</span><span style="color:var(--mid);">08:00 – 18:00</span>
+          <span style="font-weight:700;color:var(--dark);">Fri 08.05</span><span style="color:var(--mid);">10:00 – 13:00</span>
+        </div>
+      </div>
+      <div style="padding:16px 20px;">
+        <div style="font-size:0.7rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--dark);margin-bottom:10px;">Polling Stations</div>
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:0.84rem;align-items:baseline;">
+          <span style="font-weight:800;color:var(--red);">BHS-1-Q</span><span style="color:var(--mid);">Gauze</span>
+          <span style="font-weight:800;color:var(--red);">BHW-1</span><span style="color:var(--mid);">Summer Garden</span>
+          <span style="font-weight:800;color:var(--red);">BHQ-X-EG</span><span style="color:var(--mid);">Market Orang</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:28px;"></div>
 
   <p class="hero-intro">
     Want to make a difference beyond your vote? Join our team as a volunteer, or share your thoughts to help shape what we stand for.
