@@ -35,12 +35,13 @@ function publishWishes() {
     }
 
     const data = sheet.getDataRange().getValues();
-    // Row 0 = instruction banner, row 1 = headers (Wish, Name), rows 2+ = data
     const wishes = [];
-    for (let i = 2; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
       const text   = String(data[i][0] || '').trim();
       const author = String(data[i][1] || '').trim();
-      if (text) wishes.push({ text, author });
+      // Skip empty rows, the header row, and the instruction banner
+      if (!text || text === 'Wish') continue;
+      wishes.push({ text, author });
     }
 
     if (wishes.length === 0) {
