@@ -36,11 +36,11 @@ function publishWishes() {
 
     const data = sheet.getDataRange().getValues();
     const wishes = [];
-    for (let i = 0; i < data.length; i++) {
+    // Row 0 = instruction banner, row 1 = headers — skip both
+    for (let i = 2; i < data.length; i++) {
       const text   = String(data[i][0] || '').trim();
       const author = String(data[i][1] || '').trim();
-      // Skip empty rows, the header row, and the instruction banner
-      if (!text || text === 'Wish') continue;
+      if (!text) continue;
       wishes.push({ text, author });
     }
 
