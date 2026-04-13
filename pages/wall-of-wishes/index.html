@@ -341,7 +341,7 @@
       <button type="submit" id="wish-submit">Pin to wall →</button>
     </div>
     <div class="wish-form-success" id="wish-form-success">
-      Thanks! Your wish has been pinned to the wall. (Refresh to see it appear.)
+      Thanks! Your wish has been received. It'll appear on the wall once reviewed - usually within 24 hours.
     </div>
   </form>
 
@@ -371,7 +371,7 @@
     const FORM_SUBMIT_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSe-eiMkanB8U4XmaOvTB2Cc9oVkeNFLxAdusnT_C3fVZdDnbQ/formResponse';
     const ENTRY_WISH = 'entry.816398369';
     const ENTRY_NAME = 'entry.1003119880';
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vShNq7Ixvd0MKhCkszo2zVl6rFDS2vkFMZ0hN1GylKgxfLfp5YG9aWZh51VQECoRTYE0jgD41sJOmKr/pub?gid=992292506&single=true&output=csv';
+    const WISHES_JSON = 'wishes.json';
 
     // ── Toast ────────────────────────────────────────────────────────
     function toast(msg, type) {
@@ -414,8 +414,6 @@
         wishText.value = '';
         document.getElementById('wish-author').value = '';
         charCount.textContent = '280 characters left';
-        // Optimistically add to the wall
-        addWishToWall({ text, author }, true);
       }).catch(() => {
         toast('Could not submit - please try again.', 'error');
       }).finally(() => {
@@ -429,13 +427,12 @@
 
     function addWishToWall(wish, prepend) {
       const grid = document.getElementById('wall-grid');
-      // Remove loading/empty state
       const loading = grid.querySelector('.wall-loading, .wall-empty');
       if (loading) loading.remove();
 
       const note = document.createElement('div');
       const color = COLORS[Math.floor(Math.random() * COLORS.length)];
-      const rotation = (Math.random() * 8 - 4).toFixed(1); // -4 to +4 deg
+      const rotation = (Math.random() * 8 - 4).toFixed(1);
       note.className = `wish wish--${color}`;
       note.style.transform = `rotate(${rotation}deg)`;
 
@@ -465,53 +462,19 @@
         grid.innerHTML = '<div class="wall-empty">The wall is empty - be the first to add a wish!</div>';
         return;
       }
-      // Shuffle a bit so order isn't strictly chronological (more wall-like)
       const shuffled = [...wishes].sort(() => Math.random() - 0.5);
       shuffled.forEach(w => addWishToWall(w, false));
     }
 
     // ── Load wishes ──────────────────────────────────────────────────
     function loadWishes() {
-      fetch(CSV_URL)
-        .then(r => r.text())
-        .then(csv => {
-          const wishes = parseCSV(csv);
-          renderWishes(wishes);
-        })
+      fetch(WISHES_JSON + '?t=' + Date.now())
+        .then(r => r.json())
+        .then(wishes => renderWishes(wishes))
         .catch(() => {
           const grid = document.getElementById('wall-grid');
           grid.innerHTML = '<div class="wall-empty">Could not load wishes - try refreshing the page.</div>';
         });
-    }
-
-    // Minimal CSV parser (handles quoted values, commas, newlines inside quotes)
-    function parseCSV(csv) {
-      const lines = [];
-      let cur = [];
-      let field = '';
-      let inQuotes = false;
-      for (let i = 0; i < csv.length; i++) {
-        const c = csv[i];
-        if (inQuotes) {
-          if (c === '"' && csv[i + 1] === '"') { field += '"'; i++; }
-          else if (c === '"') { inQuotes = false; }
-          else { field += c; }
-        } else {
-          if (c === '"') { inQuotes = true; }
-          else if (c === ',') { cur.push(field); field = ''; }
-          else if (c === '\n') { cur.push(field); lines.push(cur); cur = []; field = ''; }
-          else if (c === '\r') { /* skip */ }
-          else { field += c; }
-        }
-      }
-      if (field || cur.length) { cur.push(field); lines.push(cur); }
-      // Skip header row
-      const rows = lines.slice(1).filter(r => r.length >= 2 && r.some(v => v.trim()));
-      // Sheet columns: Timestamp, Wish, Name (adjust if different)
-      return rows.map(r => ({
-        text: (r[1] || '').trim(),
-        author: (r[2] || '').trim()
-      })).filter(w => w.text);
     }
 
     loadWishes();
