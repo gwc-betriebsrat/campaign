@@ -51,34 +51,46 @@ function publishWishes() {
     const json = JSON.stringify(wishes, null, 2) + '\n';
 
     // 3. Build GitHub edit URL
-    // github.com/:owner/:repo/edit/:branch/:path?value=...
-    const encoded = encodeURIComponent(json);
-    const url = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/edit/${GITHUB_BRANCH}/${GITHUB_FILE}?value=${encoded}`;
+    const url = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/edit/${GITHUB_BRANCH}/${GITHUB_FILE}`;
 
-    // 4. Show dialog with the link + instructions
+    // 4. Show dialog: copy JSON + open GitHub
+    const escaped = json.replace(/`/g, '\\`');
     const html = HtmlService.createHtmlOutput(`
       <style>
-        body { font-family: Arial, sans-serif; font-size: 14px; padding: 16px; }
-        p { margin: 0 0 12px; line-height: 1.5; }
-        a.btn {
-          display: inline-block;
-          background: #b22222;
-          color: #fff;
-          text-decoration: none;
-          padding: 10px 20px;
-          border-radius: 6px;
-          font-weight: bold;
-          font-size: 14px;
-        }
+        body { font-family: Arial, sans-serif; font-size: 13px; padding: 16px; margin: 0; }
+        p { margin: 0 0 10px; line-height: 1.5; }
         .count { font-weight: bold; color: #b22222; }
+        textarea {
+          width: 100%; height: 120px; font-family: monospace; font-size: 11px;
+          border: 1px solid #ccc; border-radius: 4px; padding: 8px;
+          resize: none; box-sizing: border-box;
+        }
+        .actions { display: flex; gap: 8px; margin-top: 10px; }
+        button, a.btn {
+          flex: 1; padding: 9px 12px; border-radius: 5px; font-size: 13px;
+          font-weight: bold; cursor: pointer; text-align: center;
+          text-decoration: none; border: none;
+        }
+        button { background: #e8e8e8; color: #333; }
+        button.copied { background: #2e7d32; color: #fff; }
+        a.btn { background: #b22222; color: #fff; display: block; }
       </style>
-      <p>Ready to publish <span class="count">${wishes.length} wish${wishes.length === 1 ? '' : 'es'}</span>.</p>
-      <p>Click below to open GitHub. You may be asked to log in.<br>
-         The file will be pre-filled — just scroll down, click <strong>"Propose changes"</strong>, then <strong>"Create pull request"</strong>.</p>
-      <a class="btn" href="${url}" target="_blank">Open GitHub →</a>
+      <p><span class="count">${wishes.length} wish${wishes.length === 1 ? '' : 'es'}</span> ready to publish.</p>
+      <p><strong>Step 1:</strong> Copy the JSON below.<br>
+         <strong>Step 2:</strong> Open GitHub, select all & paste, then click <em>Commit changes</em> → <em>Create pull request</em>.</p>
+      <textarea id="json" readonly>${json.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</textarea>
+      <div class="actions">
+        <button id="copyBtn" onclick="
+          navigator.clipboard.writeText(document.getElementById('json').value).then(() => {
+            this.textContent = '✓ Copied!';
+            this.className = 'copied';
+          });
+        ">Copy JSON</button>
+        <a class="btn" href="${url}" target="_blank">Open GitHub →</a>
+      </div>
     `)
-    .setWidth(420)
-    .setHeight(200);
+    .setWidth(460)
+    .setHeight(300);
 
     ui.showModalDialog(html, '🗳️ Publish Wishes to Website');
 
