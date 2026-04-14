@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GWC - Wall of Wishes</title>
   <link rel="stylesheet" href="../../shared/_shared.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@400;700&family=Architects+Daughter&family=Indie+Flower&family=Patrick+Hand&family=Permanent+Marker&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
   <style>
     /* ── Page intro ──────────────────────────────────────────────────── */
     .wall-intro {
@@ -164,59 +164,111 @@
 
     .wall {
       position: relative;
-      background: #f5f0e8;
-      border: 1.5px solid var(--border);
+      background:
+        radial-gradient(ellipse at top, rgba(255,255,255,0.4) 0%, transparent 70%),
+        repeating-radial-gradient(circle at 30% 40%, #c79968 0px, #b88955 2px, #c79968 4px),
+        #b88955;
+      background-blend-mode: overlay, normal, normal;
       border-radius: var(--radius-lg);
-      padding: 32px 28px 40px;
-      min-height: 300px;
+      padding: 30px 20px 40px;
+      box-shadow:
+        inset 0 0 80px rgba(0,0,0,0.25),
+        inset 0 0 0 6px #8b6840,
+        0 4px 20px rgba(0,0,0,0.15);
+      min-height: 400px;
     }
 
-    /* ── Flowing wish blob ───────────────────────────────────────── */
-    .wall-blob {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 6px 10px;
-      line-height: 1.3;
+    .wall-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 24px 18px;
     }
 
+    /* ── Post-it note ────────────────────────────────────────────────── */
     .wish {
-      display: inline;
+      position: relative;
+      padding: 18px 16px 22px;
+      min-height: 140px;
+      box-shadow:
+        2px 4px 8px rgba(0,0,0,0.18),
+        0 0 0 1px rgba(0,0,0,0.04);
+      font-family: 'Caveat', 'Kalam', cursive;
+      color: #2a2a2a;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       cursor: default;
-      transition: opacity 0.2s;
-      word-break: break-word;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
-    .wish:hover { opacity: 0.7; }
+    .wish:hover {
+      transform: rotate(0deg) scale(1.04) !important;
+      box-shadow: 4px 8px 16px rgba(0,0,0,0.25);
+      z-index: 5;
+    }
+
+    .wish-text {
+      font-size: 1.15rem;
+      line-height: 1.35;
+      font-weight: 500;
+      flex: 1;
+    }
 
     .wish-author {
-      font-size: 0.75em;
-      opacity: 0.5;
-      margin-left: 3px;
+      font-size: 0.85rem;
+      color: rgba(0,0,0,0.55);
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      align-self: flex-end;
     }
 
-    /* separator dot between wishes */
-    .wish-sep {
-      color: #b22222;
-      opacity: 0.4;
-      font-size: 1.2em;
-      line-height: 1;
-      align-self: center;
+    /* Post-it tape strip at top */
+    .wish::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      width: 56px;
+      height: 14px;
+      background: rgba(220,210,180,0.7);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      border-radius: 1px;
     }
+
+    /* Color variants */
+    .wish--yellow { background: #FFF59D; }
+    .wish--peach  { background: #F5BB9A; }
+    .wish--lavender { background: #C7C9F9; }
+    .wish--mint   { background: #B1F59A; }
+    .wish--gold   { background: #F5D67A; }
+    .wish--pink   { background: #F5B5C6; }
+    .wish--blue   { background: #A7C8F2; }
+
+    /* Random rotation classes (we'll set inline as well via JS) */
+    .wish--r1 { transform: rotate(-3deg); }
+    .wish--r2 { transform: rotate(2deg); }
+    .wish--r3 { transform: rotate(-1deg); }
+    .wish--r4 { transform: rotate(4deg); }
+    .wish--r5 { transform: rotate(-5deg); }
+    .wish--r6 { transform: rotate(1deg); }
 
     .wall-empty {
       text-align: center;
       padding: 40px 20px;
-      color: #aaa;
+      color: rgba(255,255,255,0.85);
       font-family: 'Caveat', cursive;
       font-size: 1.4rem;
       font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
 
     .wall-loading {
       text-align: center;
       padding: 40px 20px;
-      color: #aaa;
+      color: rgba(255,255,255,0.85);
       font-size: 0.9rem;
     }
 
@@ -298,7 +350,7 @@
   <p class="wall-meta">Hover over a wish to read it more clearly. New wishes appear after a refresh.</p>
 
   <div class="wall">
-    <div class="wall-blob" id="wall-grid">
+    <div class="wall-grid" id="wall-grid">
       <div class="wall-loading">Loading wishes...</div>
     </div>
   </div>
@@ -371,67 +423,43 @@
     }
 
     // ── Render the wall ──────────────────────────────────────────────
-    const FONTS = [
-      "'Caveat', cursive",
-      "'Kalam', cursive",
-      "'Indie Flower', cursive",
-      "'Architects Daughter', cursive",
-      "'Patrick Hand', cursive",
-      "'Permanent Marker', cursive",
-      "'Shadows Into Light', cursive",
-    ];
-    const COLORS = [
-      '#b22222', '#1a3a6e', '#1a5c2a', '#5c3a1a',
-      '#4a1a6e', '#7a3a00', '#1a5c5c', '#6e1a3a'
-    ];
-    const SIZES  = ['1.05rem','1.2rem','1.35rem','1.5rem','1.65rem','1.8rem','1.1rem','1.4rem'];
-    const WEIGHTS = ['400','500','600','700'];
-
-    function randomFrom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+    const COLORS = ['yellow', 'peach', 'lavender', 'mint', 'gold', 'pink', 'blue'];
 
     function addWishToWall(wish, prepend) {
       const grid = document.getElementById('wall-grid');
       const loading = grid.querySelector('.wall-loading, .wall-empty');
       if (loading) loading.remove();
 
-      // Add separator dot before each wish (except the first)
-      if (grid.children.length > 0) {
-        const sep = document.createElement('span');
-        sep.className = 'wish-sep';
-        sep.textContent = '·';
-        if (prepend) grid.insertBefore(sep, grid.firstChild);
-        else grid.appendChild(sep);
-      }
+      const note = document.createElement('div');
+      const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      const rotation = (Math.random() * 8 - 4).toFixed(1);
+      note.className = `wish wish--${color}`;
+      note.style.transform = `rotate(${rotation}deg)`;
 
-      const span = document.createElement('span');
-      span.className = 'wish';
-      span.style.fontFamily = randomFrom(FONTS);
-      span.style.fontSize   = randomFrom(SIZES);
-      span.style.fontWeight = randomFrom(WEIGHTS);
-      span.style.color      = randomFrom(COLORS);
-      span.style.transform  = `rotate(${(Math.random() * 4 - 2).toFixed(1)}deg)`;
-      span.style.display    = 'inline-block';
-
-      const textNode = document.createTextNode(wish.text);
-      span.appendChild(textNode);
+      const textEl = document.createElement('div');
+      textEl.className = 'wish-text';
+      textEl.textContent = wish.text;
+      note.appendChild(textEl);
 
       if (wish.author && wish.author.trim()) {
-        const authorEl = document.createElement('span');
+        const authorEl = document.createElement('div');
         authorEl.className = 'wish-author';
-        authorEl.style.fontFamily = randomFrom(FONTS);
         authorEl.textContent = '— ' + wish.author.trim();
-        span.appendChild(authorEl);
+        note.appendChild(authorEl);
       }
 
-      if (prepend) grid.insertBefore(span, grid.firstChild);
-      else grid.appendChild(span);
+      if (prepend) {
+        grid.insertBefore(note, grid.firstChild);
+      } else {
+        grid.appendChild(note);
+      }
     }
 
     function renderWishes(wishes) {
       const grid = document.getElementById('wall-grid');
       grid.innerHTML = '';
       if (!wishes || !wishes.length) {
-        grid.innerHTML = '<div class="wall-empty">The wall is empty — be the first to add a wish!</div>';
+        grid.innerHTML = '<div class="wall-empty">The wall is empty - be the first to add a wish!</div>';
         return;
       }
       const shuffled = [...wishes].sort(() => Math.random() - 0.5);
