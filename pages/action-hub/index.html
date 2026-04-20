@@ -133,7 +133,7 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 }
 
 /* ============================================================
-   VOTE CARD (Tier 0 — engagement pinnacle)
+   VOTE CARD (Tier 0)
    ============================================================ */
 .gwc-hub .vote-card {
   background: var(--red);
@@ -156,72 +156,27 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 /* ============================================================
    BEFORE YOU VOTE (collapsible)
    ============================================================ */
-.gwc-hub .before-vote {
-  padding: 24px 0 16px;
-}
+.gwc-hub .before-vote { padding: 24px 0 16px; }
 .gwc-hub .before-vote__toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
-  border-radius: 10px;
-  padding: 16px 24px;
-  width: 100%;
-  cursor: pointer;
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 18px;
-  color: var(--text-primary);
-  transition: all 0.2s;
-  text-align: center;
-  box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 10px;
+  padding: 16px 24px; width: 100%; cursor: pointer;
+  font-family: 'DM Serif Display', Georgia, serif; font-size: 18px; color: var(--text-primary);
+  transition: all 0.2s; text-align: center; box-shadow: var(--shadow-sm);
 }
-.gwc-hub .before-vote__toggle:hover {
-  border-color: var(--red);
-  background: var(--bg-card-hover);
-}
-.gwc-hub .before-vote__toggle--open {
-  border-radius: 10px 10px 0 0;
-  border-bottom-color: transparent;
-}
-.gwc-hub .before-vote__hint {
-  font-family: 'Teka', 'DM Sans', sans-serif;
-  font-size: 12px;
-  color: var(--text-tertiary);
-  font-style: normal;
-  margin-left: auto;
-}
-.gwc-hub .before-vote__arrow {
-  transition: transform 0.3s;
-  font-size: 14px;
-  color: var(--text-tertiary);
-}
-.gwc-hub .before-vote__arrow--open {
-  transform: rotate(180deg);
-}
+.gwc-hub .before-vote__toggle:hover { border-color: var(--red); background: var(--bg-card-hover); }
+.gwc-hub .before-vote__toggle--open { border-radius: 10px 10px 0 0; border-bottom-color: transparent; }
+.gwc-hub .before-vote__hint { font-family: 'Teka', 'DM Sans', sans-serif; font-size: 12px; color: var(--text-tertiary); font-style: normal; margin-left: auto; }
+.gwc-hub .before-vote__arrow { transition: transform 0.3s; font-size: 14px; color: var(--text-tertiary); }
+.gwc-hub .before-vote__arrow--open { transform: rotate(180deg); }
 .gwc-hub .before-vote__content {
-  display: none;
-  padding: 24px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
-  border-top: none;
-  border-radius: 0 0 10px 10px;
-  box-shadow: var(--shadow-sm);
+  display: none; padding: 24px; background: var(--bg-card);
+  border: 1px solid var(--border-card); border-top: none; border-radius: 0 0 10px 10px; box-shadow: var(--shadow-sm);
 }
-.gwc-hub .before-vote__content--open {
-  display: block;
-}
-.gwc-hub .before-vote__content p {
-  font-size: 15px;
-  color: var(--text-secondary);
-  margin-bottom: 14px;
-  line-height: 1.75;
-}
+.gwc-hub .before-vote__content--open { display: block; }
+.gwc-hub .before-vote__content p { font-size: 15px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.75; }
 .gwc-hub .before-vote__content p:last-child { margin-bottom: 0; }
-.gwc-hub .before-vote__content strong {
-  color: var(--text-primary);
-}
+.gwc-hub .before-vote__content strong { color: var(--text-primary); }
 
 /* ============================================================
    BUTTONS
@@ -244,7 +199,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 /* ============================================================
    GAP BLOCKS
    ============================================================ */
-.gwc-hub .gap-section { }
 .gwc-hub .gap-block { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; padding: 40px 36px; margin-bottom: 24px; position: relative; overflow: hidden; box-shadow: var(--shadow-card); }
 .gwc-hub .gap-block::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--border-primary); }
 .gwc-hub .gap-block h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 22px; color: var(--text-primary); margin-bottom: 16px; }
@@ -260,15 +214,8 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 .gwc-hub .stat-callout__text { font-size: 14px; color: var(--text-secondary); }
 .gwc-hub .stat-callout__text strong { color: var(--text-primary); }
 
-.gwc-hub .early-cta { background: var(--bg-secondary); border: 1px solid var(--border-card); border-radius: 12px; padding: 24px 28px; margin: 28px 0; box-shadow: var(--shadow-sm); }
-.gwc-hub .early-cta__top { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 10px; }
-.gwc-hub .early-cta__text h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 18px; color: var(--text-primary); margin-bottom: 4px; }
-.gwc-hub .early-cta__text p { font-size: 14px; color: var(--text-tertiary); }
-.gwc-hub .early-cta__secondary { font-size: 13px; color: var(--text-tertiary); border-top: 1px solid var(--border-subtle); padding-top: 12px; }
-.gwc-hub .early-cta__secondary a { color: var(--red); text-decoration: underline; text-underline-offset: 2px; font-weight: 500; }
-
 /* ============================================================
-   BRIDGE + SOCIAL PROOF
+   BRIDGE
    ============================================================ */
 .gwc-hub .bridge { padding: 48px 0 0; text-align: center; }
 .gwc-hub .bridge__statement { font-family: 'DM Serif Display', Georgia, serif; font-style: italic; font-size: clamp(18px, 3vw, 22px); color: var(--text-primary); line-height: 1.55; max-width: 600px; margin: 0 auto; }
@@ -277,7 +224,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 /* ============================================================
    IMPACT ZONES
    ============================================================ */
-.gwc-hub .impact-section { }
 .gwc-hub .impact-intro { font-style: italic; font-size: 17px; color: var(--text-primary); line-height: 1.75; border-left: 3px solid var(--red); padding-left: 24px; margin-bottom: 40px; }
 .gwc-hub .impact-grid { display: grid; gap: 20px; }
 .gwc-hub .impact-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; padding: 32px; transition: border-color 0.3s ease, box-shadow 0.3s ease; box-shadow: var(--shadow-card); }
@@ -288,52 +234,14 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 .gwc-hub .impact-card__fix--open { display: block; }
 .gwc-hub .impact-card__fix strong { color: var(--text-primary); }
 .gwc-hub .impact-card__toggle {
-  font-family: 'Teka', 'DM Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--red);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px 0;
-  margin-top: 6px;
-  display: inline-block;
-  transition: opacity 0.2s;
+  font-family: 'Teka', 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--red);
+  background: none; border: none; cursor: pointer; padding: 8px 0; margin-top: 6px; display: inline-block; transition: opacity 0.2s;
 }
 .gwc-hub .impact-card__toggle:hover { opacity: 0.7; }
 
 /* ============================================================
-   BREAKING
-   ============================================================ */
-.gwc-hub .breaking { }
-.gwc-hub .breaking-card { background: var(--bg-breaking); border: 1px solid var(--border-breaking); border-radius: 12px; padding: 36px; position: relative; overflow: hidden; box-shadow: var(--shadow-sm); }
-.gwc-hub .breaking-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent-gold); }
-.gwc-hub .breaking-badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-gold); background: var(--accent-gold-bg); padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; }
-.gwc-hub .breaking-card h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 22px; color: var(--text-primary); margin-bottom: 12px; }
-.gwc-hub .breaking-card p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
-
-/* ============================================================
    TEAM
    ============================================================ */
-.gwc-hub .team-section { }
-.gwc-hub .team-philosophy { background: var(--bg-card); border-radius: 12px; padding: 40px 36px; border: 1px solid var(--border-card); margin-bottom: 24px; box-shadow: var(--shadow-card); }
-.gwc-hub .team-philosophy blockquote { font-size: 17px; font-style: italic; color: var(--text-primary); line-height: 1.75; border-left: 3px solid var(--red); padding-left: 24px; margin-bottom: 16px; }
-.gwc-hub .team-philosophy p { font-size: 15px; color: var(--text-secondary); }
-.gwc-hub .team-video { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; padding: 28px 32px; box-shadow: var(--shadow-card); display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-.gwc-hub .team-video__info { flex: 1; min-width: 200px; }
-.gwc-hub .team-video__tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green); margin-bottom: 6px; }
-.gwc-hub .team-video__tag--coming { color: var(--accent-gold); }
-.gwc-hub .team-video h4 { font-family: 'DM Serif Display', Georgia, serif; font-size: 17px; color: var(--text-primary); margin-bottom: 4px; }
-.gwc-hub .team-video p { font-size: 13px; color: var(--text-tertiary); }
-
-/* ============================================================
-   CAMPAIGN SERIES
-   ============================================================ */
-.gwc-hub .series-section { }
-.gwc-hub .series-grid { display: grid; gap: 16px; }
-.gwc-hub .series-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; padding: 28px 32px; transition: border-color 0.3s, box-shadow 0.3s; box-shadow: var(--shadow-card); }
-.gwc-hub .series-card:hover { border-color: var(--text-tertiary); box-shadow: var(--shadow-md); }
-.gwc-hub .series-card__top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 .gwc-hub .series-card__status { flex-shrink: 0; width: 10px; height: 10px; border-radius: 50%; }
 .gwc-hub .series-card__status--live { background: var(--green); box-shadow: 0 0 8px rgba(34,197,94,0.3); animation: gwc-pulse-live 2s infinite; }
 .gwc-hub .series-card__status--soon { background: var(--accent-gold); opacity: 0.7; }
@@ -342,126 +250,12 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 .gwc-hub .series-card__type { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; flex-shrink: 0; }
 .gwc-hub .series-card__type--video { color: var(--red); background: rgba(196,30,30,0.08); }
 .gwc-hub .series-card__type--article { color: var(--accent-gold); background: var(--accent-gold-bg); }
-.gwc-hub .series-card__tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-tertiary); }
-.gwc-hub .series-card__tag--live { color: var(--green); }
-.gwc-hub .series-card h4 { font-family: 'DM Serif Display', Georgia, serif; font-size: 17px; color: var(--text-primary); margin-bottom: 6px; }
-.gwc-hub .series-card p { font-size: 13px; color: var(--text-tertiary); margin-bottom: 4px; }
-.gwc-hub .series-card__date { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-tertiary); opacity: 0.7; margin-bottom: 8px; display: block; }
-.gwc-hub .series-card .btn { margin-top: 8px; }
-.gwc-hub .notify-link { font-size: 13px; color: var(--red); text-decoration: underline; text-underline-offset: 2px; font-weight: 500; margin-top: 8px; display: inline-block; transition: opacity 0.2s; }
-.gwc-hub .notify-link:hover { opacity: 0.7; }
 
-/* Series status pill */
-.gwc-hub .series-card__status-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  padding: 2px 8px;
-  border-radius: 3px;
-  display: inline-block;
-  margin-bottom: 8px;
-  opacity: 0.8;
-}
+/* Video embed */
+.gwc-hub .video-embed { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; margin-top: 16px; background: var(--bg-tertiary); display: none; }
+.gwc-hub .video-embed--active { display: block; }
+.gwc-hub .video-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 8px; }
 
-/* Video thumbnail */
-.gwc-hub .video-thumb {
-  position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-  margin-top: 16px;
-  cursor: pointer;
-  display: block;
-  text-decoration: none;
-}
-.gwc-hub .video-thumb img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: 8px;
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-.gwc-hub .video-thumb:hover img {
-  transform: scale(1.02);
-  filter: brightness(0.85);
-}
-.gwc-hub .video-thumb__play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 64px;
-  height: 64px;
-  background: rgba(0,0,0,0.65);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s, transform 0.2s;
-}
-.gwc-hub .video-thumb:hover .video-thumb__play {
-  background: var(--red);
-  transform: translate(-50%, -50%) scale(1.08);
-}
-.gwc-hub .video-thumb__play::after {
-  content: '';
-  display: block;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 10px 0 10px 18px;
-  border-color: transparent transparent transparent #fff;
-  margin-left: 3px;
-}
-.gwc-hub .video-thumb__label {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #fff;
-  background: rgba(0,0,0,0.6);
-  padding: 4px 10px;
-  border-radius: 4px;
-  backdrop-filter: blur(4px);
-}
-
-/*
-  IFRAME EMBED (hidden by default)
-  To use instead of thumbnail: 
-  1. Remove the <a class="video-thumb"> block from the card
-  2. Replace with the .video-embed div (see HTML comment in series section)
-  3. Remove display:none below
-*/
-.gwc-hub .video-embed {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  overflow: hidden;
-  border-radius: 8px;
-  margin-top: 16px;
-  background: var(--bg-tertiary);
-  display: none; /* HIDDEN — remove this line to activate iframe embed */
-}
-.gwc-hub .video-embed--active {
-  display: block;
-}
-.gwc-hub .video-embed iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: 8px;
-}
 .gwc-hub .series-subscribe { background: var(--bg-secondary); border: 1px solid var(--border-card); border-radius: 12px; padding: 32px 36px; margin-top: 24px; text-align: center; }
 .gwc-hub .series-subscribe h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; color: var(--text-primary); margin-bottom: 8px; }
 .gwc-hub .series-subscribe p { font-size: 14px; color: var(--text-tertiary); margin-bottom: 20px; }
@@ -469,18 +263,11 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 /* ============================================================
    DIALOGUE
    ============================================================ */
-.gwc-hub .dialogue-section { }
-.gwc-hub .dialogue-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.gwc-hub .dialogue-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; padding: 32px; display: flex; flex-direction: column; box-shadow: var(--shadow-card); }
-.gwc-hub .dialogue-card__duration { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 1px; margin-bottom: 12px; }
-.gwc-hub .dialogue-card h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; color: var(--text-primary); margin-bottom: 12px; }
-.gwc-hub .dialogue-card p { font-size: 14px; color: var(--text-secondary); flex: 1; margin-bottom: 20px; }
 .gwc-hub .dialogue-note { text-align: center; font-size: 14px; color: var(--text-tertiary); font-style: italic; margin-top: 24px; }
 
 /* ============================================================
    ENGAGEMENT
    ============================================================ */
-.gwc-hub .engage-section { }
 .gwc-hub .engage-tiers { display: grid; gap: 2px; }
 .gwc-hub .engage-tier { background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; transition: background 0.2s; }
 .gwc-hub .engage-tier:first-child { border-radius: 12px 12px 0 0; }
@@ -488,25 +275,12 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 .gwc-hub .engage-tier:hover { background: var(--bg-card-hover); }
 .gwc-hub .engage-tier__info h4 { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
 .gwc-hub .engage-tier__info p { font-size: 13px; color: var(--text-tertiary); }
-
-/* Collapsible engagement tiers */
 .gwc-hub .engage-more__toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-card);
-  border-radius: 10px;
-  padding: 14px 24px;
-  width: 100%;
-  cursor: pointer;
-  font-family: 'Teka', 'DM Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  transition: all 0.2s;
-  margin-top: 16px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--bg-secondary); border: 1px solid var(--border-card); border-radius: 10px;
+  padding: 14px 24px; width: 100%; cursor: pointer;
+  font-family: 'Teka', 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: var(--text-secondary);
+  transition: all 0.2s; margin-top: 16px;
 }
 .gwc-hub .engage-more__toggle:hover { border-color: var(--red); color: var(--red); }
 .gwc-hub .engage-more__content { display: none; margin-top: 12px; }
@@ -516,104 +290,26 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
    CAPTURE MODAL
    ============================================================ */
 .gwc-hub .modal-overlay {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 1000;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  backdrop-filter: blur(4px);
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;
+  padding: 24px; backdrop-filter: blur(4px);
 }
 .gwc-hub .modal-overlay--open { display: flex; }
-.gwc-hub .modal {
-  background: var(--bg-primary);
-  border-radius: 12px;
-  padding: 32px;
-  max-width: 420px;
-  width: 100%;
-  position: relative;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-}
-.gwc-hub .modal__close {
-  position: absolute;
-  top: 12px; right: 16px;
-  background: none;
-  border: none;
-  font-size: 20px;
-  color: var(--text-tertiary);
-  cursor: pointer;
-  padding: 4px;
-  line-height: 1;
-}
+.gwc-hub .modal { background: var(--bg-primary); border-radius: 12px; padding: 32px; max-width: 420px; width: 100%; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+.gwc-hub .modal__close { position: absolute; top: 12px; right: 16px; background: none; border: none; font-size: 20px; color: var(--text-tertiary); cursor: pointer; padding: 4px; line-height: 1; }
 .gwc-hub .modal__close:hover { color: var(--text-primary); }
-.gwc-hub .modal__context {
-  font-size: 15px;
-  color: var(--text-primary);
-  margin-bottom: 16px;
-  line-height: 1.5;
-  font-weight: 500;
-}
+.gwc-hub .modal__context { font-size: 15px; color: var(--text-primary); margin-bottom: 16px; line-height: 1.5; font-weight: 500; }
 .gwc-hub .modal__field { margin-bottom: 16px; }
-.gwc-hub .modal__label {
-  display: block;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  margin-bottom: 6px;
-}
-.gwc-hub .modal__input {
-  width: 100%;
-  padding: 10px 14px;
-  border: 1px solid var(--border-card);
-  border-radius: 6px;
-  font-family: 'Teka', 'DM Sans', sans-serif;
-  font-size: 14px;
-  color: var(--text-primary);
-  background: var(--bg-primary);
-  transition: border-color 0.2s;
-}
-.gwc-hub .modal__input:focus {
-  outline: none;
-  border-color: var(--red);
-}
-.gwc-hub .modal__input--textarea {
-  resize: vertical;
-  min-height: 60px;
-}
-.gwc-hub .modal__submit {
-  width: 100%;
-  padding: 12px;
-  background: var(--red);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-family: 'Teka', 'DM Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
-}
+.gwc-hub .modal__label { display: block; font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
+.gwc-hub .modal__input { width: 100%; padding: 10px 14px; border: 1px solid var(--border-card); border-radius: 6px; font-family: 'Teka', 'DM Sans', sans-serif; font-size: 14px; color: var(--text-primary); background: var(--bg-primary); transition: border-color 0.2s; }
+.gwc-hub .modal__input:focus { outline: none; border-color: var(--red); }
+.gwc-hub .modal__input--textarea { resize: vertical; min-height: 60px; }
+.gwc-hub .modal__submit { width: 100%; padding: 12px; background: var(--red); color: #fff; border: none; border-radius: 6px; font-family: 'Teka', 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
 .gwc-hub .modal__submit:hover { background: var(--red-dark); }
-.gwc-hub .modal__submit:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-.gwc-hub .modal__success {
-  text-align: center;
-  padding: 24px 0;
-}
-.gwc-hub .modal__success h3 {
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 20px;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-}
-.gwc-hub .modal__success p {
-  font-size: 14px;
-  color: var(--text-tertiary);
-}
+.gwc-hub .modal__submit:disabled { opacity: 0.5; cursor: not-allowed; }
+.gwc-hub .modal__success { text-align: center; padding: 24px 0; }
+.gwc-hub .modal__success h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; color: var(--text-primary); margin-bottom: 8px; }
+.gwc-hub .modal__success p { font-size: 14px; color: var(--text-tertiary); }
 
 /* ============================================================
    FOOTER
@@ -633,10 +329,208 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 .gwc-hub .delay-3 { animation-delay: 0.3s; }
 
 /* ============================================================
-   CLICKABILITY ENHANCEMENTS
+   CLICKABILITY
    ============================================================ */
 .gwc-hub .compact-row:hover { background: var(--bg-secondary) !important; }
 .gwc-hub .table-link:hover { color: var(--red) !important; text-decoration: underline !important; text-underline-offset: 3px; }
+
+/* ============================================================
+   NUMBERED TOC (replaces pills)
+   ============================================================ */
+.gwc-hub .toc {
+  margin: 8px 0 16px;
+  padding: 0;
+}
+.gwc-hub .toc__label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 14px;
+  display: block;
+}
+.gwc-hub .toc__item {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.gwc-hub .toc__item:last-child { border-bottom: none; }
+.gwc-hub .toc__num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--red);
+  flex-shrink: 0;
+  width: 28px;
+}
+.gwc-hub .toc__text {
+  font-size: 15px;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.gwc-hub .toc__text--muted { color: var(--text-secondary); }
+
+/* ============================================================
+   VIDEO PLAYLIST
+   ============================================================ */
+.gwc-hub .video-playlist {
+  margin-top: 24px;
+}
+.gwc-hub .video-playlist__label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+  display: block;
+  text-align: left;
+}
+.gwc-hub .video-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s;
+  font-family: 'Teka', 'DM Sans', sans-serif;
+}
+.gwc-hub .video-row:hover { background: var(--bg-secondary); }
+.gwc-hub .video-row--active {
+  background: rgba(196,30,30,0.04);
+  border-left: 3px solid var(--red);
+  padding-left: 9px;
+}
+.gwc-hub .video-row__type {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--red);
+  background: rgba(196,30,30,0.08);
+  padding: 3px 8px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.gwc-hub .video-row__title {
+  font-weight: 600;
+  color: var(--text-primary);
+  flex: 1;
+  min-width: 140px;
+  font-size: 14px;
+}
+.gwc-hub .video-row__date {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+.gwc-hub .video-row__cta {
+  font-size: 12px;
+  color: var(--red);
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   SERIES TOGGLE (Live / Upcoming)
+   ============================================================ */
+.gwc-hub .series-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.gwc-hub .series-toggle__btn {
+  font-family: 'Teka', 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: 1px solid var(--border-card);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.gwc-hub .series-toggle__btn--active {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+}
+.gwc-hub .series-toggle__btn:hover:not(.series-toggle__btn--active) {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+/* ============================================================
+   EVENTS THIS WEEK CARD
+   ============================================================ */
+.gwc-hub .events-week {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  padding: 24px 28px;
+  box-shadow: var(--shadow-card);
+}
+.gwc-hub .events-week__label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 12px;
+  display: block;
+}
+.gwc-hub .events-week__item {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+}
+.gwc-hub .events-week__item:last-of-type { border-bottom: none; }
+.gwc-hub .events-week__date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--red);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+  min-width: 90px;
+}
+.gwc-hub .events-week__title {
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 500;
+  flex: 1;
+  min-width: 140px;
+}
+.gwc-hub .events-week__meta {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+.gwc-hub .events-week__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--red);
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 14px;
+}
+.gwc-hub .events-week__cta:hover { text-decoration: underline; text-underline-offset: 2px; }
 
 /* ============================================================
    RESPONSIVE
@@ -644,14 +538,10 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 @media (max-width: 600px) {
   .gwc-hub .hero { padding: 48px 0 36px; }
   .gwc-hub section { padding: 48px 0; }
-  .gwc-hub .gap-block, .gwc-hub .team-philosophy { padding: 20px 20px; }
-  .gwc-hub .early-cta { padding: 24px; }
-  .gwc-hub .early-cta__top { flex-direction: column; align-items: flex-start; }
+  .gwc-hub .gap-block { padding: 20px 20px; }
   .gwc-hub .impact-card { padding: 24px; }
   .gwc-hub .stat-callout { flex-direction: column; gap: 8px; }
   .gwc-hub .countdown__label { font-size: 10px; }
-  .gwc-hub .dialogue-grid { grid-template-columns: 1fr; }
-  .gwc-hub .series-card { padding: 22px 24px; }
 }
 </style>
 </head>
@@ -669,76 +559,104 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
     <p class="hero__body animate-in delay-2" style="margin-bottom: 16px;">
       Management cannot simply dictate your compensation structure, your flexibility, or your performance criteria. Unless you let them.
     </p>
-    <p class="pill-strip__intro animate-in delay-3">The Works Council, the <strong>only employee-led body</strong> with the legal power to act on this, is given real power to improve your work life. The question is whether it's being used. Here are some of the systemic gaps we see in how employee rights are represented:</p>
+    <p class="pill-strip__intro animate-in delay-3">The Works Council, the <strong>only employee-led body</strong> with the legal power to act on this, is given real power to improve your work life. The question is whether it's being used.</p>
 
-    <!-- FORMAT TOGGLE — hidden -->
-    <div style="text-align: right; margin-bottom: 8px; display: none;">
-      <span style="font-size: 11px; color: var(--text-tertiary); margin-right: 4px;">format:</span>
-      <button id="fmt-toggle" style="font-size: 11px; color: var(--text-tertiary); background: none; border: 1px solid var(--border-card); border-radius: 4px; padding: 2px 8px; cursor: pointer; font-family: 'Teka', 'DM Sans', sans-serif;">switch view</button>
-    </div>
-
-    <!-- OPTION C: Pills -->
-    <div id="fmt-pills">
-      <div class="pill-strip animate-in delay-3">
-        <a href="#perf-eval" class="pill-strip__item">Your performance rating: who really decides?</a>
-        <a href="#reorg" class="pill-strip__item">Your restructuring protections</a>
-        <a href="#fair-pay" class="pill-strip__item">Pay gaps & unofficial quotas</a>
-        <a href="#flexibility" class="pill-strip__item">Protecting your work-life flexibility</a>
+    <!-- Numbered TOC (non-interactive orientation — iframe-safe) -->
+    <div class="toc animate-in delay-3">
+      <span class="toc__label">Systemic gaps in employee rights</span>
+      <div class="toc__item">
+        <span class="toc__num">01</span>
+        <span class="toc__text">Your performance rating — who really decides</span>
       </div>
-      <p class="pill-strip__intro" style="margin-top: 8px; font-size: 14px;">Go deeper:</p>
-      <div class="pill-strip">
-        <!-- Hidden: <a href="#breaking" class="pill-strip__item">A Bundestag member is watching</a> -->
-        <a href="#series" class="pill-strip__item">Videos that confront uncomfortable truths</a>
-        <a href="#team" class="pill-strip__item">70+ colleagues stood up</a>
-        <a href="#dialogue" class="pill-strip__item">Book a conversation</a>
-        <a href="#before-vote" class="pill-strip__item">Before you vote — or decide not to</a>
+      <div class="toc__item">
+        <span class="toc__num">02</span>
+        <span class="toc__text">Your restructuring protections</span>
       </div>
-    </div>
-
-    <!-- OPTION D: Two-column structured layout -->
-    <div id="fmt-table" style="display: none;">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; font-size: 14px;">
-        <div>
-          <div style="font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--red); margin-bottom: 12px; text-transform: uppercase;">Where we see gaps</div>
-          <a href="#perf-eval" style="display: block; padding: 10px 0; border-bottom: 1px solid var(--border-card); color: var(--text-primary); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--border-subtle);" class="table-link">Your performance rating: who really decides?</a>
-          <a href="#reorg" style="display: block; padding: 10px 0; border-bottom: 1px solid var(--border-card); color: var(--text-primary); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--border-subtle);" class="table-link">Your restructuring protections</a>
-          <a href="#fair-pay" style="display: block; padding: 10px 0; border-bottom: 1px solid var(--border-card); color: var(--text-primary); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--border-subtle);" class="table-link">Pay gaps & unofficial quotas</a>
-          <a href="#flexibility" style="display: block; padding: 10px 0; color: var(--text-primary); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--border-subtle);" class="table-link">Protecting your work-life flexibility</a>
-        </div>
-        <div>
-          <div style="font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--text-tertiary); margin-bottom: 12px; text-transform: uppercase;">Go deeper</div>
-          <!-- Hidden: A Bundestag member is watching -->
-          <a href="#series" style="display: block; padding: 10px 0; border-bottom: 1px solid var(--border-card); color: var(--text-secondary); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--border-subtle);" class="table-link">Videos that confront uncomfortable truths</a>
-          <a href="#team" style="display: block; padding: 10px 0; border-bottom: 1px solid var(--border-card); color: var(--text-secondary); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--border-subtle);" class="table-link">70+ colleagues stood up</a>
-          <a href="#dialogue" style="display: block; padding: 10px 0; border-bottom: 1px solid var(--border-card); color: var(--text-secondary); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--border-subtle);" class="table-link">Book a conversation</a>
-          <a href="#before-vote" style="display: block; padding: 10px 0; color: var(--text-secondary); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--border-subtle);" class="table-link">Before you vote — or decide not to</a>
-        </div>
+      <div class="toc__item">
+        <span class="toc__num">03</span>
+        <span class="toc__text">Pay gaps, zBeat that goes nowhere, flexibility & more</span>
+      </div>
+      <span class="toc__label" style="margin-top: 16px;">More from the campaign</span>
+      <div class="toc__item">
+        <span class="toc__num">04</span>
+        <span class="toc__text toc__text--muted">The people behind this movement</span>
+      </div>
+      <div class="toc__item">
+        <span class="toc__num">05</span>
+        <span class="toc__text toc__text--muted">Our case for change: videos, articles & events</span>
+      </div>
+      <div class="toc__item">
+        <span class="toc__num">06</span>
+        <span class="toc__text toc__text--muted">Book a 1-on-1 or bring us to your team</span>
+      </div>
+      <div class="toc__item">
+        <span class="toc__num">07</span>
+        <span class="toc__text toc__text--muted">Before you vote — or decide not to</span>
       </div>
     </div>
-
-    <a href="#gap" class="hero__scroll animate-in delay-3" style="margin-top: 24px;">
-      Read the full case <span class="arrow-down">↓</span>
-    </a>
   </div>
 </header>
 
-<!-- ===== FEATURED VIDEO ===== -->
+<!-- ===== FEATURED VIDEO + PLAYLIST ===== -->
 <section style="padding: 0 0 48px;" id="featured-video">
-  <div class="container" style="text-align: center;">
-    <h3 style="font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; color: var(--text-primary); margin-bottom: 8px;">The Accountability Gap <span style="font-weight: 400; color: var(--text-tertiary); font-size: 16px;">| Global Workforce Community</span></h3>
-    <div class="video-embed video-embed--active">
-      <iframe src="https://player.vimeo.com/video/1182394560?h=567dea60de&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="The Accountability Gap"></iframe>
+  <div class="container">
+    <div style="text-align: center;">
+      <h3 id="fv-title" style="font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; color: var(--text-primary); margin-bottom: 8px;">The Accountability Gap <span style="font-weight: 400; color: var(--text-tertiary); font-size: 16px;">| Global Workforce Community</span></h3>
+      <div class="video-embed video-embed--active" id="fv-container">
+        <iframe id="fv-iframe" src="https://player.vimeo.com/video/1182394560?h=567dea60de&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Featured video"></iframe>
+      </div>
+      <p id="fv-desc" style="margin-top: 12px; font-size: 14px; color: var(--text-tertiary);">Who is actually being held accountable — and who isn't?</p>
     </div>
-    <p style="margin-top: 12px; font-size: 14px; color: var(--text-tertiary);">Who is actually being held accountable — and who isn't?</p>
 
-    <h3 style="font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; color: var(--text-primary); margin-bottom: 8px; margin-top: 36px;">The Case for Change <span style="font-weight: 400; color: var(--text-tertiary); font-size: 16px;">| Global Workforce Community</span></h3>
-    <div class="video-embed video-embed--active">
-      <iframe src="https://player.vimeo.com/video/1180571084?h=1b23f4799b&amp;muted=1&amp;loop=1&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="The Case for Change"></iframe>
+    <!-- Playlist -->
+    <div class="video-playlist">
+      <span class="video-playlist__label">Released videos</span>
+
+      <button class="video-row video-row--active" data-video-id="1182394560" data-video-hash="567dea60de" data-video-title="The Accountability Gap" data-video-desc="Who is actually being held accountable — and who isn't?">
+        <span class="video-row__type">Video</span>
+        <span class="video-row__title">The Accountability Gap</span>
+        <span class="video-row__date">Released Apr 13</span>
+        <span class="video-row__cta">Now playing</span>
+      </button>
+
+      <button class="video-row" data-video-id="1180571084" data-video-hash="1b23f4799b" data-video-title="The Case for Change" data-video-desc="Three principles. One question: who is actually using the tools the law gives them to fight for your rights?">
+        <span class="video-row__type">Video</span>
+        <span class="video-row__title">The Case for Change</span>
+        <span class="video-row__date">Released Apr 7</span>
+        <span class="video-row__cta">Watch →</span>
+      </button>
     </div>
-    <p style="margin-top: 12px; font-size: 14px; color: var(--text-tertiary);">Three principles. One question: who is actually using the tools the law gives them to fight for your rights?</p>
-    <p style="margin-top: 8px; font-size: 13px;"><a href="https://zlife.zalando.net/events/woco-elections-from-your-concerns-to-our-action-plan-global-workforce-community/information" target="_blank" style="color: var(--red); text-decoration: none; font-weight: 500;">Join the live session on April 15 →</a></p>
   </div>
 </section>
+
+<!-- ===== EVENTS THIS WEEK ===== -->
+<section style="padding: 0 0 48px;" id="events-this-week">
+  <div class="container">
+    <div class="events-week">
+      <span class="events-week__label">📅 Events this week</span>
+
+      <div class="events-week__item">
+        <span class="events-week__date">Tue · Apr 21</span>
+        <span class="events-week__title">WoCo elections: from your concerns to our Action Plan</span>
+        <span class="events-week__meta">Lunch · 12:00–13:00</span>
+      </div>
+
+      <div class="events-week__item">
+        <span class="events-week__date">Wed · Apr 22</span>
+        <span class="events-week__title">Meet Your Candidates Over Pizza</span>
+        <span class="events-week__meta">17:30 onwards</span>
+      </div>
+
+      <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/events/events" target="_blank" class="events-week__cta">See all events & RSVP →</a>
+    </div>
+  </div>
+</section>
+
+<div class="container" style="padding-bottom: 8px; padding-top: 8px;">
+  <a href="#gap" class="hero__scroll">
+    Read the full case <span class="arrow-down">↓</span>
+  </a>
+</div>
 
 <!-- ===== THE GAP ===== -->
 <section class="gap-section" id="gap">
@@ -817,14 +735,14 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
         <h3>Fair Compensation & Transparent Growth</h3>
         <p class="impact-card__pain">"I've been told my salary is 'competitive,' but my experience and my peers suggest different. Even high performers stay stuck below their midpoint after years of excellence."</p>
         <button class="impact-card__toggle" onclick="var f=this.nextElementSibling;f.classList.toggle('impact-card__fix--open');this.textContent=f.classList.contains('impact-card__fix--open')?'Show less ▴':'What changes ▾';">What changes ▾</button>
-        <p class="impact-card__fix">With salary bands, levels, and midpoints, on paper the system looks objective. In practice, quotas distort your ratings in ways that have nothing to do with your work. There is no meaningful appeal when the system fails you. Binding Works Agreements need to establish <strong>guaranteed appeal rights</strong>, guardrail criteria and transparency on how rating decisions are made. When evaluation rounds don't reward excellence, <strong>the framework has failed you, not the other way around.</strong> A binding Internal Mobility Agreement would ensure that internal talent is genuinely invested in before looking outward, and that growth paths don't quietly close while new roles open for others.</p>
+        <p class="impact-card__fix">With salary bands, levels, and midpoints, on paper the system looks objective. In practice, quotas distort your ratings in ways that have nothing to do with your work. There is no meaningful appeal when the system fails you. Works Agreements need to establish <strong>guaranteed appeal rights</strong>, guardrail criteria, transparency on how rating decisions are made, and visible salary bands across levels so that "competitive pay" is something you can verify, not just accept. When evaluation rounds don't reward excellence, <strong>the framework has failed you, not the other way around.</strong> An Internal Mobility Agreement would ensure that internal talent is genuinely invested in before looking outward, and that growth paths don't quietly close while new roles open for others.</p>
       </div>
 
       <div class="impact-card" id="flexibility">
         <h3>Stable Flexibility</h3>
         <p class="impact-card__pain">"Our remote work policy changed overnight with a Google Chat message. No consultation, no discussion."</p>
         <button class="impact-card__toggle" onclick="var f=this.nextElementSibling;f.classList.toggle('impact-card__fix--open');this.textContent=f.classList.contains('impact-card__fix--open')?'Show less ▴':'What changes ▾';">What changes ▾</button>
-        <p class="impact-card__fix">Your flexibility isn't a perk; it allows you to be a parent, a caregiver, a person with a life beyond the office. There's a Works Agreement for mobile work, the only one delivered by the previous Works Council. Most employees don't even know it exists. And "Work from abroad"? No such formal agreement exists at all. Both need to be strengthened, made visible, and protected, alongside flexible hours, so your arrangements can't be revoked with a policy update. <strong>Your flexibility deserves favourable and binding agreements, not a revocable favour.</strong></p>
+        <p class="impact-card__fix">Your flexibility isn't a perk; it allows you to be a parent, a caregiver, a person with a life beyond the office. There's a Works Agreement for mobile work, the only one delivered by the previous Works Council. Most employees don't even know it exists. And "Work from abroad"? No such formal agreement exists at all. Both need to be strengthened, made visible, and protected, alongside flexible hours, so your arrangements can't be revoked with a policy update. In Germany, bank holidays that fall on weekends are simply lost. Willing Works Councils have secured this through work agreements. We can too. <strong>Your flexibility deserves favourable agreements, not a revocable favour.</strong></p>
       </div>
 
       <div class="impact-card">
@@ -851,17 +769,9 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
   <div class="container">
     <div style="background: var(--bg-breaking); border: 1px solid var(--border-breaking); border-radius: 10px; overflow: hidden;">
       <div style="padding: 14px 20px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-        <div onclick="var c=document.getElementById('bk-details');c.style.display=c.style.display==='none'?'block':'none';this.querySelector('.bk-arrow').textContent=c.style.display==='none'?'▾':'▴';" style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 200px; cursor: pointer; flex-wrap: wrap;">
-          <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--red); background: rgba(196,30,30,0.08); padding: 3px 8px; border-radius: 3px; flex-shrink: 0;">External</span>
-          <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; color: #8B6914; background: rgba(139,105,20,0.12); padding: 4px 10px; border-radius: 3px; border-left: 2px solid #8B6914; flex-shrink: 0;">Bundestag</span>
-          <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">"Zalando Inside" — Bodo Ramelow, MdB</span>
-          <span class="bk-arrow" style="font-size: 12px; color: var(--text-tertiary);">▾</span>
-        </div>
-        <a href="https://www.bodo-ramelow.de/2026/04/zalando-inside/" target="_blank" style="font-size: 11px; color: var(--red); text-decoration: none; font-weight: 600; flex-shrink: 0; background: rgba(196,30,30,0.06); padding: 4px 12px; border-radius: 4px; border: 1px solid rgba(196,30,30,0.15);">Read →</a>
-      </div>
-      <div id="bk-details" style="display: none; padding: 0 20px 14px;">
-        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.6;">Bodo Ramelow, member of the German Bundestag and former Minister-President of Thüringen, shares his perspective on the restructuring dynamics at Zalando.</p>
-        <p style="font-size: 12px; color: var(--text-primary); font-weight: 500;">GWC official statement in response dropping soon. <a href="#series" style="color: var(--red); text-decoration: none;">Stay notified in the drop section below ↓</a></p>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--red); background: rgba(196,30,30,0.08); padding: 3px 8px; border-radius: 3px; flex-shrink: 0;">External</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; color: #8B6914; background: rgba(139,105,20,0.12); padding: 4px 10px; border-radius: 3px; border-left: 2px solid #8B6914; flex-shrink: 0;">Bundestag</span>
+        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">"Zalando Inside" — Bodo Ramelow, MdB</span>
       </div>
     </div>
   </div>
@@ -894,7 +804,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
       <span style="font-size: 11px; color: var(--text-tertiary);">April 23</span>
       <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="openCapture('Notify Video Drops','Voices of 25+ Nations');return false;">Notify me →</a>
     </div>
-
   </div>
 </section>
 
@@ -904,71 +813,83 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
     <div class="section-header">
       <span class="label">The GWC lens</span>
       <hr class="divider">
-      <h2>What's Dropping This Month</h2>
-      <p>Each piece confronts uncomfortable truths and asks the questions that haven't been asked.</p>
+      <h2>Our Case for Change</h2>
+      <p>Videos, articles and events. Each one puts something on the record.</p>
     </div>
 
-    <div style="margin-top: 8px;">
+    <div class="series-toggle">
+      <button class="series-toggle__btn" id="series-btn-upcoming" onclick="filterSeries('upcoming')">Upcoming</button>
+      <button class="series-toggle__btn" id="series-btn-live" onclick="filterSeries('live')">Live</button>
+    </div>
 
-      <!-- The Case for Change — April 7 -->
-      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+    <div style="margin-top: 8px;" id="series-list">
+      <!-- The Case for Change — April 7 — LIVE -->
+      <div data-filter="live" style="display: none; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <div class="series-card__status series-card__status--live" style="flex-shrink: 0;"></div>
         <span class="series-card__type series-card__type--video" style="flex-shrink: 0;">Video</span>
         <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">The Case for Change</span>
-        <span style="font-size: 11px; color: var(--green); font-weight: 600;">April 7</span>
+        <span style="font-size: 11px; color: var(--green); font-weight: 600;">Released Apr 7</span>
         <a href="#featured-video" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">Watch ↑</a>
       </div>
 
-      <!-- The Accountability Gap — April 13 -->
-      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+      <!-- The Accountability Gap — April 13 — LIVE -->
+      <div data-filter="live" style="display: none; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <div class="series-card__status series-card__status--live" style="flex-shrink: 0;"></div>
         <span class="series-card__type series-card__type--video" style="flex-shrink: 0;">Video</span>
         <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">The Accountability Gap</span>
-        <span style="font-size: 11px; color: var(--green); font-weight: 600;">April 13</span>
-        <a href="#featured-video" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="document.getElementById('featured-video').scrollIntoView({behavior:'smooth'});return false;">Watch ↑</a>
+        <span style="font-size: 11px; color: var(--green); font-weight: 600;">Released Apr 13</span>
+        <a href="#featured-video" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">Watch ↑</a>
       </div>
 
-      <!-- Redrawing the Line — April 14 -->
-      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+      <!-- Redrawing the Line — April 21 — UPCOMING -->
+      <div data-filter="upcoming" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <div class="series-card__status series-card__status--soon" style="flex-shrink: 0;"></div>
         <span class="series-card__type series-card__type--article" style="flex-shrink: 0;">Article</span>
         <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">Redrawing the Line</span>
-        <span style="font-size: 11px; color: var(--text-tertiary);">April 14</span>
+        <span style="font-size: 11px; color: var(--text-tertiary);">April 21</span>
         <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="openCapture('Notify Publication Drops','Redrawing the Line');return false;">Notify me →</a>
       </div>
 
-      <!-- The Case for Change — Live Event — April 15 -->
-      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+      <!-- Live Event — April 21 — UPCOMING -->
+      <div data-filter="upcoming" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <div class="series-card__status series-card__status--soon" style="flex-shrink: 0;"></div>
         <span class="series-card__type" style="color: #1a6b8a; background: rgba(26,107,138,0.08); flex-shrink: 0;">Live Event</span>
-        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">The Case for Change — Live</span>
-        <span style="font-size: 11px; color: var(--text-tertiary);">April 15</span>
-        <a href="https://zlife.zalando.net/events/woco-elections-from-your-concerns-to-our-action-plan-global-workforce-community/information" target="_blank" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">Register →</a>
+        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">WoCo Elections: from your concerns to our Action Plan</span>
+        <span style="font-size: 11px; color: var(--text-tertiary);">April 21</span>
+        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/events/events" target="_blank" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">RSVP →</a>
       </div>
 
-      <!-- The Protection Gap — April 17 -->
-      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+      <!-- Pizza — April 22 — UPCOMING -->
+      <div data-filter="upcoming" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+        <div class="series-card__status series-card__status--soon" style="flex-shrink: 0;"></div>
+        <span class="series-card__type" style="color: #1a6b8a; background: rgba(26,107,138,0.08); flex-shrink: 0;">Live Event</span>
+        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">Meet Your Candidates Over Pizza</span>
+        <span style="font-size: 11px; color: var(--text-tertiary);">April 22</span>
+        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/events/events" target="_blank" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">RSVP →</a>
+      </div>
+
+      <!-- The Protection Gap — UPCOMING -->
+      <div data-filter="upcoming" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <div class="series-card__status series-card__status--coming" style="flex-shrink: 0;"></div>
         <span class="series-card__type series-card__type--video" style="flex-shrink: 0;">Video</span>
         <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">The Protection Gap</span>
-        <span style="font-size: 11px; color: var(--text-tertiary);">April 17</span>
+        <span style="font-size: 11px; color: var(--text-tertiary);">Coming soon</span>
         <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="openCapture('Notify Video Drops','The Protection Gap');return false;">Notify me →</a>
       </div>
 
-      <!-- Standardized Reorganizations — April 17 -->
-      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+      <!-- Standardized Reorganizations — UPCOMING -->
+      <div data-filter="upcoming" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <div class="series-card__status series-card__status--coming" style="flex-shrink: 0;"></div>
         <span class="series-card__type series-card__type--article" style="flex-shrink: 0;">Article</span>
         <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">Standardized Reorganizations</span>
-        <span style="font-size: 11px; color: var(--text-tertiary);">April 17</span>
+        <span style="font-size: 11px; color: var(--text-tertiary);">Coming soon</span>
         <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="openCapture('Notify Publication Drops','Standardized Reorganizations');return false;">Notify me →</a>
       </div>
 
       <!-- More coming -->
-      <div style="padding: 12px 0; text-align: center;">
+      <div data-filter="upcoming" style="display: flex; padding: 12px 0; text-align: center; justify-content: center;">
         <span style="font-size: 13px; color: var(--text-tertiary); font-style: italic;">More coming.</span>
       </div>
-
     </div>
 
     <div class="series-subscribe">
@@ -990,14 +911,11 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
     </div>
 
     <div style="margin-top: 8px;">
-      <!-- 1-on-1 -->
       <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 1px; flex-shrink: 0;">25 MIN · 1-ON-1</span>
         <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 120px; font-size: 14px;">Introduction</span>
         <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 600; flex-shrink: 0;" onclick="openCapture('Book 1o1');return false;">Request Slot →</a>
       </div>
-
-      <!-- Team session -->
       <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 1px; flex-shrink: 0;">50 MIN · TEAM</span>
         <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 120px; font-size: 14px;">What Your Team Is Facing</span>
@@ -1016,7 +934,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
       <h2>Your Move. Make It Count.</h2>
     </div>
 
-    <!-- Tier 0: Vote — the pinnacle -->
     <div class="vote-card">
       <h3>Vote May 5–8. List 3.</h3>
       <p>This is the only action that changes the outcome. Everything else supports it.</p>
@@ -1064,9 +981,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
     <div class="before-vote__content" id="before-vote-content">
       <p>Employment in Germany is a social partnership (<em>Sozialpartnerschaft</em>), not a commodity, not a one-way purchase of labor. Your Works Council election is how that partnership is put into practice.</p>
       <p>This election decides who sits across from management when your pay, your restructuring terms, and your flexibility are on the table. It's about not leaving your colleagues vulnerable: those whose residency, family, and livelihood depend on real representation.</p>
-      <!-- HIDDEN — Silesian/Mythos paragraph, pending review
-      <p>When Silesian weavers bore the cost, Germany responded by building the very labour protections present today. When successors of Claude Mythos raise the same question the Silesian weavers once faced: who bears the cost of economic transformation? When the workforce is sacrificed to a cost line on a shareholder report. The question is who has the resolve to apply the full scrutiny of the legal framework without flinching.</p>
-      -->
       <p><strong>That answer is in your hands. Your vote is private. Your decision is yours alone. Not because a friend asked at a coffee chat. Not because you chose to stand in a list.</strong> We ask only this: read, compare, and vote for the representation you deserve.</p>
     </div>
   </div>
@@ -1085,7 +999,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 <div class="modal-overlay" id="gwc-modal">
   <div class="modal">
     <button class="modal__close" id="modal-close">×</button>
-    <!-- Form state -->
     <div id="modal-form">
       <p class="modal__context" id="modal-context"></p>
       <div class="modal__field">
@@ -1099,7 +1012,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
       <button class="modal__submit" id="modal-submit">Submit</button>
       <p style="font-size: 11px; color: var(--text-tertiary); text-align: center; margin-top: 12px;">Submits to an internal Google Form. Your data stays within our Zalando workspace.</p>
     </div>
-    <!-- Success state -->
     <div id="modal-success" style="display: none;">
       <div class="modal__success">
         <h3>Got it.</h3>
@@ -1115,33 +1027,12 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 (function() {
   var hub = document.getElementById('gwc-hub');
 
-  // Countdown (disabled — elements removed)
+  // Countdown (disabled)
   function updateCountdown() {
     var wrap = hub.querySelector('#countdown-wrap');
     if (!wrap) return;
-
-    if (now >= electionStart && now <= electionEnd) {
-      wrap.classList.add('countdown--open');
-      labelEl.textContent = 'Voting is open!';
-      daysEl.textContent = 'NOW';
-      suffixEl.textContent = '';
-      if (ctaDays) ctaDays.textContent = '0';
-    } else if (now > electionEnd) {
-      labelEl.textContent = 'Election closed';
-      daysEl.textContent = '\u2014';
-      suffixEl.textContent = '';
-      if (ctaDays) ctaDays.textContent = '0';
-    } else {
-      var diff = electionStart - now;
-      var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-      daysEl.textContent = days;
-      suffixEl.textContent = days === 1 ? 'day' : 'days';
-      labelEl.textContent = days <= 7 ? 'Election in' : 'Election opens in';
-      if (ctaDays) ctaDays.textContent = days;
-    }
   }
   updateCountdown();
-  setInterval(updateCountdown, 60000);
 
   // Calendar .ics
   function downloadICS() {
@@ -1165,64 +1056,72 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
   hub.querySelector('#cal-btn').addEventListener('click', downloadICS);
   hub.querySelector('#cal-btn-2').addEventListener('click', downloadICS);
 
-  // Format toggle (pills vs table)
-  hub.querySelector('#fmt-toggle').addEventListener('click', function() {
-    var pills = hub.querySelector('#fmt-pills');
-    var table = hub.querySelector('#fmt-table');
-    if (pills.style.display === 'none') {
-      pills.style.display = 'block';
-      table.style.display = 'none';
-    } else {
-      pills.style.display = 'none';
-      table.style.display = 'block';
-    }
+  // Series toggle — Live / Upcoming
+  window.filterSeries = function(filter) {
+    hub.querySelectorAll('#series-list [data-filter]').forEach(function(row) {
+      row.style.display = row.getAttribute('data-filter') === filter ? 'flex' : 'none';
+    });
+    hub.querySelector('#series-btn-live').classList.toggle('series-toggle__btn--active', filter === 'live');
+    hub.querySelector('#series-btn-upcoming').classList.toggle('series-toggle__btn--active', filter === 'upcoming');
+  };
+  // Default: Upcoming
+  filterSeries('upcoming');
+
+  // Video playlist swap
+  var fvIframe = hub.querySelector('#fv-iframe');
+  var fvTitle = hub.querySelector('#fv-title');
+  var fvDesc = hub.querySelector('#fv-desc');
+  hub.querySelectorAll('.video-row').forEach(function(row) {
+    row.addEventListener('click', function() {
+      var id = row.getAttribute('data-video-id');
+      var hash = row.getAttribute('data-video-hash');
+      var title = row.getAttribute('data-video-title');
+      var desc = row.getAttribute('data-video-desc');
+
+      fvIframe.src = 'https://player.vimeo.com/video/' + id + '?h=' + hash + '&autoplay=1&muted=1&loop=1&badge=0&autopause=0&player_id=0&app_id=58479';
+      fvTitle.innerHTML = title + ' <span style="font-weight: 400; color: var(--text-tertiary); font-size: 16px;">| Global Workforce Community</span>';
+      fvDesc.textContent = desc;
+
+      hub.querySelectorAll('.video-row').forEach(function(r) {
+        r.classList.remove('video-row--active');
+        var cta = r.querySelector('.video-row__cta');
+        if (cta) cta.textContent = 'Watch →';
+      });
+      row.classList.add('video-row--active');
+      var activeCta = row.querySelector('.video-row__cta');
+      if (activeCta) activeCta.textContent = 'Now playing';
+
+      // Scroll featured video into view
+      hub.querySelector('#featured-video').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   });
 
-  // Drops — expand/collapse all details
-  var dropsToggle = hub.querySelector('#drops-toggle-all');
-  if (dropsToggle) {
-    var dropsOpen = false;
-    dropsToggle.addEventListener('click', function() {
-      dropsOpen = !dropsOpen;
-      var details = hub.querySelectorAll('.drop-detail');
-      var arrows = hub.querySelectorAll('.drp-arrow');
-      details.forEach(function(d) { d.style.display = dropsOpen ? 'block' : 'none'; });
-      arrows.forEach(function(a) { a.textContent = dropsOpen ? '▴' : '▾'; });
-      dropsToggle.textContent = dropsOpen ? 'hide all details' : 'show all details';
-    });
-  }
-
-  // Impact cards — expand/collapse all
+  // Impact cards toggle all
   var impactToggle = hub.querySelector('#impact-toggle-all');
   if (impactToggle) {
     var impactOpen = false;
     impactToggle.addEventListener('click', function() {
       impactOpen = !impactOpen;
-      var fixes = hub.querySelectorAll('.impact-card__fix');
-      var toggles = hub.querySelectorAll('.impact-card__toggle');
-      fixes.forEach(function(f) { impactOpen ? f.classList.add('impact-card__fix--open') : f.classList.remove('impact-card__fix--open'); });
-      toggles.forEach(function(t) { t.textContent = impactOpen ? 'Show less ▴' : 'What changes ▾'; });
+      hub.querySelectorAll('.impact-card__fix').forEach(function(f) { impactOpen ? f.classList.add('impact-card__fix--open') : f.classList.remove('impact-card__fix--open'); });
+      hub.querySelectorAll('.impact-card__toggle').forEach(function(t) { t.textContent = impactOpen ? 'Show less \u25B4' : 'What changes \u25BE'; });
       impactToggle.textContent = impactOpen ? 'hide all details' : 'show all details';
     });
   }
 
-  // Before You Vote — collapsible toggle
-  var bvToggle = hub.querySelector('#before-vote-toggle');
-  bvToggle.addEventListener('click', function() {
-    var content = hub.querySelector('#before-vote-content');
-    var arrow = hub.querySelector('#before-vote-arrow');
-    content.classList.toggle('before-vote__content--open');
-    arrow.classList.toggle('before-vote__arrow--open');
-    bvToggle.classList.toggle('before-vote__toggle--open');
+  // Before You Vote toggle
+  hub.querySelector('#before-vote-toggle').addEventListener('click', function() {
+    hub.querySelector('#before-vote-content').classList.toggle('before-vote__content--open');
+    hub.querySelector('#before-vote-arrow').classList.toggle('before-vote__arrow--open');
+    this.classList.toggle('before-vote__toggle--open');
   });
 
-  // Engage more — collapsible toggle
+  // Engage more toggle
   hub.querySelector('#engage-more-toggle').addEventListener('click', function() {
     hub.querySelector('#engage-more-content').classList.toggle('engage-more__content--open');
   });
 
   // ============================================================
-  // CAPTURE MODAL — Google Form programmatic submission
+  // CAPTURE MODAL
   // ============================================================
   var FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfTCj3WbN7o6OBTo2dSFF0b8QaeHbVUA_a517NF7ICEzpot8w/formResponse';
   var FIELD_EMAIL = 'entry.1556369182';
@@ -1309,7 +1208,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
       modalSuccess.style.display = 'block';
       setTimeout(function() { modal.classList.remove('modal-overlay--open'); }, 2500);
     }).catch(function() {
-      // Fallback: redirect to pre-filled form
       var fallback = 'https://docs.google.com/forms/d/e/1FAIpQLSfTCj3WbN7o6OBTo2dSFF0b8QaeHbVUA_a517NF7ICEzpot8w/viewform?usp=pp_url'
         + '&' + FIELD_EMAIL + '=' + encodeURIComponent(email)
         + '&' + FIELD_ACTION + '=' + encodeURIComponent(currentAction)
