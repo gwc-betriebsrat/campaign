@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Pay Gap Isn't a Mystery. The Tools to Fix It Aren't Either. — GWC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --red: #C41E1E;
+  --red-dark: #9B1818;
+  --red-light: rgba(196,30,30,0.06);
+  --text-primary: #1A1A1A;
+  --text-secondary: #4A4A4A;
+  --text-tertiary: #888;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F7F6F3;
+  --bg-tertiary: #EEECEA;
+  --border: #E5E3DF;
+  --border-subtle: #F0EEEB;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topbar__brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--red);
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+.topbar__tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-tertiary);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ===== ARTICLE HEADER ===== */
+.article-header {
+  padding: 48px 24px 36px;
+  max-width: 680px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.article-meta__tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--red);
+  background: var(--red-light);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+.article-meta__date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+.article-meta__read {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+.article-header h1 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(26px, 5vw, 38px);
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 0;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+}
+.article-header h1 em {
+  color: var(--red);
+  font-style: italic;
+}
+.article-header__deck {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ===== ARTICLE BODY ===== */
+.article-body {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* Typography */
+.article-body p {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
+.article-body p strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.article-body h2 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(20px, 3.5vw, 26px);
+  color: var(--text-primary);
+  margin: 44px 0 16px;
+  line-height: 1.25;
+}
+.article-body h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+  margin: 32px 0 12px;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: var(--text-tertiary);
+}
+
+/* Pull quote */
+.pull-quote {
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--red);
+  border-radius: 0 8px 8px 0;
+  padding: 24px 28px;
+  margin: 32px 0;
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* Stat callout */
+.stat-callout {
+  background: rgba(196,30,30,0.04);
+  border: 1px solid rgba(196,30,30,0.12);
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin: 28px 0;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.stat-callout__number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--red);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.stat-callout__text {
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+.stat-callout__text strong { color: var(--text-primary); }
+
+/* Infographic embed */
+.infographic {
+  margin: 36px 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+.infographic__label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-primary);
+}
+.infographic__content {
+  padding: 20px;
+}
+
+/* Collapsible process */
+.process-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: left;
+  transition: all 0.2s;
+  margin: 28px 0 0;
+}
+.process-toggle:hover { border-color: var(--red); background: var(--bg-tertiary); }
+.process-toggle--open { border-radius: 10px 10px 0 0; border-bottom-color: transparent; }
+.process-toggle__arrow { font-size: 13px; color: var(--text-tertiary); transition: transform 0.3s; flex-shrink: 0; }
+.process-toggle__arrow--open { transform: rotate(180deg); }
+.process-content {
+  display: none;
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  padding: 24px;
+  margin-bottom: 28px;
+  background: var(--bg-primary);
+}
+.process-content--open { display: block; }
+.process-step {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.process-step:last-child { margin-bottom: 0; }
+.process-step__num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--red);
+  font-weight: 500;
+  flex-shrink: 0;
+  width: 24px;
+  padding-top: 2px;
+}
+.process-step__text {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+.process-step__text strong { color: var(--text-primary); }
+
+/* Law callout */
+.law-callout {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  margin: 32px 0;
+  position: relative;
+  overflow: hidden;
+}
+.law-callout::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--red);
+}
+.law-callout__badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--red);
+  background: var(--red-light);
+  padding: 3px 10px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+.law-callout h4 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 18px;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+.law-callout p {
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+.law-callout p:last-child { margin-bottom: 0; }
+.law-callout__standout {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--red);
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* Campaign CTA */
+.article-cta {
+  background: var(--red);
+  border-radius: 12px;
+  padding: 36px 32px;
+  margin: 48px 0 0;
+  text-align: center;
+}
+.article-cta h3 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(20px, 4vw, 26px);
+  color: #fff;
+  margin-bottom: 10px;
+}
+.article-cta p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 24px;
+}
+.article-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--red);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+.article-cta__btn:hover { transform: translateY(-1px); }
+.article-cta__tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 16px;
+}
+
+/* Tags footer */
+.article-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 32px 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-subtle);
+}
+.article-tags__item {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-tertiary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* Footer */
+.site-footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  padding: 32px 24px;
+  text-align: center;
+}
+.site-footer__brand {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 18px;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.site-footer__tagline {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+}
+.site-footer__vote {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--red);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .article-header { padding: 36px 20px 28px; }
+  .article-body { padding: 28px 20px 60px; }
+  .stat-callout { flex-direction: column; gap: 8px; }
+  .article-cta { padding: 28px 20px; }
+  .law-callout { padding: 20px 20px 20px 24px; }
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate { opacity: 0; animation: fadeUp 0.6s ease forwards; }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <a href="#" class="topbar__brand">GWC</a>
+  <span class="topbar__tag">Know Your Rights</span>
+</nav>
+
+<!-- ARTICLE HEADER -->
+<header class="article-header">
+  <div class="article-meta animate">
+    <span class="article-meta__tag">Know Your Rights</span>
+    <span class="article-meta__read">6 min read</span>
+  </div>
+  <h1 class="animate delay-1">The Pay Gap Isn't a Mystery.<br><em>The Tools to Fix It Aren't Either.</em></h1>
+  <p class="article-header__deck animate delay-2">Germany gives you the legal right to see your peer median salary. A Works Council with the will to act can go further. Here's what both look like in practice. And why the next election term is when it gets real.</p>
+</header>
+
+<!-- ARTICLE BODY -->
+<article class="article-body">
+
+  <p>In Germany, the <strong>gender pay gap</strong> has a legal answer. You don't have to rely on office rumours. The Entgelttransparenzgesetz (Germany's Pay Transparency Act), created specifically to close the gender pay gap, gives you the legal right to see the median pay for peers of the opposite gender doing comparable work.</p>
+
+  <!-- Infographic -->
+  <div class="infographic">
+    <div class="infographic__label">Visual guide: eligibility &amp; median explained</div>
+    <div class="infographic__content">
+      <svg width="100%" viewBox="0 0 380 520" role="img">
+        <title>Pay transparency infographic</title>
+        <desc>Eligibility criteria and median explainer</desc>
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <style>
+          .t { font-family:'DM Sans',sans-serif; font-size:14px; fill:#1A1A1A; }
+          .ts { font-family:'DM Sans',sans-serif; font-size:12px; fill:#4A4A4A; }
+          .th { font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600; fill:#1A1A1A; }
+        </style>
+        <!-- Section 1 label -->
+        <text class="ts" x="190" y="24" text-anchor="middle" fill="#A32D2D" font-weight="600" letter-spacing="1">CAN YOU REQUEST YOUR PEER MEDIAN?</text>
+        <text class="ts" x="190" y="40" text-anchor="middle" fill="#888">All three conditions must apply</text>
+        <!-- Box 1 -->
+        <rect x="20" y="54" width="102" height="84" rx="8" fill="#FCEBEB" stroke="#F09595" stroke-width="0.5"/>
+        <text class="th" x="71" y="83" text-anchor="middle" fill="#791F1F">200+</text>
+        <text class="ts" x="71" y="103" text-anchor="middle" fill="#A32D2D">employees</text>
+        <text class="ts" x="71" y="119" text-anchor="middle" fill="#A32D2D">at your office</text>
+        <!-- Plus -->
+        <text x="136" y="100" text-anchor="middle" dominant-baseline="central" font-size="22" fill="#A32D2D">+</text>
+        <!-- Box 2 -->
+        <rect x="152" y="54" width="102" height="84" rx="8" fill="#FCEBEB" stroke="#F09595" stroke-width="0.5"/>
+        <text class="th" x="203" y="83" text-anchor="middle" fill="#791F1F">6+</text>
+        <text class="ts" x="203" y="103" text-anchor="middle" fill="#A32D2D">peers of the</text>
+        <text class="ts" x="203" y="119" text-anchor="middle" fill="#A32D2D">opposite gender</text>
+        <!-- Plus -->
+        <text x="268" y="100" text-anchor="middle" dominant-baseline="central" font-size="22" fill="#A32D2D">+</text>
+        <!-- Box 3 -->
+        <rect x="284" y="54" width="76" height="84" rx="8" fill="#FCEBEB" stroke="#F09595" stroke-width="0.5"/>
+        <text class="th" x="322" y="83" text-anchor="middle" fill="#791F1F">Same</text>
+        <text class="ts" x="322" y="103" text-anchor="middle" fill="#A32D2D">grade &amp;</text>
+        <text class="ts" x="322" y="119" text-anchor="middle" fill="#A32D2D">function</text>
+        <!-- Arrow -->
+        <line x1="190" y1="146" x2="190" y2="164" stroke="#A32D2D" stroke-width="1" marker-end="url(#arr)"/>
+        <!-- Result box — 2 lines -->
+        <rect x="40" y="166" width="300" height="52" rx="8" fill="#FCEBEB" stroke="#F09595" stroke-width="0.5"/>
+        <text class="th" x="190" y="186" text-anchor="middle" dominant-baseline="central" fill="#791F1F">You can submit a formal request</text>
+        <text class="ts" x="190" y="204" text-anchor="middle" dominant-baseline="central" fill="#791F1F">via Workday</text>
+        <!-- Divider -->
+        <line x1="20" y1="236" x2="360" y2="236" stroke="#E5E3DF" stroke-width="0.5"/>
+        <!-- Section 2 label -->
+        <text class="ts" x="190" y="258" text-anchor="middle" fill="#A32D2D" font-weight="600" letter-spacing="1">WHAT IS THE MEDIAN?</text>
+        <text class="ts" x="190" y="274" text-anchor="middle" fill="#888">Imagine lining up all peers by salary, lowest to highest</text>
+        <!-- Gray figures -->
+        <g fill="#D3D1C7">
+          <circle cx="30" cy="302" r="8"/><rect x="23" y="311" width="14" height="16" rx="3"/>
+          <circle cx="68" cy="302" r="8"/><rect x="61" y="311" width="14" height="16" rx="3"/>
+          <circle cx="106" cy="302" r="8"/><rect x="99" y="311" width="14" height="16" rx="3"/>
+          <circle cx="144" cy="302" r="8"/><rect x="137" y="311" width="14" height="16" rx="3"/>
+        </g>
+        <!-- Median figure -->
+        <g fill="#E24B4A">
+          <circle cx="190" cy="298" r="10"/><rect x="182" y="309" width="16" height="18" rx="3"/>
+        </g>
+        <!-- Gray figures right -->
+        <g fill="#D3D1C7">
+          <circle cx="236" cy="302" r="8"/><rect x="229" y="311" width="14" height="16" rx="3"/>
+          <circle cx="274" cy="302" r="8"/><rect x="267" y="311" width="14" height="16" rx="3"/>
+          <circle cx="312" cy="302" r="8"/><rect x="305" y="311" width="14" height="16" rx="3"/>
+          <circle cx="350" cy="302" r="8"/><rect x="343" y="311" width="14" height="16" rx="3"/>
+        </g>
+        <!-- Dashed line -->
+        <line x1="190" y1="329" x2="190" y2="350" stroke="#E24B4A" stroke-width="0.5" stroke-dasharray="3,2"/>
+        <!-- Salary bar -->
+        <rect x="25" y="353" width="330" height="6" rx="3" fill="#E5E3DF"/>
+        <rect x="25" y="353" width="165" height="6" rx="3" fill="#F09595"/>
+        <circle cx="190" cy="356" r="5" fill="#E24B4A"/>
+        <!-- Labels -->
+        <text class="ts" x="28" y="374" text-anchor="start" fill="#888">Lowest pay</text>
+        <text class="ts" x="190" y="374" text-anchor="middle" fill="#A32D2D" font-weight="600">Median</text>
+        <text class="ts" x="352" y="374" text-anchor="end" fill="#888">Highest pay</text>
+        <!-- 50/50 boxes -->
+        <rect x="20" y="388" width="160" height="46" rx="8" fill="#F7F6F3" stroke="#E5E3DF" stroke-width="0.5"/>
+        <text class="ts" x="100" y="407" text-anchor="middle">4 colleagues earn less</text>
+        <text class="ts" x="100" y="423" text-anchor="middle">than the median</text>
+        <rect x="200" y="388" width="160" height="46" rx="8" fill="#F7F6F3" stroke="#E5E3DF" stroke-width="0.5"/>
+        <text class="ts" x="280" y="407" text-anchor="middle">4 colleagues earn more</text>
+        <text class="ts" x="280" y="423" text-anchor="middle">than the median</text>
+        <!-- Note -->
+        <text class="ts" x="190" y="456" text-anchor="middle" fill="#888">Always based on full-time salary.</text>
+        <text class="ts" x="190" y="472" text-anchor="middle" fill="#888">Adjust if you work part-time.</text>
+        <!-- Footer -->
+        <text class="ts" x="190" y="508" text-anchor="middle" fill="#C41E1E" font-weight="600">Global Workforce Community · List 3</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Collapsible process -->
+  <button class="process-toggle" id="process-toggle" onclick="toggleProcess()">
+    How to submit your request <span class="process-toggle__arrow" id="process-arrow">▾</span>
+  </button>
+  <div class="process-content" id="process-content">
+    <div class="process-step">
+      <span class="process-step__num">01</span>
+      <span class="process-step__text"><strong>Check eligibility.</strong> Your office must have 200+ employees. There must be 6+ people of the opposite gender in your exact grade and function.</span>
+    </div>
+    <div class="process-step">
+      <span class="process-step__num">02</span>
+      <span class="process-step__text"><strong>Verify your Workday profile.</strong> Make sure your job grade and department are listed correctly. Your peer group is built from this data. If it's wrong, your median will be wrong too.</span>
+    </div>
+    <div class="process-step">
+      <span class="process-step__num">03</span>
+      <span class="process-step__text"><strong>Submit via Workday.</strong> Zalando has a specific process for this. Follow the step-by-step instructions by <a href="https://zalandoprod.service-now.com/ep?id=kb_article_view&sys_id=7b420f2697bb3618b4343a171153af5f&table=kb_knowledge&spa=1" target="_blank" style="color: var(--red); text-underline-offset: 2px;">following this guide →</a></span>
+    </div>
+    <div class="process-step">
+      <span class="process-step__num">04</span>
+      <span class="process-step__text"><strong>Alternatively, use <a href="https://zlife.zalando.net/workspaces/open-salaries/apps/content/content" target="_blank" style="color: var(--red); text-underline-offset: 2px;">Open Salary on zLife →</a></strong> Register to compare your salary with peers who have already shared theirs voluntarily.</span>
+    </div>
+  </div>
+
+  <h2>I'm Below My Peer Median Salary. Now What?</h2>
+
+  <p>Finding out you're below the median isn't automatically a sign of trouble. Recent promotions and time in role are common explanations. You'll often start at the lower end of a new grade while you build tenure.</p>
+
+  <p>But these explanations don't cover every case. Each performance outcome comes with a salary adjustment range. Your lead has discretion over where you land within that range. Who gets placed at the higher end? Often the person who pushes hardest. Who stays at the lower end? Often the person who doesn't push, or isn't expected to.</p>
+
+  <p>Colleagues returning from parental leave or sabbaticals have the same right to participate in evaluations. But in some organisations, their budget allocation is treated as available to redistribute, as if being away means you should expect less.</p>
+
+  <p>And if your rating itself was shaped by unofficial quotas on outcome levels from top, rather than individual merit alone, the distortion starts before your lead even touches the salary range.</p>
+
+  <div class="pull-quote">
+    When these patterns repeat across rounds, they compound. Same level, same outcome, same years. One person is consistently placed lower. Over time, the gap isn't about performance. It's about who the system rewards for negotiating and who it quietly underpays for not.
+  </div>
+
+  <p>The transparency tool gives you the number. A Works Council with the will to act questions the system that produced it.</p>
+
+  <h2>Can We Even Fix the Gap?</h2>
+
+  <p>The Pay Transparency Act gives you the right to ask. But the Works Council has a broader right that most employees are never actively informed about.</p>
+
+  <div class="law-callout">
+    <span class="law-callout__badge">§80(2) Works Constitution Act (BetrVG)</span>
+    <h4>The Works Council can already request the data.</h4>
+    <p>Under §80(2), the Works Council can request anonymized gross salary lists from the employer, not the company's finalized gender pay gap report, but the underlying data. This means a willing council doesn't have to wait for the company to shape what gets reported. It can independently assess where pay gaps exist, how they correlate with ratings and tenure, and whether those explanations are accurate.</p>
+    <p class="law-callout__standout">This right exists today. It has been sitting unused. We will change that.</p>
+  </div>
+
+  <h2>What's Coming: The EU Pay Transparency Directive</h2>
+
+  <p>Starting 2026/2027, new EU rules shift what companies are legally required to do.</p>
+
+  <div class="stat-callout">
+    <span class="stat-callout__number">5%</span>
+    <div class="stat-callout__text">If the gender pay gap exceeds 5% and cannot be justified by objective criteria, the company must conduct a <strong>joint pay assessment, together with the Works Council.</strong></div>
+  </div>
+
+  <p>Companies with 250+ employees must report their gender pay gap annually. If the gap exceeds 5%, the company must conduct a joint pay assessment together with the Works Council. Not a presentation. Not a report filed unilaterally. A joint assessment where the council sits at the table with full access to the data.</p>
+
+  <p>This directive falls entirely within the next Works Council term (2026–2030). The people you elect in May will be the ones conducting these assessments, reviewing the data, and deciding whether gaps are fixed in practice or explained away on paper.</p>
+
+  <h2>What a Willing Council Does With This</h2>
+
+  <p>A Works Council serious about pay equity doesn't wait for the directive. It requests the salary data under §80(2) now, analyses it independently, and uses the findings when negotiating the next compensation round with management. The council has codetermination rights here. That is the leverage.</p>
+
+  <p>When the EU directive kicks in, a willing Works Council arrives prepared: with baseline data and identified gaps. One that didn't prepare loses the entire term catching up.</p>
+
+  <div class="pull-quote">
+    Knowing your number is your right. But transparency without enforcement changes nothing. A Works Council that acts can demand answers about why you stand where you stand and ensure the system producing those numbers is actually fair, not just reported on.
+  </div>
+
+  <p>The tools exist and the directive is coming. On voting day, the question is who at the table intends to use them.</p>
+
+  <!-- Tags -->
+  <div class="article-tags">
+    <span class="article-tags__item">#GWC</span>
+    <span class="article-tags__item">#GlobalWorkforceCommunity</span>
+    <span class="article-tags__item">#KnowYourRights</span>
+    <span class="article-tags__item">#WorksCouncil</span>
+    <span class="article-tags__item">#PayTransparency</span>
+  </div>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <h3>Vote May 5–8. List 3.</h3>
+    <p>A willing Works Council doesn't stop at knowing the number. It uses it.</p>
+    <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/action-hub" class="article-cta__btn">Visit the Action Hub →</a>
+    <div class="article-cta__tag">Global Workforce Community · Works Council Election 2026</div>
+  </div>
+
+</article>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer__brand">Global Workforce Community</div>
+  <div class="site-footer__tagline">A Works Council That Stands for You</div>
+  <div class="site-footer__vote">Vote May 5 – 8, 2026 · List 3</div>
+</footer>
+
+<script>
+function toggleProcess() {
+  var content = document.getElementById('process-content');
+  var arrow = document.getElementById('process-arrow');
+  var toggle = document.getElementById('process-toggle');
+  var open = content.classList.toggle('process-content--open');
+  toggle.classList.toggle('process-toggle--open', open);
+  arrow.classList.toggle('process-toggle__arrow--open', open);
+  arrow.textContent = open ? '▴' : '▾';
+}
+
+// Scroll animations
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'none';
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.pull-quote, .law-callout, .stat-callout, .infographic, .article-cta').forEach(function(el) {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(16px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
