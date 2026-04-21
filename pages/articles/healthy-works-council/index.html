@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redrawing the Line · GWC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --red: #C41E1E;
+  --red-dark: #9B1818;
+  --red-light: rgba(196,30,30,0.06);
+  --green: #0F6E56;
+  --green-mid: #1D9E75;
+  --green-light: rgba(22,135,58,0.07);
+  --green-border: rgba(22,135,58,0.25);
+  --text-primary: #1A1A1A;
+  --text-secondary: #4A4A4A;
+  --text-tertiary: #888;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F7F6F3;
+  --bg-tertiary: #EEECEA;
+  --border: #E5E3DF;
+  --border-subtle: #F0EEEB;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topbar__brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--red);
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+.topbar__tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-tertiary);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ===== ARTICLE HEADER ===== */
+.article-header {
+  padding: 48px 24px 36px;
+  max-width: 680px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.article-meta__tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--red);
+  background: var(--red-light);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+.article-meta__date,
+.article-meta__read {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+.article-header h1 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(26px, 5vw, 38px);
+  line-height: 1.25;
+  color: var(--text-primary);
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  margin-bottom: 0;
+}
+.article-header h1 em { color: var(--red); font-style: italic; }
+.article-header__deck {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ===== ARTICLE BODY ===== */
+.article-body {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+.article-body p {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
+.article-body p strong { color: var(--text-primary); font-weight: 600; }
+.article-body h2 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(20px, 3.5vw, 26px);
+  color: var(--text-primary);
+  margin: 12px 0 16px;
+  line-height: 1.25;
+  font-weight: 400;
+}
+
+/* ===== SECTION NUMBERS ===== */
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--red);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 48px;
+  margin-bottom: 0;
+}
+
+/* ===== SCENARIO BOX ===== */
+.scenario {
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--border);
+  border-radius: 0 8px 8px 0;
+  padding: 20px 24px;
+  margin: 20px 0;
+  font-size: 15px;
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.75;
+}
+
+/* ===== NON-NEGOTIABLE LABEL ===== */
+.non-neg {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--red);
+  display: block;
+  margin: 20px 0 10px;
+}
+
+/* ===== LAW CALLOUT — GREEN / PROTECTIVE ===== */
+.law-callout {
+  background: var(--green-light);
+  border: 1px solid var(--green-border);
+  border-radius: 12px;
+  padding: 32px 32px 32px 36px;
+  margin: 28px 0;
+  position: relative;
+  overflow: hidden;
+}
+.law-callout::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: var(--green-mid);
+  border-radius: 4px 0 0 4px;
+}
+.law-callout__badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--green);
+  background: rgba(15,110,86,0.1);
+  padding: 4px 12px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+.law-callout h4 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 19px;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+.law-callout p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  line-height: 1.75;
+}
+.law-callout p:last-child { margin-bottom: 0; }
+.law-callout__standout {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--green);
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--green-border);
+  display: block;
+}
+
+/* ===== PULL QUOTE ===== */
+.pull-quote {
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--red);
+  border-radius: 0 8px 8px 0;
+  padding: 24px 28px;
+  margin: 36px 0;
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-style: italic;
+  font-size: 19px;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* ===== DIVIDER ===== */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border-subtle);
+  margin: 40px 0 0;
+}
+
+/* ===== CAMPAIGN CTA ===== */
+.article-cta {
+  background: var(--red);
+  border-radius: 12px;
+  padding: 36px 32px;
+  margin: 48px 0 0;
+  text-align: center;
+}
+.article-cta h3 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(20px, 4vw, 26px);
+  color: #fff;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+.article-cta p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 24px;
+}
+.article-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--red);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+.article-cta__btn:hover { transform: translateY(-1px); }
+.article-cta__tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 16px;
+  display: block;
+}
+
+/* ===== TAGS ===== */
+.article-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 32px 0 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-subtle);
+}
+.article-tags__item {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-tertiary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* ===== FOOTER ===== */
+.site-footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  padding: 32px 24px;
+  text-align: center;
+}
+.site-footer__brand {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 18px;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.site-footer__tagline {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+}
+.site-footer__vote {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--red);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .article-header { padding: 36px 20px 28px; }
+  .article-body { padding: 28px 20px 60px; }
+  .law-callout { padding: 24px 20px 24px 24px; }
+  .article-cta { padding: 28px 20px; }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate { opacity: 0; animation: fadeUp 0.6s ease forwards; }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <a href="#" class="topbar__brand">GWC</a>
+  <span class="topbar__tag">Know Your Rights</span>
+</nav>
+
+<!-- ARTICLE HEADER -->
+<header class="article-header">
+  <div class="article-meta animate">
+    <span class="article-meta__tag">Know Your Rights</span>
+    <span class="article-meta__read">5 min read</span>
+  </div>
+  <h1 class="animate delay-1"><em>Redrawing the Line</em></h1>
+  <p class="article-header__deck animate delay-2">A company is only as healthy as the boundaries it respects. When the Works Council becomes passive, those boundaries blur. This is what that looks like in practice, and what the law says should happen instead.</p>
+</header>
+
+<!-- ARTICLE BODY -->
+<article class="article-body">
+
+  <p>Management's job is to drive business results. The Works Council's job is to ensure those results are not achieved at the expense of your health, your legal rights, or your dignity. When the Works Council becomes passive, those boundaries blur.</p>
+
+  <p>Consider what happens when those boundaries weaken. The baseline begins to shift and legal guardrails are left to erode.</p>
+
+  <!-- SECTION 1 -->
+  <hr class="section-divider">
+  <span class="section-num">01 &mdash; When recovery becomes a liability</span>
+  <h2>Your time off is not a favour. It is a right.</h2>
+
+  <div class="scenario">
+    A boundary fails when the line between personal time and company time disappears. It happens when administrative errors in booking sick leave result in formal warnings, and when answering emails on vacation is implicitly expected while formal protections against burnout are ignored.
+  </div>
+
+  <span class="non-neg">This is non-negotiable.</span>
+
+  <p>The right to disconnect is protected by law. A Works Council that functions as intended ensures that recovery time is never treated as a disciplinary issue. Sick leave mistakes are corrected, not penalised. This is not a campaign promise. It is the legal baseline.</p>
+
+  <div class="law-callout">
+    <span class="law-callout__badge">Your legal protection</span>
+    <h4>The law gives you a formal right to challenge how your work time and leave are managed.</h4>
+    <p>Working hours, rest periods, and the technical systems used to track them are subject to Works Council codetermination (§87 BetrVG). If administrative sick leave errors lead to disproportionate discipline, the Works Council has the mandate to intervene, support your formal grievance, and enforce fair absence policies (§§84, 85 BetrVG).</p>
+    <span class="law-callout__standout">These rights exist. A Works Council with the will to enforce them makes the difference.</span>
+  </div>
+
+  <!-- SECTION 2 -->
+  <hr class="section-divider">
+  <span class="section-num">02 &mdash; When process becomes a weapon</span>
+  <h2>Your career path should reflect your work, not personal friction or artificial ceilings.</h2>
+
+  <div class="scenario">
+    A process becomes a weapon when your career trajectory is derailed not by your effort or output, but by subjective friction. It happens when colleagues are placed on Performance Support Plans for reasons lacking measurable data, and when internal transfers to entirely different roles happen in drive-through flash huddle meetings, without prior notice, consultation, or the legally required involvement of the Works Council.
+  </div>
+
+  <span class="non-neg">This is non-negotiable.</span>
+
+  <p>Every transfer, every role change, every performance measure requires objective justification and codetermination. The law is explicit. We have seen the era of bypassing the Works Council's legal right to approve transfers. And when representatives finally hold the line, management corrects course. The legal requirements cannot be bypassed if the Council refuses to blink.</p>
+
+  <div class="law-callout">
+    <span class="law-callout__badge">Your legal protection</span>
+    <h4>Every transfer and every performance measure has legal guardrails.</h4>
+    <p>Under §99 BetrVG, the Works Council must grant consent before any individual transfer or role change takes effect, not just be informed, but actively approve. Management cannot proceed without it. Performance frameworks and evaluation criteria require codetermination: the council must approve the system used to assess your work, not just be informed about it after the fact. PSPs deployed without objective, documented justification can and should be challenged.</p>
+    <span class="law-callout__standout">A willing Works Council doesn't rubber-stamp these decisions. It demands the evidence first.</span>
+  </div>
+
+  <!-- SECTION 3 -->
+  <hr class="section-divider">
+  <span class="section-num">03 &mdash; When speaking up becomes a risk</span>
+  <h2>Raising a concern should not put you at risk. The law agrees.</h2>
+
+  <div class="scenario">
+    The safety net collapses when raising concerns about persistent mistreatment by someone in authority often results in being told it doesn't meet the threshold to act. It happens when standing up for employee rights means the consequences land on you, not the problem.
+  </div>
+
+  <span class="non-neg">This is non-negotiable.</span>
+
+  <p>The Works Council is the safety net when internal company processes fail. When an employee faces this kind of hostility, a Works Council representative's role is not to mediate and counsel patience. It is to activate legal protections.</p>
+
+  <p>Empathy is not a substitute for enforcement of legal rights. Toxic behaviour cannot be excused as "management style." Retaliation for exercising your rights is illegal. The legal mandate to enforce workplace safety exists. It needs to be activated.</p>
+
+  <div class="law-callout">
+    <span class="law-callout__badge">Your legal protection</span>
+    <h4>Retaliation for exercising your rights is explicitly illegal.</h4>
+    <p>Employees have a formal right to raise grievances and have them addressed. The Works Council can take up individual cases, demand investigation, and formally object to management decisions that penalise employees for speaking up. Retaliatory measures, including negative performance reviews, sudden transfers, or increased scrutiny following a complaint, can be legally challenged with Works Council backing.</p>
+    <span class="law-callout__standout">The mechanism exists, but only if someone at the table is willing to use it.</span>
+  </div>
+
+  <!-- REVEAL -->
+  <hr class="section-divider" style="margin-top: 48px;">
+
+  <h2 style="margin-top: 32px;">These Patterns Are Systemic</h2>
+
+  <p>Across our workplace, colleagues report witnessing variations of these patterns firsthand. We know exactly what happens when the legal protections that should have prevented all of it exist only on paper, and no one activates them.</p>
+
+  <p>The real failure is not just the employer's overreach. It is when the people elected to protect you prioritise consensus over legal enforcement. When representatives fold under pressure to keep the peace with management.</p>
+
+  <div class="pull-quote">
+    A Works Council that limits its role to mediating conflict will inevitably compromise on the legal baselines you are entitled to. We need representatives who enforce the law, not mediators who apologize for it.
+  </div>
+
+  <!-- CLOSING -->
+  <h2>Where the Line Is Drawn</h2>
+
+  <p>We are not campaigning on theory. We are campaigning on experience.</p>
+
+  <p>Members of our list have navigated these challenges firsthand and stood alongside colleagues who did the same. We know how the law applies and how it erodes when enforcement is weak. We will use the Works Council's right to training to ensure every representative on the council has the competence to intercept these 'fast-track' playbooks and protect your rights before the damage is done.</p>
+
+  <p>A healthy company needs a Works Council with constructive friction. It requires representatives with the competence to identify overreach and the resolve to hold the line before colleagues pay the price.</p>
+
+  <p>We don't blame management for moving fast. That is the nature of business. But we hold the Works Council accountable for ensuring that speed never comes at the expense of your rights — and for having the knowledge and competence to enforce those rights when it counts.</p>
+
+  <p>It is time to replace a weak philosophy with a standard of rigorous enforcement. On election day, you are not just voting for names. You are voting to set and uphold a standard for your rights. You are voting to draw the line.</p>
+
+  <!-- TAGS -->
+  <div class="article-tags">
+    <span class="article-tags__item">#GWC</span>
+    <span class="article-tags__item">#GlobalWorkforceCommunity</span>
+    <span class="article-tags__item">#KnowYourRights</span>
+    <span class="article-tags__item">#WorksCouncil</span>
+    <span class="article-tags__item">#RedrawingTheLine</span>
+  </div>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <h3>Vote May 5–8. List 3.</h3>
+    <p>We draw the line.</p>
+    <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/action-hub" class="article-cta__btn">Visit the Action Hub →</a>
+    <span class="article-cta__tag">Global Workforce Community · Works Council Election 2026</span>
+  </div>
+
+</article>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer__brand">Global Workforce Community</div>
+  <div class="site-footer__tagline">A Works Council That Stands for You</div>
+  <div class="site-footer__vote">Vote May 5 – 8, 2026 · List 3</div>
+</footer>
+
+<script>
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'none';
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.law-callout, .pull-quote, .scenario, .article-cta').forEach(function(el) {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(14px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
