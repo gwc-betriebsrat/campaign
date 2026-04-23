@@ -82,9 +82,9 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 .gwc-hub .cal-link:hover { color: #fff; }
 
 /* ============================================================
-   HERO
+   HERO (reduced top padding for iframe)
    ============================================================ */
-.gwc-hub .hero { padding: 80px 0 48px; position: relative; }
+.gwc-hub .hero { padding: 36px 0 48px; position: relative; }
 .gwc-hub .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 400px; background: radial-gradient(ellipse at 30% 0%, var(--red-glow) 0%, transparent 60%); pointer-events: none; }
 .gwc-hub .hero__eyebrow { margin-bottom: 24px; }
 .gwc-hub .hero h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(32px, 6vw, 52px); line-height: 1.15; color: var(--text-primary); margin-bottom: 8px; }
@@ -246,6 +246,7 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 .gwc-hub .series-card__status--live { background: var(--green); box-shadow: 0 0 8px rgba(34,197,94,0.3); animation: gwc-pulse-live 2s infinite; }
 .gwc-hub .series-card__status--soon { background: var(--accent-gold); opacity: 0.7; }
 .gwc-hub .series-card__status--coming { background: var(--text-tertiary); opacity: 0.4; }
+.gwc-hub .series-card__status--past { background: var(--text-tertiary); opacity: 0.3; }
 @keyframes gwc-pulse-live { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 .gwc-hub .series-card__type { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; flex-shrink: 0; }
 .gwc-hub .series-card__type--video { color: var(--red); background: rgba(196,30,30,0.08); }
@@ -442,7 +443,7 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 }
 
 /* ============================================================
-   SERIES TOGGLE (Live / Upcoming)
+   SERIES TOGGLE (Upcoming / Live / Past)
    ============================================================ */
 .gwc-hub .series-toggle {
   display: flex;
@@ -533,15 +534,88 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 .gwc-hub .events-week__cta:hover { text-decoration: underline; text-underline-offset: 2px; }
 
 /* ============================================================
+   RALLY HIGHLIGHT (centered, prominent)
+   ============================================================ */
+.gwc-hub .rally-card {
+  background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+  border-radius: 14px;
+  padding: 28px 32px;
+  margin: 8px 0 20px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(196,30,30,0.2);
+  position: relative;
+  overflow: hidden;
+}
+.gwc-hub .rally-card::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -20%;
+  width: 60%; height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.gwc-hub .rally-card__badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(255,255,255,0.18);
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+.gwc-hub .rally-card__title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(22px, 3.5vw, 28px);
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+.gwc-hub .rally-card__meta {
+  font-size: 14px;
+  color: rgba(255,255,255,0.92);
+  font-weight: 500;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+.gwc-hub .rally-card__meta strong {
+  color: #fff;
+  font-weight: 700;
+}
+.gwc-hub .rally-card__cta {
+  display: inline-block;
+  background: #fff;
+  color: var(--red);
+  font-family: 'Teka', 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 22px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: transform 0.2s;
+  position: relative;
+  z-index: 1;
+}
+.gwc-hub .rally-card__cta:hover { transform: translateY(-1px); }
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 600px) {
-  .gwc-hub .hero { padding: 48px 0 36px; }
+  .gwc-hub .hero { padding: 24px 0 32px; }
   .gwc-hub section { padding: 48px 0; }
   .gwc-hub .gap-block { padding: 20px 20px; }
   .gwc-hub .impact-card { padding: 24px; }
   .gwc-hub .stat-callout { flex-direction: column; gap: 8px; }
   .gwc-hub .countdown__label { font-size: 10px; }
+  .gwc-hub .rally-card { padding: 22px 20px; }
 }
 </style>
 </head>
@@ -640,20 +714,19 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
   </div>
 </section>
 
-<!-- ===== EVENTS THIS WEEK ===== -->
+<!-- ===== RALLY + EVENTS ===== -->
 <section style="padding: 0 0 48px;" id="events-this-week">
   <div class="container">
-    <div class="events-week">
-      <span class="events-week__label">📅 Events this week</span>
 
-      <div class="events-week__item">
-        <span class="events-week__date">Wed · Apr 22</span>
-        <span class="events-week__title">Meet Your Candidates Over Pizza</span>
-        <span class="events-week__meta">17:30 onwards · BHW-1 Summer Garden</span>
-      </div>
-
-      <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/events/events" target="_blank" class="events-week__cta">See all events & RSVP →</a>
+    <!-- Rally highlight -->
+    <div class="rally-card">
+      <span class="rally-card__badge">Next Week · Before the Vote</span>
+      <h3 class="rally-card__title">Rally Before Your Vote</h3>
+      <p class="rally-card__meta"><strong>Tuesday · Apr 28</strong> &middot; details to follow</p>
+      <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/events/events" target="_blank" class="rally-card__cta">Get the details &rarr;</a>
     </div>
+
+    <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/events/events" target="_blank" class="events-week__cta" style="margin-top: 0;">See all events & RSVP &rarr;</a>
   </div>
 </section>
 
@@ -703,7 +776,7 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
       <div style="display: none; margin-top: 14px;">
         <p>As this term comes to an end, the reorganization pattern is being disrupted. Where previous rounds followed the standard process, the negotiating team behind this reorg connected the dots between these rolling restructurings. And by insisting on binding standards for severance and job security, the process has been escalated to an independent conciliation committee.</p>
         <p>It matters who sits at the negotiating table. <strong>Legal leverage works when representatives are willing to use the tools provided by the law.</strong> Imagine what becomes possible when that willingness has the backing of your vote.</p>
-        <p>Why this restructuring could have gone worse, and how it got here. <a href="#series" style="color: var(--red); font-weight: 600; text-decoration: none;">Read the full account, dropping April 17 →</a></p>
+        <p>The full account of what almost happened in December and what's happening now. <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/standardized-reorganizations" target="_blank" style="color: var(--red); font-weight: 600; text-decoration: none;">Read: Standardized Reorganizations →</a></p>
       </div>
     </div>
 
@@ -769,20 +842,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
   </div>
 </section>
 
-<!-- ===== BREAKING — HIDDEN until ready =====
-<section class="breaking" id="breaking" style="padding: 24px 0;">
-  <div class="container">
-    <div style="background: var(--bg-breaking); border: 1px solid var(--border-breaking); border-radius: 10px; overflow: hidden;">
-      <div style="padding: 14px 20px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--red); background: rgba(196,30,30,0.08); padding: 3px 8px; border-radius: 3px; flex-shrink: 0;">External</span>
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; color: #8B6914; background: rgba(139,105,20,0.12); padding: 4px 10px; border-radius: 3px; border-left: 2px solid #8B6914; flex-shrink: 0;">Bundestag</span>
-        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">"Zalando Inside" — Bodo Ramelow, MdB</span>
-      </div>
-    </div>
-  </div>
-</section>
--->
-
 <!-- ===== TEAM ===== -->
 <section class="team-section" id="team">
   <div class="container">
@@ -815,10 +874,9 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 <!-- ===== KNOW YOUR RIGHTS — ARTICLES ===== -->
 <section style="padding: 0 0 48px;" id="articles">
   <div class="container">
-    <div class="section-header">
-      <span class="label">Know Your Rights</span>
-      <hr class="divider">
-      <h2>The Arguments in Full</h2>
+    <div style="margin-bottom: 16px;">
+      <span class="label label--red" style="color: var(--red); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; font-size: 12px;">Know Your Rights</span>
+      <hr class="divider" style="margin: 8px 0 0;">
     </div>
 
     <div style="margin-top: 8px;">
@@ -846,11 +904,25 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
       </div>
 
       <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+        <div class="series-card__status series-card__status--live" style="flex-shrink: 0;"></div>
+        <span class="series-card__type series-card__type--article" style="flex-shrink: 0;">Article</span>
+        <div style="flex: 1; min-width: 140px;">
+          <div style="font-weight: 600; color: var(--text-primary); font-size: 14px;">Standardized Reorganizations</div>
+          <div style="font-size: 12px; color: var(--text-tertiary); margin-top: 2px;">What happened between December and April</div>
+        </div>
+        <span style="font-size: 11px; color: var(--text-tertiary); flex-shrink: 0;">7 min</span>
+        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/standardized-reorganizations" target="_blank" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">Read →</a>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <div class="series-card__status series-card__status--coming" style="flex-shrink: 0;"></div>
         <span class="series-card__type series-card__type--article" style="flex-shrink: 0;">Article</span>
-        <span style="font-weight: 600; color: var(--text-tertiary); flex: 1; min-width: 140px; font-size: 14px;">Standardized Reorganizations</span>
-        <span style="font-size: 11px; color: var(--accent-gold); font-weight: 600; flex-shrink: 0;">Coming soon</span>
-        <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="openCapture('Notify Publication Drops','Standardized Reorganizations');return false;">Notify me →</a>
+        <div style="flex: 1; min-width: 140px;">
+          <div style="font-weight: 600; color: var(--text-primary); font-size: 14px;">From Looms to AI</div>
+          <div style="font-size: 12px; color: var(--text-tertiary); margin-top: 2px;">A Story About Labour Rights</div>
+        </div>
+        <span style="font-size: 11px; color: var(--accent-gold); font-weight: 600; flex-shrink: 0;">Tue · Apr 28</span>
+        <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="openCapture('Notify Publication Drops','From Looms to AI');return false;">Notify me →</a>
       </div>
 
     </div>
@@ -870,9 +942,38 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
     <div class="series-toggle">
       <button class="series-toggle__btn" id="series-btn-upcoming" onclick="filterSeries('upcoming')">Upcoming</button>
       <button class="series-toggle__btn" id="series-btn-live" onclick="filterSeries('live')">Live</button>
+      <button class="series-toggle__btn" id="series-btn-past" onclick="filterSeries('past')">Past</button>
     </div>
 
     <div style="margin-top: 8px;" id="series-list">
+
+      <!-- ========== UPCOMING ========== -->
+
+      <!-- Rally — April 28 — UPCOMING -->
+      <div data-filter="upcoming" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+        <div class="series-card__status series-card__status--soon" style="flex-shrink: 0;"></div>
+        <span class="series-card__type" style="color: #1a6b8a; background: rgba(26,107,138,0.08); flex-shrink: 0;">Live Event</span>
+        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">Rally Before Your Vote</span>
+        <span style="font-size: 11px; color: var(--text-tertiary);">Tue · Apr 28</span>
+        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/events/events" target="_blank" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">RSVP →</a>
+      </div>
+
+      <!-- From Looms to AI — April 28 — UPCOMING -->
+      <div data-filter="upcoming" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+        <div class="series-card__status series-card__status--coming" style="flex-shrink: 0;"></div>
+        <span class="series-card__type series-card__type--article" style="flex-shrink: 0;">Article</span>
+        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">From Looms to AI: A Story About Labour Rights</span>
+        <span style="font-size: 11px; color: var(--text-tertiary);">Tue · Apr 28</span>
+        <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="openCapture('Notify Publication Drops','From Looms to AI');return false;">Notify me →</a>
+      </div>
+
+      <!-- More coming -->
+      <div data-filter="upcoming" style="display: flex; padding: 12px 0; text-align: center; justify-content: center;">
+        <span style="font-size: 13px; color: var(--text-tertiary); font-style: italic;">More coming.</span>
+      </div>
+
+      <!-- ========== LIVE ========== -->
+
       <!-- The Case for Change — April 7 — LIVE -->
       <div data-filter="live" style="display: none; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <div class="series-card__status series-card__status--live" style="flex-shrink: 0;"></div>
@@ -891,12 +992,12 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
         <a href="#featured-video" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">Watch ↑</a>
       </div>
 
-      <!-- Redrawing the Line — April 21 — LIVE -->
+      <!-- Redrawing the Line — April 20 — LIVE -->
       <div data-filter="live" style="display: none; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <div class="series-card__status series-card__status--live" style="flex-shrink: 0;"></div>
         <span class="series-card__type series-card__type--article" style="flex-shrink: 0;">Article</span>
         <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">Redrawing the Line</span>
-        <span style="font-size: 11px; color: var(--green); font-weight: 600;">April 20</span>
+        <span style="font-size: 11px; color: var(--green); font-weight: 600;">Released Apr 20</span>
         <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/what-makes-a-healthy-works-council" target="_blank" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">Read →</a>
       </div>
 
@@ -905,59 +1006,46 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
         <div class="series-card__status series-card__status--live" style="flex-shrink: 0;"></div>
         <span class="series-card__type series-card__type--article" style="flex-shrink: 0;">Article</span>
         <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">The Pay Gap Isn't a Mystery</span>
-        <span style="font-size: 11px; color: var(--green); font-weight: 600;">April 21</span>
+        <span style="font-size: 11px; color: var(--green); font-weight: 600;">Released Apr 21</span>
         <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/fixing-the-pay-gap" target="_blank" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">Read →</a>
       </div>
 
-      <!-- Redrawing the Line — April 20 — UPCOMING -->
-      <div data-filter="upcoming" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+      <!-- Sudden Transfers video — April 22 — LIVE -->
+      <div data-filter="live" style="display: none; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+        <div class="series-card__status series-card__status--live" style="flex-shrink: 0;"></div>
+        <span class="series-card__type series-card__type--video" style="flex-shrink: 0;">Video</span>
+        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">Sudden Transfers. Uncertain Futures.</span>
+        <span style="font-size: 11px; color: var(--green); font-weight: 600;">Released Apr 22</span>
+        <a href="#featured-video" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">Watch ↑</a>
+      </div>
+
+      <!-- Standardized Reorganizations — April 23 — LIVE -->
+      <div data-filter="live" style="display: none; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <div class="series-card__status series-card__status--live" style="flex-shrink: 0;"></div>
         <span class="series-card__type series-card__type--article" style="flex-shrink: 0;">Article</span>
-        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">Redrawing the Line</span>
-        <span style="font-size: 11px; color: var(--green); font-weight: 600;">April 20</span>
-        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/what-makes-a-healthy-works-council" target="_blank" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">Read →</a>
-      </div>
-
-      <!-- Live Event — April 21 — UPCOMING -->
-      <div data-filter="upcoming" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
-        <div class="series-card__status series-card__status--soon" style="flex-shrink: 0;"></div>
-        <span class="series-card__type" style="color: #1a6b8a; background: rgba(26,107,138,0.08); flex-shrink: 0;">Live Event</span>
-        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">WoCo Elections: from your concerns to our Action Plan</span>
-        <span style="font-size: 11px; color: var(--text-tertiary);">April 21</span>
-        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/events/events" target="_blank" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">RSVP →</a>
-      </div>
-
-      <!-- Pizza — April 22 — UPCOMING -->
-      <div data-filter="upcoming" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
-        <div class="series-card__status series-card__status--soon" style="flex-shrink: 0;"></div>
-        <span class="series-card__type" style="color: #1a6b8a; background: rgba(26,107,138,0.08); flex-shrink: 0;">Live Event</span>
-        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">Meet Your Candidates Over Pizza</span>
-        <span style="font-size: 11px; color: var(--text-tertiary);">April 22</span>
-        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/events/events" target="_blank" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">RSVP →</a>
-      </div>
-
-      <!-- The Protection Gap — UPCOMING -->
-      <div data-filter="upcoming" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
-        <div class="series-card__status series-card__status--coming" style="flex-shrink: 0;"></div>
-        <span class="series-card__type series-card__type--video" style="flex-shrink: 0;">Video</span>
-        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">The Protection Gap</span>
-        <span style="font-size: 11px; color: var(--text-tertiary);">Coming soon</span>
-        <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="openCapture('Notify Video Drops','The Protection Gap');return false;">Notify me →</a>
-      </div>
-
-      <!-- Standardized Reorganizations — UPCOMING -->
-      <div data-filter="upcoming" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
-        <div class="series-card__status series-card__status--coming" style="flex-shrink: 0;"></div>
-        <span class="series-card__type series-card__type--article" style="flex-shrink: 0;">Article</span>
         <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">Standardized Reorganizations</span>
-        <span style="font-size: 11px; color: var(--text-tertiary);">Coming soon</span>
-        <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="openCapture('Notify Publication Drops','Standardized Reorganizations');return false;">Notify me →</a>
+        <span style="font-size: 11px; color: var(--green); font-weight: 600;">Released Apr 23</span>
+        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/standardized-reorganizations" target="_blank" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">Read →</a>
       </div>
 
-      <!-- More coming -->
-      <div data-filter="upcoming" style="display: flex; padding: 12px 0; text-align: center; justify-content: center;">
-        <span style="font-size: 13px; color: var(--text-tertiary); font-style: italic;">More coming.</span>
+      <!-- ========== PAST ========== -->
+
+      <!-- Pizza — April 22 — PAST -->
+      <div data-filter="past" style="display: none; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+        <div class="series-card__status series-card__status--past" style="flex-shrink: 0;"></div>
+        <span class="series-card__type" style="color: var(--text-tertiary); background: var(--bg-tertiary); flex-shrink: 0;">Live Event</span>
+        <span style="font-weight: 600; color: var(--text-secondary); flex: 1; min-width: 140px; font-size: 14px;">Meet Your Candidates Over Pizza</span>
+        <span style="font-size: 11px; color: var(--text-tertiary);">Apr 22 · done</span>
       </div>
+
+      <!-- WoCo Elections Event — April 21 — PAST -->
+      <div data-filter="past" style="display: none; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+        <div class="series-card__status series-card__status--past" style="flex-shrink: 0;"></div>
+        <span class="series-card__type" style="color: var(--text-tertiary); background: var(--bg-tertiary); flex-shrink: 0;">Live Event</span>
+        <span style="font-weight: 600; color: var(--text-secondary); flex: 1; min-width: 140px; font-size: 14px;">WoCo Elections: from your concerns to our Action Plan</span>
+        <span style="font-size: 11px; color: var(--text-tertiary);">Apr 21 · done</span>
+      </div>
+
     </div>
 
     <div class="series-subscribe">
@@ -1095,13 +1183,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 (function() {
   var hub = document.getElementById('gwc-hub');
 
-  // Countdown (disabled)
-  function updateCountdown() {
-    var wrap = hub.querySelector('#countdown-wrap');
-    if (!wrap) return;
-  }
-  updateCountdown();
-
   // Calendar .ics
   function downloadICS() {
     var ics = [
@@ -1124,16 +1205,17 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
   hub.querySelector('#cal-btn').addEventListener('click', downloadICS);
   hub.querySelector('#cal-btn-2').addEventListener('click', downloadICS);
 
-  // Series toggle — Live / Upcoming
+  // Series toggle — Upcoming / Live / Past
   window.filterSeries = function(filter) {
     hub.querySelectorAll('#series-list [data-filter]').forEach(function(row) {
       row.style.display = row.getAttribute('data-filter') === filter ? 'flex' : 'none';
     });
-    hub.querySelector('#series-btn-live').classList.toggle('series-toggle__btn--active', filter === 'live');
     hub.querySelector('#series-btn-upcoming').classList.toggle('series-toggle__btn--active', filter === 'upcoming');
+    hub.querySelector('#series-btn-live').classList.toggle('series-toggle__btn--active', filter === 'live');
+    hub.querySelector('#series-btn-past').classList.toggle('series-toggle__btn--active', filter === 'past');
   };
-  // Default: Upcoming
-  filterSeries('upcoming');
+  // Default: Live
+  filterSeries('live');
 
   // Video playlist swap
   var fvIframe = hub.querySelector('#fv-iframe');
@@ -1159,7 +1241,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
       var activeCta = row.querySelector('.video-row__cta');
       if (activeCta) activeCta.textContent = 'Now playing';
 
-      // Scroll featured video into view
       hub.querySelector('#featured-video').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
@@ -1299,7 +1380,7 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
     });
   }, { threshold: 0.1 });
 
-  hub.querySelectorAll('.gap-block, .impact-card, .series-card, .dialogue-card, .breaking-card, .team-philosophy, .team-video, .early-cta, .engage-tier, .series-subscribe, .stat-callout, .pull-quote, .bridge__statement, .vote-card, .before-vote__toggle').forEach(function(el) {
+  hub.querySelectorAll('.gap-block, .impact-card, .series-card, .dialogue-card, .breaking-card, .team-philosophy, .team-video, .early-cta, .engage-tier, .series-subscribe, .stat-callout, .pull-quote, .bridge__statement, .vote-card, .before-vote__toggle, .rally-card').forEach(function(el) {
     el.style.opacity = '0';
     el.style.transform = 'translateY(16px)';
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
