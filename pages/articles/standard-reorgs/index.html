@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Standardized Reorganizations · GWC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --red: #C41E1E;
+  --red-dark: #9B1818;
+  --red-light: rgba(196,30,30,0.06);
+  --green: #0F6E56;
+  --green-mid: #1D9E75;
+  --green-light: rgba(22,135,58,0.07);
+  --green-border: rgba(22,135,58,0.25);
+  --text-primary: #1A1A1A;
+  --text-secondary: #4A4A4A;
+  --text-tertiary: #888;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F7F6F3;
+  --bg-tertiary: #EEECEA;
+  --border: #E5E3DF;
+  --border-subtle: #F0EEEB;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topbar__brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--red);
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+
+/* ===== ARTICLE HEADER ===== */
+.article-header {
+  padding: 48px 24px 36px;
+  max-width: 680px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.article-header h1 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(28px, 5.5vw, 42px);
+  line-height: 1.2;
+  color: var(--text-primary);
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  margin-bottom: 0;
+}
+.article-header h1 em { color: var(--red); font-style: italic; }
+.article-header__subtitle {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(17px, 3vw, 22px);
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-top: 12px;
+}
+.article-header__deck {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ===== ARTICLE BODY ===== */
+.article-body {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+.article-body p {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
+.article-body p strong { color: var(--text-primary); font-weight: 600; }
+.article-body p em { font-style: italic; }
+.article-body h2 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(22px, 3.5vw, 28px);
+  color: var(--text-primary);
+  margin: 44px 0 18px;
+  line-height: 1.25;
+  font-weight: 400;
+}
+
+/* ===== SECTION LABEL ===== */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--red);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 48px;
+  margin-bottom: 4px;
+}
+
+/* ===== STAT CALLOUT ===== */
+.stat-callout {
+  background: rgba(196,30,30,0.04);
+  border: 1px solid rgba(196,30,30,0.12);
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin: 28px 0;
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+}
+.stat-callout__number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--red);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.stat-callout__text {
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+.stat-callout__text strong { color: var(--text-primary); }
+
+/* ===== LAW CALLOUT ===== */
+.law-callout {
+  background: var(--green-light);
+  border: 1px solid var(--green-border);
+  border-radius: 12px;
+  padding: 28px 32px 28px 36px;
+  margin: 28px 0;
+  position: relative;
+  overflow: hidden;
+}
+.law-callout::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: var(--green-mid);
+  border-radius: 4px 0 0 4px;
+}
+.law-callout__badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--green);
+  background: rgba(15,110,86,0.1);
+  padding: 4px 12px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.law-callout h4 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 18px;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+.law-callout p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 0;
+  line-height: 1.75;
+}
+
+/* ===== CONTRAST BLOCK (They said / The reality) ===== */
+.contrast-block {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 32px 0;
+  border: 1px solid var(--border);
+}
+.contrast-block__row {
+  padding: 14px 0;
+}
+.contrast-block__row:first-child { border-bottom: 1px solid var(--border); padding-top: 4px; }
+.contrast-block__row:last-child { padding-bottom: 4px; }
+.contrast-block__label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  color: var(--text-tertiary);
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: block;
+}
+.contrast-block__text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  color: var(--text-primary);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ===== TIMELINE ===== */
+.timeline-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 24px 0;
+}
+.timeline-wrap__label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+  display: block;
+  text-align: center;
+}
+.timeline-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ===== HIGHLIGHT (marker pen style) ===== */
+.highlight {
+  background: linear-gradient(180deg, transparent 55%, rgba(247,214,96,0.55) 55%);
+  padding: 0 2px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* ===== PULL QUOTE ===== */
+.pull-quote {
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--red);
+  border-radius: 0 8px 8px 0;
+  padding: 24px 28px;
+  margin: 32px 0;
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--text-primary);
+  line-height: 1.55;
+}
+
+/* ===== COLLAPSIBLE FOOTNOTE ===== */
+.footnote-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--red);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-top: 4px;
+}
+.footnote-content {
+  display: none;
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--border);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 12px 0 4px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+.footnote-content--open { display: block; }
+
+/* ===== APPENDIX ===== */
+.appendix {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin: 48px 0 0;
+}
+.appendix__label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+  display: block;
+}
+.appendix h3 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 18px;
+  color: var(--text-primary);
+  font-weight: 400;
+  margin-bottom: 14px;
+}
+.appendix ul { list-style: none; padding: 0; margin: 0; }
+.appendix li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+.appendix li:last-child { border-bottom: none; }
+.appendix a {
+  color: var(--red);
+  text-decoration: none;
+  font-weight: 500;
+}
+.appendix a:hover { text-decoration: underline; }
+
+/* ===== CAMPAIGN CTA ===== */
+.article-cta {
+  background: var(--red);
+  border-radius: 12px;
+  padding: 40px 32px;
+  margin: 48px 0 0;
+  text-align: center;
+}
+.article-cta h3 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(22px, 4vw, 28px);
+  color: #fff;
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+.article-cta p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 24px;
+}
+.article-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--red);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+.article-cta__btn:hover { transform: translateY(-1px); }
+.article-cta__tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  margin-top: 20px;
+  display: block;
+}
+
+/* ===== FOOTER ===== */
+.site-footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  padding: 32px 24px;
+  text-align: center;
+}
+.site-footer__brand {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 18px;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.site-footer__tagline {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+}
+.site-footer__vote {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--red);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .article-header { padding: 36px 20px 28px; }
+  .article-body { padding: 28px 20px 60px; }
+  .stat-callout { flex-direction: column; gap: 8px; }
+  .law-callout { padding: 24px 20px 24px 24px; }
+  .contrast-block { padding: 24px 20px; }
+  .article-cta { padding: 28px 20px; }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate { opacity: 0; animation: fadeUp 0.6s ease forwards; }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <a href="#" class="topbar__brand">GWC</a>
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; background: var(--text-primary); color: #fff; padding: 5px 12px; border-radius: 4px;">Know Your Rights</span>
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-tertiary);">7 min read</span>
+  </div>
+</nav>
+
+<!-- ARTICLE HEADER -->
+<header class="article-header">
+  <h1 class="animate"><em>Standardized Reorganizations</em><br>What happened between December and April</h1>
+  <p class="article-header__subtitle animate delay-1">A one-size-fits-all doesn't work with shoes. It won't work with your future.</p>
+  <p class="article-header__deck animate delay-2">In December 2025, a draft Works Agreement was moving through the Works Council that would have fast-tracked reorganizations by creating a one-size-fits-all template. It didn't pass. This is what happened next, and what it means for you.</p>
+</header>
+
+<!-- TWO PATHS DIAGRAM -->
+<div class="timeline-wrap">
+  <span class="timeline-wrap__label">The December Fork</span>
+  <svg class="timeline-svg" viewBox="0 0 680 770" xmlns="http://www.w3.org/2000/svg" aria-label="Diagram showing two outcomes from the December fast-track reorganization draft">
+
+    <!-- ========== TOP NODE ========== -->
+    <rect x="170" y="20" width="340" height="56" rx="8" fill="#F7F6F3" stroke="#E5E3DF" stroke-width="1.5"/>
+    <text x="340" y="44" font-family="'DM Sans', sans-serif" font-size="14" font-weight="700" fill="#1A1A1A" text-anchor="middle">Fast-Track Reorg</text>
+    <text x="340" y="64" font-family="'DM Sans', sans-serif" font-size="11" fill="#4A4A4A" text-anchor="middle">(legally binding Works Agreement for all reorgs)</text>
+
+    <!-- Trunk line down to diamond -->
+    <line x1="340" y1="76" x2="340" y2="110" stroke="#888" stroke-width="1.5"/>
+    <polygon points="340,114 336,106 344,106" fill="#888"/>
+
+    <!-- ========== CENTRAL DECISION DIAMOND ========== -->
+    <polygon points="340,118 420,170 340,222 260,170" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="2"/>
+    <text x="340" y="166" font-family="'DM Sans', sans-serif" font-size="13" font-weight="700" fill="#1A1A1A" text-anchor="middle">Decision</text>
+    <text x="340" y="184" font-family="'DM Sans', sans-serif" font-size="11" fill="#888" text-anchor="middle">Dec 2025</text>
+
+    <!-- ========== BRANCH ARROWS (orthogonal routing from diamond sides) ========== -->
+
+    <!-- Left branch (RED, APPROVE) - exits left side of diamond, goes left, turns down -->
+    <line x1="260" y1="170" x2="150" y2="170" stroke="#C41E1E" stroke-width="2"/>
+    <line x1="150" y1="170" x2="150" y2="240" stroke="#C41E1E" stroke-width="2"/>
+    <polygon points="150,244 146,234 154,234" fill="#C41E1E"/>
+    <text x="205" y="162" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" fill="#C41E1E" text-anchor="middle">APPROVE</text>
+
+    <!-- Right branch (GREEN, REFUSE) - exits right side of diamond, goes right, turns down -->
+    <line x1="420" y1="170" x2="530" y2="170" stroke="#0F6E56" stroke-width="2"/>
+    <line x1="530" y1="170" x2="530" y2="240" stroke="#0F6E56" stroke-width="2"/>
+    <polygon points="530,244 526,234 534,234" fill="#0F6E56"/>
+    <text x="475" y="162" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" fill="#0F6E56" text-anchor="middle">REFUSE</text>
+
+    <!-- ========== LEFT PATH: RED (3 steps) ========== -->
+
+    <!-- Box 1: Standardized severance? -->
+    <rect x="40" y="250" width="220" height="52" rx="6" fill="#FFF5F5" stroke="#C41E1E" stroke-width="1" opacity="0.85"/>
+    <text x="150" y="274" font-family="'DM Sans', sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle">Standardized severance?</text>
+    <text x="150" y="291" font-family="'DM Sans', sans-serif" font-size="10" fill="#888" text-anchor="middle" font-style="italic">regardless of role or tenure</text>
+
+    <!-- Arrow -->
+    <line x1="150" y1="302" x2="150" y2="328" stroke="#C41E1E" stroke-width="1.5" opacity="0.6"/>
+    <polygon points="150,332 146,324 154,324" fill="#C41E1E" opacity="0.6"/>
+
+    <!-- Box 2: No time for case-by-case review -->
+    <rect x="40" y="336" width="220" height="52" rx="6" fill="#FFF5F5" stroke="#C41E1E" stroke-width="1" opacity="0.85"/>
+    <text x="150" y="360" font-family="'DM Sans', sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle">No time for</text>
+    <text x="150" y="376" font-family="'DM Sans', sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle">case-by-case review</text>
+
+    <!-- Arrow -->
+    <line x1="150" y1="388" x2="150" y2="414" stroke="#C41E1E" stroke-width="1.5" opacity="0.6"/>
+    <polygon points="150,418 146,410 154,410" fill="#C41E1E" opacity="0.6"/>
+
+    <!-- End box: Employer-optimized exit -->
+    <rect x="40" y="422" width="220" height="56" rx="6" fill="#C41E1E" stroke="#C41E1E" stroke-width="1.5" opacity="0.9"/>
+    <text x="150" y="446" font-family="'DM Sans', sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">Employer-optimized</text>
+    <text x="150" y="464" font-family="'DM Sans', sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">exit</text>
+
+    <!-- ========== RIGHT PATH: GREEN (5 steps) ========== -->
+
+    <!-- Box 1: Early transparency -->
+    <rect x="420" y="250" width="220" height="52" rx="6" fill="#E8F5F0" stroke="#0F6E56" stroke-width="1"/>
+    <text x="530" y="274" font-family="'DM Sans', sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle">Early transparency about</text>
+    <text x="530" y="291" font-family="'DM Sans', sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle">upcoming large reorgs</text>
+
+    <!-- Arrow -->
+    <line x1="530" y1="302" x2="530" y2="328" stroke="#0F6E56" stroke-width="1.5"/>
+    <polygon points="530,332 526,324 534,324" fill="#0F6E56"/>
+
+    <!-- Box 2: Case-by-case review -->
+    <rect x="420" y="336" width="220" height="52" rx="6" fill="#E8F5F0" stroke="#0F6E56" stroke-width="1"/>
+    <text x="530" y="360" font-family="'DM Sans', sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle">Case-by-case review</text>
+    <text x="530" y="377" font-family="'DM Sans', sans-serif" font-size="10" fill="#888" text-anchor="middle" font-style="italic">business case scrutiny</text>
+
+    <!-- Arrow -->
+    <line x1="530" y1="388" x2="530" y2="414" stroke="#0F6E56" stroke-width="1.5"/>
+    <polygon points="530,418 526,410 534,410" fill="#0F6E56"/>
+
+    <!-- Box 3: Legal scrutiny -->
+    <rect x="420" y="422" width="220" height="52" rx="6" fill="#E8F5F0" stroke="#0F6E56" stroke-width="1"/>
+    <text x="530" y="446" font-family="'DM Sans', sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle">Legal scrutiny</text>
+    <text x="530" y="463" font-family="'DM Sans', sans-serif" font-size="10" fill="#888" text-anchor="middle" font-style="italic">of each role impact</text>
+
+    <!-- Arrow -->
+    <line x1="530" y1="474" x2="530" y2="500" stroke="#0F6E56" stroke-width="1.5"/>
+    <polygon points="530,504 526,496 534,496" fill="#0F6E56"/>
+
+    <!-- Box 4: Transfers & upskilling -->
+    <rect x="420" y="508" width="220" height="52" rx="6" fill="#E8F5F0" stroke="#0F6E56" stroke-width="1"/>
+    <text x="530" y="532" font-family="'DM Sans', sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle">Transfers &amp; upskilling</text>
+    <text x="530" y="549" font-family="'DM Sans', sans-serif" font-size="10" fill="#888" text-anchor="middle" font-style="italic">replacing questionable layoffs</text>
+
+    <!-- Arrow -->
+    <line x1="530" y1="560" x2="530" y2="586" stroke="#0F6E56" stroke-width="1.5"/>
+    <polygon points="530,590 526,582 534,582" fill="#0F6E56"/>
+
+    <!-- Box 5: Negotiated severance -->
+    <rect x="420" y="594" width="220" height="52" rx="6" fill="#E8F5F0" stroke="#0F6E56" stroke-width="1"/>
+    <text x="530" y="618" font-family="'DM Sans', sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle">Negotiated severance</text>
+    <text x="530" y="635" font-family="'DM Sans', sans-serif" font-size="10" fill="#888" text-anchor="middle" font-style="italic">where transitions aren't possible</text>
+
+    <!-- Arrow -->
+    <line x1="530" y1="646" x2="530" y2="672" stroke="#0F6E56" stroke-width="1.5"/>
+    <polygon points="530,676 526,668 534,668" fill="#0F6E56"/>
+
+    <!-- End box: Conciliation Committee -->
+    <rect x="420" y="680" width="220" height="66" rx="6" fill="#0F6E56" stroke="#0F6E56" stroke-width="1.5"/>
+    <text x="530" y="706" font-family="'DM Sans', sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">Conciliation</text>
+    <text x="530" y="724" font-family="'DM Sans', sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">Committee</text>
+    <text x="530" y="740" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,0.8)" text-anchor="middle" font-style="italic">ongoing now</text>
+
+  </svg>
+</div>
+
+<!-- ARTICLE BODY -->
+<article class="article-body">
+
+  <p>Reorganizations are a reality of professional life. But a restructuring done properly is built on high-quality, legally sound negotiations, rather than administrative shortcuts and simplifications.</p>
+
+  <p>Zalando's 2026 Reorganization process moved to a <strong>Negotiation Table</strong> chaired by a neutral external Judge (named as <em>Einigungsstelle</em>, the Conciliation Committee).</p>
+
+  <p><strong>This isn't a setback. It is your rights being taken seriously.</strong></p>
+
+  <p>It ends the era of the 'Internal Shortcut' and gives us maximum negotiating leverage. For the workforce, this means closing the loopholes on social protections, in compliance with labour law, that were otherwise easy to circumvent and ignore. It unlocks a path to higher severance packages, better transfer options, and <strong>rigorous scrutiny</strong> for every single layoff. It ensures your future is decided by the <strong>full weight of the law</strong>, not a corporate shortcut.</p>
+
+  <p>This restores a <strong>balance of power</strong> that was nearly sacrificed in December 2025. Despite an internal push to move forward with a 'fast-track' approach, the strategy was successfully steered back toward the full weight of the law, ensuring your future remains a negotiation, not just an exit with <strong>hardcoded standards</strong>.</p>
+
+  <!-- SECTION I -->
+  <span class="section-label">I. The Balance at the Negotiating Table</span>
+  <h2>Two tools that turn a reorganization into a real negotiation.</h2>
+
+  <p>In German labor law, the Works Council relies on two engagement mechanisms to reach high-quality, equitable agreements during reorganizations: <strong>rigorous scrutiny</strong> and <strong>escalation</strong>.</p>
+
+  <p><span class="highlight">A reorganization affecting livelihoods cannot be rushed. The law gives the Council the power to hit the brakes and demand to see the receipts, ensuring no one is fired just because it's cheaper for the company.</span> The council can rigorously analyze and verify legal justifications, assess social impact, and negotiate on the plans before approval. Without this thorough due diligence, the employer could simply optimize for speed and bypass the interests of employees in favor of cheaper, faster, substandard solutions that don't respect what the labour laws of Germany intended to safeguard.</p>
+
+  <div class="law-callout">
+    <span class="law-callout__badge">§99 BetrVG</span>
+    <h4>Every individual transfer requires the Works Council's consent.</h4>
+    <p>The employer cannot reassign, regrade, or transfer you to a new role without first obtaining the Works Council's formal consent. This isn't consultation. The council has the right to withhold approval when the transfer lacks proper justification.</p>
+  </div>
+
+  <p>When negotiations hit a wall, a party can escalate to the Conciliation Committee (<em>Einigungsstelle</em>), bringing in an external, neutral arbitrator, usually a judge. <span class="highlight">The possibility of an outside arbitrator deciding the final outcome creates a powerful incentive for both parties to find a superior agreement.</span></p>
+
+  <div class="law-callout">
+    <span class="law-callout__badge">§76 BetrVG</span>
+    <h4>Either side can escalate to an external judge.</h4>
+    <p>If the Works Council and the employer cannot agree, either party can call for a Conciliation Committee, chaired by an external, neutral judge. The committee's decision is binding. This is not a last resort. It is the safety net that ensures neither side can simply wait out the other.</p>
+  </div>
+
+  <!-- SECTION II -->
+  <span class="section-label">II. The Fast-Track Trap</span>
+  <h2>What almost happened in December.</h2>
+
+  <p>We are utilizing these powerful tools today, but we almost lost them entirely.</p>
+
+  <p>In December 2025, a proposed Works Agreement was moving through the Council. A Works Agreement is a binding contract that is supposed to secure rights above and beyond standard labor law.</p>
+
+  <button class="footnote-toggle" onclick="document.getElementById('works-agreement-note').classList.toggle('footnote-content--open');this.textContent=document.getElementById('works-agreement-note').classList.contains('footnote-content--open')?'Hide details ▴':'What is a Works Agreement? ▾';">What is a Works Agreement? ▾</button>
+  <div class="footnote-content" id="works-agreement-note">
+    A Works Agreement (<em>Betriebsvereinbarung</em>) is a formal, binding contract between the Works Council and the employer. Examples include preventing the company from using IT systems to monitor your activity, or establishing frameworks for performance evaluations. Publishing these is legally mandatory, and consulting employees before finalising them is often a standard part of the process.
+  </div>
+
+  <p style="margin-top: 28px;">But the goal of this specific agreement was to create a 'fast-track' template for reorganizations.</p>
+
+  <p>To a normal employee, "fast-tracking" a reorg might sound appealing. Nobody likes waiting in limbo. But in the context of labor law, "fast and standardized" means rushed. It ignores individual circumstances and leaves employees vulnerable to inequitable outcomes. By standardizing the process, this draft would have forced the Works Council to surrender your legal leverages, allowing the employer to bypass the deep negotiations the Works Council uses to get you the best job protections, transitions, and severances.</p>
+
+  <!-- SECTION III -->
+  <span class="section-label">III. The Assembly Q&amp;A vs. The Reality</span>
+  <h2>What was said onstage. And what the facts suggested.</h2>
+
+  <p>When the status of this proposed Works Agreement was raised at the March '26 Assembly, the response from some Works Council members onstage was that it was <em>merely an employer idea</em>, that <em>no negotiations were happening</em>, and that it would have <em>no impact on your given rights</em>.</p>
+
+  <p>However, the intense push to get a template ready by the end of 2025 told a very different story.</p>
+
+  <div class="contrast-block">
+    <div class="contrast-block__row">
+      <span class="contrast-block__label">What was said</span>
+      <p class="contrast-block__text">An employer idea. No negotiations happening. No impact on your given rights.</p>
+    </div>
+    <div class="contrast-block__row">
+      <span class="contrast-block__label">What the facts suggested</span>
+      <p class="contrast-block__text">An intense push to get a template ready by the end of 2025, consistent with an effort to actively align on details.</p>
+    </div>
+  </div>
+
+  <p>When leadership claims no negotiations were happening while the facts point toward a rushed, year-end timeline, it creates a crisis of trust. Whether a draft is final or not misses the point. The issue is that the workforce is kept in the dark while the groundwork is being laid.</p>
+
+  <p>When the official narrative downplays the structural reality of these preparations, it creates a <span class="highlight">transparency gap</span> that leaves the workforce uninformed. <span class="highlight">True representation isn't about managing the narrative or minimizing the facts. It is about consulting the workforce before their future is fast-tracked with a deadline.</span> Anything less creates a critical gap in the representation you were promised.</p>
+
+  <!-- SECTION IV -->
+  <span class="section-label">IV. The GWC Standard</span>
+  <h2>Why holding the line led to better results.</h2>
+
+  <p>As representatives committed to radical transparency, we must set the record straight.</p>
+
+  <p>Contrary to those claims, our findings say this "voluntary" Works Agreement was not harmless. It was an attempt to fast-track reorganizations by creating a one-size-fits-all, time-boxed template that avoided triggering legal requirements to involve the Works Council more substantially.</p>
+
+  <p>Without principled resistance from some members within the Council, the draft would have moved toward approval without the public consultation the workforce deserved, especially where prior consultation is the norm in Germany.</p>
+
+  <p>By refusing to agree to that "voluntary agreement" at the end of 2025 without leverage, and instead securing legal counsel to properly negotiate the entire upcoming reorganization, dissenting members recognized a fundamental truth: <strong>without maintaining your baseline rights and legal leverage at the negotiating table, the employer has little reason to offer more than a basic package.</strong></p>
+
+  <p>This institutional direction isn't just an isolated incident. It reflects a systemic pattern where speed is prioritized over employee involvement and legal leverage. For too long, the workforce has been excluded from critical decisions made on their behalf.</p>
+
+  <div class="stat-callout">
+    <span class="stat-callout__number">110</span>
+    <div class="stat-callout__text">reorganizations processed last year alone. <strong>Over 2 per week.</strong> At that pace, it is almost impossible for any Council to provide the rigorous, legally mandated case-by-case due diligence your livelihood deserves.</div>
+  </div>
+
+  <p>The December draft was simply an attempt to formalize that high-speed exclusion into a 'fast-track' template, effectively replacing deep legal scrutiny with a simplified, time-boxed process.</p>
+
+  <div class="law-callout">
+    <span class="law-callout__badge">§111 BetrVG</span>
+    <h4>Economic decisions affecting employees require formal consultation.</h4>
+    <p>For operational changes that affect a substantial number of employees, the Works Council must be informed in full and in good time, and must be given the opportunity to negotiate a Reconciliation of Interests (<em>Interessenausgleich</em>) and a Social Plan (<em>Sozialplan</em>). A standardized, time-boxed template undermines this legal standard by design.</p>
+  </div>
+
+  <h2>What we stand for</h2>
+
+  <p>We are highly committed to diplomatic, constructive, formal cooperation with the employer. However, diplomacy is not about sacrificing quality for frictionless speed. It is about using the legal framework to ensure that the employer's need for efficiency is balanced by respect for your labor's contribution to our collective success, as recognized by the law.</p>
+
+  <p>Because members of this list and other Works Council members held the line, because they consulted and listened to legal experts, your protections are now being carefully, thoughtfully, and diligently negotiated with the full weight of the law, focused on finding the best possible deals and alternative dismissal preventions, instead of just a standardized exit hastily negotiated over the December holidays.</p>
+
+  <div class="pull-quote">
+    Imagine what a Works Council built on unyielding advocacy can achieve with your vote.
+  </div>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <h3>Vote May 5&ndash;8. List 3.</h3>
+    <p>Watch our videos, join our events, and read the full case for change.</p>
+    <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/action-hub" class="article-cta__btn">Visit the Action Hub &rarr;</a>
+    <span class="article-cta__tag">Global Workforce Community &middot; Works Council Election 2026</span>
+  </div>
+
+  <!-- APPENDIX -->
+  <div class="appendix">
+    <span class="appendix__label">Further reading &amp; watching</span>
+    <h3>The rest of the case</h3>
+    <ul>
+      <li>
+        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/action-hub#featured-video" target="_blank">Video: Sudden Transfers. Uncertain Futures. What If You're Next? &rarr;</a>
+        <span style="color: var(--text-tertiary); margin-left: 4px;">A Works Council member speaks openly about 2026 reorganizations.</span>
+      </li>
+      <li>
+        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/action-hub#featured-video" target="_blank">Video: The Accountability Gap &rarr;</a>
+        <span style="color: var(--text-tertiary); margin-left: 4px;">Who is actually being held accountable, and who isn't?</span>
+      </li>
+      <li>
+        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/what-makes-a-healthy-works-council" target="_blank">Article: Redrawing the Line &rarr;</a>
+        <span style="color: var(--text-tertiary); margin-left: 4px;">Why a Healthy Company Needs a Strong Works Council.</span>
+      </li>
+      <li>
+        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/fixing-the-pay-gap" target="_blank">Article: The Pay Gap Isn't a Mystery &rarr;</a>
+        <span style="color: var(--text-tertiary); margin-left: 4px;">Germany's Pay Transparency Act and what the next directive unlocks.</span>
+      </li>
+    </ul>
+  </div>
+
+</article>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer__brand">Global Workforce Community</div>
+  <div class="site-footer__tagline">A Works Council That Stands for You</div>
+  <div class="site-footer__vote">Vote May 5 &ndash; 8, 2026 &middot; List 3</div>
+</footer>
+
+</body>
+</html>
