@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Four Layers · GWC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --red: #C41E1E;
+  --red-dark: #9B1818;
+  --red-light: rgba(196,30,30,0.06);
+  --green: #0F6E56;
+  --green-mid: #1D9E75;
+  --green-light: rgba(22,135,58,0.07);
+  --green-border: rgba(22,135,58,0.25);
+  --amber: #B8860B;
+  --amber-light: rgba(255,193,7,0.08);
+  --text-primary: #1A1A1A;
+  --text-secondary: #4A4A4A;
+  --text-tertiary: #888;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F7F6F3;
+  --bg-tertiary: #EEECEA;
+  --border: #E5E3DF;
+  --border-subtle: #F0EEEB;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topbar__brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--red);
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+
+/* ===== ARTICLE HEADER ===== */
+.article-header {
+  padding: 48px 24px 36px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.article-header h1 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(32px, 5.5vw, 48px);
+  line-height: 1.1;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+.article-header h1 em { color: var(--red); font-style: italic; }
+.article-header__deck {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ===== LAYER DIAGRAM ===== */
+.layer-diagram {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 20px 24px 32px;
+}
+.layer-diagram__label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 20px;
+  display: block;
+  text-align: center;
+}
+.layer-diagram__svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ===== ARTICLE BODY ===== */
+.article-body {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+}
+.article-body p {
+  font-size: 17px;
+  color: var(--text-secondary);
+  margin-bottom: 22px;
+  line-height: 1.75;
+}
+.article-body p strong { color: var(--text-primary); font-weight: 600; }
+
+/* ===== PROVOCATION ===== */
+.provocation {
+  background: var(--text-primary);
+  color: #fff;
+  padding: 28px 32px;
+  margin: 32px 0 36px;
+  border-radius: 12px;
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(18px, 2.8vw, 22px);
+  line-height: 1.45;
+  font-style: italic;
+}
+
+/* ===== SKIM ===== */
+.skim {
+  background: #FFF9E8;
+  border: 1px solid rgba(196,154,46,0.3);
+  border-radius: 10px;
+  padding: 22px 26px;
+  margin: 28px 0 36px;
+  position: relative;
+}
+.skim__label {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #8B6914;
+  background: rgba(139,105,20,0.12);
+  padding: 3px 10px;
+  border-radius: 3px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.skim p {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  margin: 0;
+}
+.skim p strong { color: var(--text-primary); font-weight: 700; }
+
+/* ===== HERO QUOTE ===== */
+.hero-quote {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(22px, 3.8vw, 28px);
+  line-height: 1.35;
+  color: var(--text-primary);
+  padding: 32px 32px 32px 36px;
+  margin: 36px 0;
+  background: var(--bg-secondary);
+  border-left: 4px solid var(--red);
+  border-radius: 0 12px 12px 0;
+  font-style: italic;
+}
+
+/* ===== SECTION LABEL ===== */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--red);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 56px;
+  margin-bottom: 8px;
+}
+
+/* ===== SECTION SUMMARY ===== */
+.section-summary {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-top: -8px;
+  margin-bottom: 24px;
+  padding-left: 14px;
+  border-left: 3px solid #C7C2B8;
+}
+.section-summary strong { color: var(--text-primary); font-weight: 600; font-style: normal; }
+
+/* ===== SECTION HEADING ===== */
+.article-body h2 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(24px, 4vw, 32px);
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin: 0 0 14px;
+  font-weight: 400;
+}
+
+/* ===== LAYER CARD ===== */
+.layer-card {
+  margin: 28px 0 32px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.layer-card__head {
+  padding: 18px 24px 16px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+}
+.layer-card__number {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--red);
+  background: rgba(196,30,30,0.1);
+  padding: 3px 10px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+}
+.layer-card__title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 22px;
+  color: var(--text-primary);
+  line-height: 1.3;
+  margin: 0;
+}
+.layer-card__subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text-tertiary);
+  font-style: italic;
+  margin-top: 4px;
+}
+.layer-card__body {
+  padding: 20px 24px 22px;
+}
+.layer-card__body p {
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+.layer-card__body p:last-child { margin-bottom: 0; }
+.layer-card__body strong { color: var(--text-primary); font-weight: 600; }
+
+/* Leak indicator */
+.leak-indicator {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--red-light);
+  border-left: 3px solid var(--red);
+  border-radius: 0 6px 6px 0;
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+.leak-indicator__label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.leak-indicator__text { flex: 1; line-height: 1.55; }
+
+/* ===== MARKER-PEN HIGHLIGHT ===== */
+.highlight {
+  background: linear-gradient(180deg, transparent 55%, rgba(247,214,96,0.55) 55%);
+  padding: 0 2px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* ===== CTA ===== */
+.article-cta {
+  background: var(--red);
+  color: #fff;
+  padding: 36px 32px;
+  margin: 48px 0 32px;
+  border-radius: 12px;
+  text-align: center;
+}
+.article-cta h3 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+.article-cta p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.65;
+}
+.article-cta__btn {
+  display: inline-block;
+  background: #fff;
+  color: var(--red);
+  padding: 12px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: transform 0.15s;
+}
+.article-cta__btn:hover { transform: translateY(-1px); }
+.article-cta__tag {
+  display: block;
+  margin-top: 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+}
+
+/* ===== APPENDIX ===== */
+.appendix {
+  background: var(--bg-secondary);
+  padding: 28px 24px;
+  border-radius: 10px;
+  margin: 24px 0 0;
+}
+.appendix__label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+.appendix h3 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 20px;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+  font-weight: 400;
+}
+.appendix ul { list-style: none; padding: 0; }
+.appendix li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 14px;
+}
+.appendix li:last-child { border-bottom: none; }
+.appendix li a { color: var(--red); text-decoration: none; font-weight: 500; }
+.appendix li a:hover { text-decoration: underline; }
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+  .article-header { padding: 36px 20px 28px; }
+  .article-body { padding: 0 20px 48px; }
+  .article-body p { font-size: 16px; }
+  .hero-quote { padding: 24px 24px 24px 28px; }
+  .article-cta { padding: 28px 20px; }
+  .layer-card__head { padding: 16px 20px; }
+  .layer-card__body { padding: 18px 20px 20px; }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate { opacity: 0; animation: fadeUp 0.6s ease forwards; }
+.delay-1 { animation-delay: 0.1s; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <a href="#" class="topbar__brand">GWC</a>
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; background: var(--text-primary); color: #fff; padding: 5px 12px; border-radius: 4px;">Deep Read</span>
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-tertiary);">8 min read</span>
+  </div>
+</nav>
+
+<!-- ARTICLE HEADER -->
+<header class="article-header">
+  <h1 class="animate">The <em>Four Layers</em></h1>
+  <p class="article-header__deck animate delay-1">How Germany is supposed to prevent economic destitution. And where the system is leaking.</p>
+</header>
+
+<!-- LAYER DIAGRAM -->
+<div class="layer-diagram">
+  <span class="layer-diagram__label">The architecture, at a glance</span>
+  <svg class="layer-diagram__svg" viewBox="0 0 780 440" xmlns="http://www.w3.org/2000/svg" aria-label="Four layers of German labour protection">
+
+    <!-- Worker figure at bottom -->
+    <g transform="translate(390, 400)">
+      <circle cx="0" cy="-8" r="8" fill="#1A1A1A"/>
+      <rect x="-12" y="0" width="24" height="20" rx="3" fill="#1A1A1A"/>
+      <text x="0" y="38" font-family="'JetBrains Mono', monospace" font-size="10" fill="#888" text-anchor="middle" letter-spacing="1">YOU</text>
+    </g>
+
+    <!-- Layer 4: Individual Rights -->
+    <rect x="140" y="290" width="500" height="70" rx="8" fill="#FFFFFF" stroke="#E5E3DF" stroke-width="1.5"/>
+    <text x="165" y="315" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" fill="#C41E1E" letter-spacing="1">LAYER 4</text>
+    <text x="165" y="335" font-family="'DM Serif Display', Georgia, serif" font-size="17" fill="#1A1A1A">Individual Rights</text>
+    <text x="165" y="352" font-family="'DM Sans', sans-serif" font-size="11" fill="#888" font-style="italic">KSchG · BEEG · AGG · Entgelttransparenzgesetz</text>
+
+    <!-- Layer 3: Codetermination -->
+    <rect x="120" y="205" width="540" height="70" rx="8" fill="#FFFFFF" stroke="#C41E1E" stroke-width="2"/>
+    <text x="145" y="230" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" fill="#C41E1E" letter-spacing="1">LAYER 3</text>
+    <text x="145" y="250" font-family="'DM Serif Display', Georgia, serif" font-size="17" fill="#1A1A1A">Codetermination · Works Council</text>
+    <text x="145" y="267" font-family="'DM Sans', sans-serif" font-size="11" fill="#888" font-style="italic">BetrVG · Betriebsvereinbarungen · Einigungsstelle</text>
+
+    <!-- Layer 2: Collective Bargaining (faded — leak) -->
+    <rect x="100" y="120" width="580" height="70" rx="8" fill="#FFFFFF" stroke="#E5E3DF" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="125" y="145" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" fill="#888" letter-spacing="1">LAYER 2</text>
+    <text x="125" y="165" font-family="'DM Serif Display', Georgia, serif" font-size="17" fill="#888">Collective Bargaining · Tarifverträge</text>
+    <text x="125" y="182" font-family="'DM Sans', sans-serif" font-size="11" fill="#C41E1E" font-style="italic">Absent for most tech companies</text>
+
+    <!-- Layer 1: Structural / Policy -->
+    <rect x="80" y="35" width="620" height="70" rx="8" fill="#FFFFFF" stroke="#E5E3DF" stroke-width="1.5"/>
+    <text x="105" y="60" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" fill="#C41E1E" letter-spacing="1">LAYER 1</text>
+    <text x="105" y="80" font-family="'DM Serif Display', Georgia, serif" font-size="17" fill="#1A1A1A">Structural · State &amp; EU Policy</text>
+    <text x="105" y="97" font-family="'DM Sans', sans-serif" font-size="11" fill="#888" font-style="italic">Kurzarbeit · Qualifizierungsgeld · AI Act · Pay Transparency</text>
+
+    <!-- Connecting lines -->
+    <line x1="390" y1="370" x2="390" y2="290" stroke="#E5E3DF" stroke-width="1" stroke-dasharray="2 3"/>
+    <line x1="390" y1="275" x2="390" y2="275" stroke="#E5E3DF" stroke-width="1"/>
+    <line x1="390" y1="275" x2="390" y2="205" stroke="#E5E3DF" stroke-width="1" stroke-dasharray="2 3"/>
+    <line x1="390" y1="190" x2="390" y2="120" stroke="#E5E3DF" stroke-width="1" stroke-dasharray="2 3"/>
+    <line x1="390" y1="105" x2="390" y2="35" stroke="#E5E3DF" stroke-width="1" stroke-dasharray="2 3"/>
+
+  </svg>
+</div>
+
+<!-- ARTICLE BODY -->
+<article class="article-body">
+
+  <div class="provocation">
+    Germany has spent 150 years building a system that is supposed to prevent work from producing destitution. Four layers of protection, stacked above every employment contract. In 2026, three of them are under pressure. One of them is already failing at most tech companies. And almost nobody is talking about it.
+  </div>
+
+  <div class="skim">
+    <span class="skim__label">In one paragraph</span>
+    <p>Your financial stability in Germany rests on four layers of labour protection — from EU and state policy at the top, through collective bargaining agreements, through company-level Works Councils, down to your individual legal rights. <strong>When the upper layers are active, the lower layers have less weight to carry. When any layer fails, the weight transfers downward.</strong> At most tech companies, Layer 2 is already gone. That is why Layer 3 — the Works Council — has become load-bearing. And why electing the people who sit in it is no longer a procedural choice.</p>
+  </div>
+
+  <p>Most conversations about financial resilience at work focus on what you can do individually. Save more. Negotiate harder. Build an emergency fund. Read your contract before you sign it.</p>
+
+  <p>This advice is not wrong. But it is incomplete. It treats financial stability as a personal competence problem, as if the outcome depended only on the choices of the individual employee. The framing is convenient for employers. It obscures the fact that your financial resilience in Germany depends, to a significant degree, on structures you never see and never negotiate personally.</p>
+
+  <p>Those structures have a shape. Four overlapping layers of protection, built over 150 years, each with a specific job. When all four are functioning, economic destitution — the thing Bismarck feared would produce revolution — is supposed to be the outcome of catastrophe, not the ordinary cost of a bad quarter.</p>
+
+  <p>This is a map of those layers. What each one does. Where each one is currently leaking. And why the leaks matter to you personally.</p>
+
+  <span class="section-label">Layer 1</span>
+  <h2>Structural Policy &mdash; what the state does before anything reaches your company</h2>
+  <p class="section-summary"><strong>TL;DR:</strong> The state sets the rules under which employers can restructure, automate, and terminate. Kurzarbeit and the new Qualifizierungsgeld are the frontline instruments. The EU AI Act is the newest addition. Implementation is uneven.</p>
+
+  <p>Above every employment relationship sits the policy layer. Federal laws, EU regulations, court rulings, state-run safety nets. This is the architecture no individual employee controls and no single employer can override. It is the most impersonal layer and the most important one.</p>
+
+  <div class="layer-card">
+    <div class="layer-card__head">
+      <span class="layer-card__number">Layer 1 · Key Mechanisms</span>
+      <div class="layer-card__title">What already exists</div>
+    </div>
+    <div class="layer-card__body">
+      <p><strong>Kurzarbeit.</strong> Short-time work. When demand drops, the state pays part of wages so employers don't terminate. Saved millions of jobs in 2008 and during COVID. Direct prevention of economic destitution during crises.</p>
+      <p><strong>Qualifizierungsgeld.</strong> Introduced in 2024. Specifically designed for structural change. The state subsidises employees to retrain while they remain employed, when their role is endangered by technological transformation. Germany's first explicit fiscal tool for AI-era transitions.</p>
+      <p><strong>Arbeitslosengeld I and II.</strong> Unemployment insurance and basic support. The safety net that makes severance negotiations possible rather than desperate.</p>
+      <p><strong>EU AI Act.</strong> In force since August 2024, fully applicable from 2026. Classifies workplace AI systems as "high risk" and requires transparency, human oversight, and impact assessment.</p>
+      <p><strong>EU Pay Transparency Directive.</strong> National implementation by 2026/2027. Mandates reporting of gender pay gaps and employee rights to information.</p>
+      <div class="leak-indicator">
+        <span class="leak-indicator__label">Leak</span>
+        <span class="leak-indicator__text">Qualifizierungsgeld is underused because most employers do not initiate the applications. The AI Act needs company-level enforcement to become real. A law at the policy layer without implementation at lower layers is theoretical protection.</span>
+      </div>
+    </div>
+  </div>
+
+  <p>Debates at this layer include a four-day week, Universal Basic Income pilots, a proposed AI or productivity tax, and a statutory right to retraining independent of employer consent. None are implemented. All are serious conversations.</p>
+
+  <p>But <span class="highlight">a policy at Layer 1 only works if it is triggered by someone closer to the employee</span>. Kurzarbeit requires the employer to file. Qualifizierungsgeld requires an employer and an employee to request it. The AI Act needs someone at the company to demand that the impact assessment actually happen. This is where the layers begin to interlock.</p>
+
+  <span class="section-label">Layer 2</span>
+  <h2>Collective Bargaining &mdash; the layer that is quietly disappearing</h2>
+  <p class="section-summary"><strong>TL;DR:</strong> Sector-level Tarifverträge used to set wage floors and working conditions across thousands of companies. German coverage has collapsed from 85% in the 1990s to around 50% today. For most tech companies, including Zalando, this layer is effectively absent.</p>
+
+  <p>Between state policy and individual companies sits the collective bargaining layer. Unions like ver.di and IG Metall negotiate Tarifverträge with employer associations. These sector-level agreements cover wages, hours, severance floors, working conditions. A single negotiation can bind thousands of employers at once.</p>
+
+  <p>This layer built modern Germany. For most of the post-war period, it covered the overwhelming majority of workers. A weaver in Düsseldorf and a weaver in Leipzig had the same Tarifvertrag. The employer was not the primary negotiator. The industry was.</p>
+
+  <p>Then, quietly, the coverage collapsed.</p>
+
+  <div class="hero-quote">
+    Germany's Tarifbindung has fallen from 85% in the early 1990s to around 50% today. In the tech sector, coverage is close to zero.
+  </div>
+
+  <p>There are many reasons. New companies founded without joining employer associations. Older companies leaving them. A shift from manufacturing (where coverage was near-universal) to service and tech (where it never took hold). A political environment that tolerated the erosion.</p>
+
+  <p><strong>For most tech companies, including Zalando, Layer 2 does not exist.</strong> There is no sector-wide floor. There is no industry association negotiating on behalf of workers. There is no collective leverage one step above the individual company. The entire layer has been removed from the architecture, silently, over three decades.</p>
+
+  <div class="layer-card">
+    <div class="layer-card__head">
+      <span class="layer-card__number">Layer 2 · What's Debated</span>
+      <div class="layer-card__title">The proposed repairs</div>
+    </div>
+    <div class="layer-card__body">
+      <p><strong>Tariftreuegesetz</strong> — a proposed federal law making public contracts conditional on Tarifvertrag compliance. Would strengthen sector-level bargaining through state procurement leverage.</p>
+      <p><strong>AI-specific sector agreements.</strong> IG Metall and ver.di are negotiating AI clauses in new Tarifverträge — transparency requirements, retraining floors, protection against automated performance evaluation. Early stages. Only reaches employees in sectors where Tarifverträge still exist.</p>
+      <p><strong>Statutory extension of agreements</strong> (Allgemeinverbindlichkeitserklärung) — a mechanism to make a Tarifvertrag binding for a whole sector even for non-member employers. Used more in construction and hospitality than in tech.</p>
+      <div class="leak-indicator">
+        <span class="leak-indicator__label">Leak</span>
+        <span class="leak-indicator__text">None of the proposed repairs reach the workforce that is already uncovered. The tech sector's protection is not waiting for a sector agreement — it is waiting for something else to compensate for Layer 2's absence.</span>
+      </div>
+    </div>
+  </div>
+
+  <p>That "something else" is Layer 3.</p>
+
+  <span class="section-label">Layer 3</span>
+  <h2>Codetermination &mdash; the load-bearing layer</h2>
+  <p class="section-summary"><strong>TL;DR:</strong> When Layer 2 is gone, the Works Council is the only collective protection between state policy and individual courts. At tech companies like Zalando, Layer 3 carries weight that would elsewhere be shared across two layers.</p>
+
+  <p>Layer 3 is the company level. It is where codetermination happens in practice. It is the Works Council.</p>
+
+  <p>The legal framework is the Betriebsverfassungsgesetz (BetrVG), passed in its current form in 1972 and updated several times since. It gives employee representatives, elected at each company, specific legal powers. Not symbolic ones. Operational ones.</p>
+
+  <div class="layer-card">
+    <div class="layer-card__head">
+      <span class="layer-card__number">Layer 3 · Key Mechanisms</span>
+      <div class="layer-card__title">What the Works Council can actually do</div>
+    </div>
+    <div class="layer-card__body">
+      <p><strong>§87 BetrVG.</strong> Strong codetermination on working hours, surveillance, performance measurement, bonus systems, health and safety. Employer consent is <em>required</em> for any change in these areas.</p>
+      <p><strong>§99 BetrVG.</strong> Consent required on individual personnel matters: hiring, transfers, reclassifications.</p>
+      <p><strong>§102 BetrVG.</strong> Consultation required on every individual dismissal. Without it, the dismissal is invalid.</p>
+      <p><strong>§111 BetrVG.</strong> Defines Betriebsänderung (operational change) and triggers the right to negotiate Interessenausgleich and Sozialplan.</p>
+      <p><strong>§80(2) BetrVG.</strong> The right to request anonymised salary data — the key mechanism for pay equity work.</p>
+      <p><strong>Betriebsvereinbarungen.</strong> Legally binding works agreements negotiated between Works Council and management. Can regulate almost anything the law does not explicitly prohibit.</p>
+      <p><strong>Einigungsstelle.</strong> When Works Council and management can't agree, an external mediator — often a judge — decides. The ultimate leverage.</p>
+    </div>
+  </div>
+
+  <p>On paper, Layer 3 is formidable. In practice, its strength is entirely dependent on the people sitting in it.</p>
+
+  <p>The law does not enforce itself. §99 does not automatically refuse consent to a transfer. §80(2) does not automatically request salary data. A Betriebsvereinbarung does not automatically protect remote work. Each of these requires a Works Council that knows the law, that is willing to use it, and that has the political and technical capacity to negotiate hard.</p>
+
+  <div class="hero-quote">
+    The rights at Layer 3 are not symbolic. They are operational. But only if someone at the table uses them.
+  </div>
+
+  <p>Debated reforms at this layer include Mitbestimmung 4.0 — extending codetermination into AI systems and algorithmic management — and a digital Betriebsrat framework with mandatory technical training and expanded external expertise rights.</p>
+
+  <p>These reforms matter for the future. But the present is already here. <span class="highlight">For every employee at a tech company without a Tarifvertrag, Layer 3 is the only collective protection standing between them and individual litigation.</span> If Layer 3 is weak, you are on your own.</p>
+
+  <span class="section-label">Layer 4</span>
+  <h2>Individual Rights &mdash; where the law ends and the courthouse begins</h2>
+  <p class="section-summary"><strong>TL;DR:</strong> Individual rights exist in statute — dismissal protection, anti-discrimination, parental leave, pay transparency. But enforcing them alone means labour court, which most employees avoid. Legal insurance exists. Most expats do not have it.</p>
+
+  <p>Below the collective layer are the rights you hold as an individual employee. The Kündigungsschutzgesetz protects against arbitrary dismissal. The Allgemeines Gleichbehandlungsgesetz prohibits discrimination. The Bundeselterngeld- und Elternzeitgesetz protects your return from parental leave. The Entgelttransparenzgesetz gives you, as an individual, the right to request the median salary of at least six colleagues of the opposite gender doing comparable work.</p>
+
+  <p>These are real rights. But they share a common feature. <span class="highlight">Enforcing them, alone, means going to labour court.</span> For an employee — especially an expat whose residency is tied to their job — this is not a trivial threshold.</p>
+
+  <div class="layer-card">
+    <div class="layer-card__head">
+      <span class="layer-card__number">Layer 4 · The Individual Backstop</span>
+      <div class="layer-card__title">What you can do alone</div>
+    </div>
+    <div class="layer-card__body">
+      <p><strong>Arbeitsrechtsschutzversicherung.</strong> Employment legal insurance. Most employees in Germany have it. Most expats, especially in tech, do not. A product that for under €20/month can make individual enforcement financially possible.</p>
+      <p><strong>Arbeitsgerichtsbarkeit.</strong> The separate labour court system. Lower barriers than civil courts. First-instance proceedings can be handled without a lawyer.</p>
+      <p><strong>Entgelttransparenzgesetz.</strong> The individual right to request comparator salary data at companies with 200+ employees.</p>
+      <div class="leak-indicator">
+        <span class="leak-indicator__label">Leak</span>
+        <span class="leak-indicator__text">Individual rights without collective infrastructure produce individual enforcement battles. This is exhausting, expensive, and disproportionately borne by workers who have the least capacity to fight alone.</span>
+      </div>
+    </div>
+  </div>
+
+  <p>Layer 4 is meant to be the backstop, not the main line of defence. When the upper layers function, Layer 4 rarely needs to be activated. When the upper layers fail, Layer 4 becomes the only remaining option — and most employees simply absorb the loss rather than go to court.</p>
+
+  <span class="section-label">The Leaks</span>
+  <h2>Where the system is failing, specifically</h2>
+  <p class="section-summary"><strong>TL;DR:</strong> Three of the four layers are under pressure. Layer 2 is largely gone for tech. Layer 3 is underused in many companies. Layer 4 is exhausting to enforce alone. Only Layer 1 is formally intact, and much of it depends on lower layers to be triggered.</p>
+
+  <p>Read together, the four layers reveal a specific pattern of weakness:</p>
+
+  <p><strong>Layer 1</strong> is formally healthy. The state instruments exist. Kurzarbeit works. Qualifizierungsgeld exists. The AI Act is in force. But many of them are not self-executing. They require employers to initiate them, or Works Councils to insist on them, or employees to demand them.</p>
+
+  <p><strong>Layer 2</strong> is largely gone for tech. Thirty years of declining Tarifbindung means most tech companies are operating without a sector-level floor. The structural repairs being debated would not reach these employees for years, if ever.</p>
+
+  <p><strong>Layer 3</strong> exists on paper in every company over a certain size, but its actual power is determined, company by company, by who sits in the Works Council and what they do with it. A capable Works Council is a functioning load-bearing structure. A rubber-stamp Works Council is a cosmetic one.</p>
+
+  <p><strong>Layer 4</strong> is the individual backstop. It works, but the cost of using it alone is high. Most employees never do.</p>
+
+  <div class="hero-quote">
+    The system does not fail all at once. It fails layer by layer, silently, until an individual worker discovers that the protections they thought existed were contingent on someone else using them.
+  </div>
+
+  <span class="section-label">What This Means</span>
+  <h2>Why the Works Council election is not a procedural vote</h2>
+
+  <p>If Layer 2 is absent at your company, and Layer 4 is impractical for most employees to invoke alone, then Layer 3 is doing work that was originally designed to be shared across two layers. The Works Council is not "one option among many." It is the only collective protection you have access to in your daily working life.</p>
+
+  <p>This is why the election is not cosmetic. <span class="highlight">A vote for a capable Works Council is a vote to keep Layer 3 load-bearing. A vote for a passive one is a vote to let the load transfer down to Layer 4 — where you carry it alone.</span></p>
+
+  <p>The laws at Layer 1 do not enforce themselves. The Tarifverträge at Layer 2 are not coming. The courts at Layer 4 are slow and expensive. The only layer where the workforce has real, immediate, collective agency is Layer 3.</p>
+
+  <p>The people who sit on the Works Council decide whether §87 is used or ignored. Whether §99 is invoked or waived. Whether a Sozialplan is negotiated to 1.5 months per year or rubber-stamped at 0.5. Whether the EU AI Act's company-level implementation is rigorous or theatrical. Whether the Entgelttransparenzgesetz produces actual salary bands or polite letters.</p>
+
+  <p>These are not abstract legal choices. They are direct determinants of the financial resilience of every employee at the company.</p>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <h3>May 5&ndash;8. List 3.</h3>
+    <p>Electing a Works Council is not just electing names. It is electing whether Layer 3 holds the weight the other layers cannot. It is electing whether the 150-year-old architecture continues to function in a century that is testing it again.</p>
+    <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/action-hub" class="article-cta__btn">Visit the Action Hub &rarr;</a>
+    <span class="article-cta__tag">Global Workforce Community &middot; Works Council Election 2026</span>
+  </div>
+
+  <!-- APPENDIX -->
+  <div class="appendix">
+    <span class="appendix__label">Further reading</span>
+    <h3>Keep going</h3>
+    <ul>
+      <li>
+        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/from-looms-to-ai" target="_blank">AI Age &amp; the 150-year-old Contract &rarr;</a>
+        <span style="color: var(--text-tertiary); margin-left: 4px;">The historical roots of the four-layer architecture.</span>
+      </li>
+      <li>
+        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/standardized-reorgs-what-happened" target="_blank">Standardized Reorganizations &rarr;</a>
+        <span style="color: var(--text-tertiary); margin-left: 4px;">Layer 3 in practice: what happens when codetermination is passive during restructuring.</span>
+      </li>
+      <li>
+        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/fixing-the-pay-gap" target="_blank">The Pay Gap Isn't a Mystery &rarr;</a>
+        <span style="color: var(--text-tertiary); margin-left: 4px;">How §80(2) and the Entgelttransparenzgesetz interact at Layers 3 and 4.</span>
+      </li>
+      <li>
+        <a href="https://www.boeckler.de" target="_blank">Hans-Böckler-Stiftung &rarr;</a>
+        <span style="color: var(--text-tertiary); margin-left: 4px;">German research foundation on codetermination and labour policy.</span>
+      </li>
+    </ul>
+  </div>
+
+</article>
+
+</body>
+</html>
