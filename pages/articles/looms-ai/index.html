@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Age &amp; the 150-year-old Contract · GWC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --red: #C41E1E;
+  --red-dark: #9B1818;
+  --red-light: rgba(196,30,30,0.06);
+  --green: #0F6E56;
+  --green-mid: #1D9E75;
+  --green-light: rgba(22,135,58,0.07);
+  --green-border: rgba(22,135,58,0.25);
+  --text-primary: #1A1A1A;
+  --text-secondary: #4A4A4A;
+  --text-tertiary: #888;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F7F6F3;
+  --bg-tertiary: #EEECEA;
+  --border: #E5E3DF;
+  --border-subtle: #F0EEEB;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topbar__brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--red);
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+
+/* ===== ARTICLE HEADER ===== */
+.article-header {
+  padding: 48px 24px 36px;
+  max-width: 680px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.article-header h1 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(32px, 6vw, 52px);
+  line-height: 1.15;
+  color: var(--text-primary);
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  margin-bottom: 0;
+}
+.article-header h1 em { color: var(--red); font-style: italic; }
+.article-header__deck {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ===== SCOPE TIMELINE ===== */
+.scope-timeline {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 28px 24px 8px;
+}
+.scope-timeline__label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+  display: block;
+  text-align: center;
+}
+.scope-timeline__svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ===== ARTICLE BODY ===== */
+.article-body {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+.article-body p {
+  font-size: 17px;
+  color: var(--text-secondary);
+  margin-bottom: 22px;
+  line-height: 1.8;
+}
+.article-body p strong { color: var(--text-primary); font-weight: 600; }
+.article-body h2 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(22px, 3.5vw, 28px);
+  color: var(--text-primary);
+  margin: 48px 0 20px;
+  line-height: 1.25;
+  font-weight: 400;
+}
+
+/* ===== PROVOCATION ===== */
+.provocation {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(20px, 3.2vw, 24px);
+  line-height: 1.4;
+  color: var(--text-primary);
+  padding: 28px 0;
+  margin: 8px 0 32px;
+  border-top: 2px solid var(--red);
+  border-bottom: 2px solid var(--red);
+  font-style: italic;
+}
+
+/* ===== SCREENSHOT QUOTE ===== */
+.hero-quote {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(22px, 3.8vw, 28px);
+  line-height: 1.35;
+  color: var(--text-primary);
+  padding: 32px 32px 32px 36px;
+  margin: 36px 0;
+  background: var(--bg-secondary);
+  border-left: 4px solid var(--red);
+  border-radius: 0 12px 12px 0;
+  font-style: italic;
+}
+.hero-quote--dark {
+  background: var(--text-primary);
+  color: #fff;
+  border-left: 4px solid var(--red);
+}
+.hero-quote--minimal {
+  background: transparent;
+  border-left: none;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  border-radius: 0;
+  padding: 28px 24px;
+  text-align: center;
+  color: var(--text-primary);
+  font-size: clamp(20px, 3.4vw, 26px);
+}
+.hero-quote--minimal::before,
+.hero-quote--minimal::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 2px;
+  background: var(--red);
+  margin: 0 auto 14px;
+}
+.hero-quote--minimal::after {
+  margin: 14px auto 0;
+}
+
+/* ===== TURN DIVIDER (marks the shift from history to now) ===== */
+.turn-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 64px 0 16px;
+  gap: 16px;
+}
+.turn-divider__line {
+  flex: 1;
+  height: 1px;
+  background: var(--border-subtle);
+  max-width: 140px;
+}
+.turn-divider__dot {
+  width: 10px;
+  height: 10px;
+  background: var(--red);
+  border-radius: 50%;
+  position: relative;
+}
+.turn-divider__dot::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--red);
+  border-radius: 50%;
+  opacity: 0.4;
+}
+.turn-divider__label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* ===== MARKER-PEN HIGHLIGHT ===== */
+.highlight {
+  background: linear-gradient(180deg, transparent 55%, rgba(247,214,96,0.55) 55%);
+  padding: 0 2px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* ===== SECTION LABEL ===== */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--red);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 56px;
+  margin-bottom: 8px;
+}
+
+/* ===== SECTION SUMMARY (tldr below each heading) ===== */
+.section-summary {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-top: -8px;
+  margin-bottom: 24px;
+  padding-left: 14px;
+  border-left: 3px solid #C7C2B8;
+}
+.section-summary strong { color: var(--text-primary); font-weight: 600; font-style: normal; }
+
+/* ===== SKIM PARAGRAPH (one-paragraph TL;DR) ===== */
+.skim {
+  background: #FFF9E8;
+  border: 1px solid rgba(196,154,46,0.3);
+  border-radius: 10px;
+  padding: 22px 26px;
+  margin: 28px 0 36px;
+  position: relative;
+}
+.skim__label {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #8B6914;
+  background: rgba(139,105,20,0.12);
+  padding: 3px 10px;
+  border-radius: 3px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.skim p {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  margin: 0;
+}
+.skim p strong { color: var(--text-primary); font-weight: 700; }
+
+/* ===== CATALOG LIST (punchy bullet list) ===== */
+.catalog {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 22px;
+}
+.catalog li {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  padding: 10px 0 10px 22px;
+  border-bottom: 1px solid var(--border-subtle);
+  position: relative;
+}
+.catalog li:last-child { border-bottom: none; }
+.catalog li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 22px;
+  width: 6px;
+  height: 6px;
+  background: #1A1A1A;
+  border-radius: 50%;
+}
+
+/* ===== PERSONA MARKER ===== */
+.persona {
+  font-style: italic;
+  color: var(--text-primary);
+}
+
+/* ===== APPENDIX ===== */
+.appendix {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin: 48px 0 0;
+}
+.appendix__label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+  display: block;
+}
+.appendix h3 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 18px;
+  color: var(--text-primary);
+  font-weight: 400;
+  margin-bottom: 14px;
+}
+.appendix ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.appendix li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+.appendix li:last-child { border-bottom: none; }
+.appendix a {
+  color: var(--red);
+  text-decoration: none;
+  font-weight: 500;
+}
+.appendix a:hover { text-decoration: underline; }
+
+/* ===== CAMPAIGN CTA ===== */
+.article-cta {
+  background: var(--red);
+  border-radius: 12px;
+  padding: 40px 32px;
+  margin: 48px 0 0;
+  text-align: center;
+}
+.article-cta h3 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(22px, 4vw, 28px);
+  color: #fff;
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+.article-cta p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 24px;
+}
+.article-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--red);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+.article-cta__btn:hover { transform: translateY(-1px); }
+.article-cta__tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  margin-top: 20px;
+  display: block;
+}
+
+/* ===== FOOTER ===== */
+.site-footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  padding: 32px 24px;
+  text-align: center;
+}
+.site-footer__brand {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 18px;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.site-footer__tagline {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+}
+.site-footer__vote {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--red);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .article-header { padding: 36px 20px 28px; }
+  .article-body { padding: 28px 20px 60px; }
+  .article-body p { font-size: 16px; }
+  .hero-quote { padding: 24px 24px 24px 28px; }
+  .article-cta { padding: 28px 20px; }
+  .appendix { padding: 24px 20px; }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate { opacity: 0; animation: fadeUp 0.6s ease forwards; }
+.delay-1 { animation-delay: 0.1s; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <a href="#" class="topbar__brand">GWC</a>
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; background: var(--text-primary); color: #fff; padding: 5px 12px; border-radius: 4px;">Know Your Rights</span>
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-tertiary);">5 min read</span>
+  </div>
+</nav>
+
+<!-- ARTICLE HEADER -->
+<header class="article-header">
+  <h1 class="animate"><em>AI Age &amp; the 150-year-old Contract</em></h1>
+  <p class="article-header__deck animate delay-1">A story about labour rights. And the person who didn't know they had any, until they did.</p>
+</header>
+
+<!-- SCOPE TIMELINE -->
+<div class="scope-timeline">
+  <span class="scope-timeline__label">Three moments, one pattern</span>
+  <svg class="scope-timeline__svg" viewBox="0 0 680 170" xmlns="http://www.w3.org/2000/svg" aria-label="Timeline: 1840s Silesia, 1880s Bismarck, today">
+
+    <!-- Base line -->
+    <line x1="90" y1="85" x2="590" y2="85" stroke="#E5E3DF" stroke-width="2"/>
+
+    <!-- Dashed red progress line -->
+    <line x1="90" y1="85" x2="590" y2="85" stroke="#C41E1E" stroke-width="2" stroke-dasharray="2 5" opacity="0.3"/>
+
+    <!-- Arrow at end -->
+    <polygon points="594,85 585,80 585,90" fill="#C41E1E" opacity="0.5"/>
+
+    <!-- Dot 1: 1840s Silesia -->
+    <circle cx="90" cy="85" r="8" fill="#C41E1E"/>
+    <circle cx="90" cy="85" r="14" fill="none" stroke="#C41E1E" stroke-width="1" opacity="0.3"/>
+    <text x="90" y="52" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#1A1A1A" text-anchor="middle" letter-spacing="0.5">1840s</text>
+    <text x="90" y="115" font-family="'DM Sans', sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle">Silesian</text>
+    <text x="90" y="131" font-family="'DM Sans', sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle">weavers</text>
+    <text x="90" y="148" font-family="'DM Sans', sans-serif" font-size="10" fill="#888" text-anchor="middle" font-style="italic">skill commoditised</text>
+
+    <!-- Dot 2: 1880s Bismarck -->
+    <circle cx="340" cy="85" r="8" fill="#C41E1E"/>
+    <circle cx="340" cy="85" r="14" fill="none" stroke="#C41E1E" stroke-width="1" opacity="0.3"/>
+    <text x="340" y="52" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#1A1A1A" text-anchor="middle" letter-spacing="0.5">1880s</text>
+    <text x="340" y="115" font-family="'DM Sans', sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle">Bismarck's</text>
+    <text x="340" y="131" font-family="'DM Sans', sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle">arithmetic</text>
+    <text x="340" y="148" font-family="'DM Sans', sans-serif" font-size="10" fill="#888" text-anchor="middle" font-style="italic">welfare state, works councils</text>
+
+    <!-- Dot 3: Today -->
+    <circle cx="590" cy="85" r="10" fill="#C41E1E"/>
+    <circle cx="590" cy="85" r="16" fill="none" stroke="#C41E1E" stroke-width="1.5" opacity="0.4"/>
+    <circle cx="590" cy="85" r="22" fill="none" stroke="#C41E1E" stroke-width="1" opacity="0.2"/>
+    <text x="590" y="52" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#C41E1E" text-anchor="middle" letter-spacing="0.5">TODAY</text>
+    <text x="590" y="115" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" fill="#C41E1E" text-anchor="middle">Your</text>
+    <text x="590" y="131" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" fill="#C41E1E" text-anchor="middle">contract</text>
+    <text x="590" y="148" font-family="'DM Sans', sans-serif" font-size="10" fill="#888" text-anchor="middle" font-style="italic">AI, restructurings</text>
+  </svg>
+</div>
+
+<!-- ARTICLE BODY -->
+<article class="article-body">
+
+  <div class="provocation">
+    If you still believe your employer can fire you, harass you, transfer you, change your hours, or put undue expectations on you at will, it is time to get educated.
+  </div>
+
+  <div class="skim">
+    <span class="skim__label">In one paragraph</span>
+    <p>The rights you have at work in Germany weren't given to you. They were built by workers who refused to be disposable, written into law more than a century ago, and still apply to you the moment you sign your contract. <strong>But a Works Council can only use those rights if it's willing to.</strong> That's what the upcoming vote is for. This article is the longer story, if you want it.</p>
+  </div>
+
+  <p>In Germany, employment is not just a private contract between a powerful company and a replaceable employee. It is a social relationship between you, them, and the law workers fought for long before any of us arrived.</p>
+
+  <p>This article is about <span class="persona">the new arrival</span>. Someone who moved to Berlin for work. Who signed the contract they were handed. Who assumed the terms were standard, because everyone seemed to be working under the same ones.</p>
+
+  <p>They are not the reader. Not yet.</p>
+
+  <span class="section-label">I. The weavers</span>
+  <h2>A story about skill, and what happens when it becomes disposable.</h2>
+  <p class="section-summary"><strong>TL;DR:</strong> Skill used to be leverage. Machines ended that. The worker became a cost to minimise, not a partner to keep.</p>
+
+  <p>Consider the Silesian weavers of the 1840s.</p>
+
+  <p>They had a skill. Built over years. That let them earn and carry with them as identity, not just income. That fed their families, anchored their standing in their communities, and gave their work meaning beyond the wage.</p>
+
+  <p>Before the machines, a weaver's skill was their leverage. An employer couldn't replace a trained weaver easily, so the relationship had terms: fair pay, standing in the community, apprenticeships passed down.</p>
+
+  <p>Then came mechanised looms. Their skill was commoditised to machines. What took a weaver weeks, a machine did in hours. Factory owners could train cheap labour in a day. The skilled weavers were kept only where they were cheap enough to justify, paid only enough to survive the month, and disposable the moment the arithmetic changed. This was the capitalistic arithmetic — indifferent to the fair pay that would have let the same workers build an independent livelihood, even as they built multi-million and billion-dollar industries.</p>
+
+  <div class="hero-quote">
+    The wealth those factories produced was built on these very workers. When the technology shifted, the workers were the ones discarded. The owners kept the gains. The workers kept the hunger.
+  </div>
+
+  <p>This is the injustice the labour movement named. Unacceptable then. Unacceptable now. The law was built to prevent it, not out of charity, but out of recognition that a system which treats people as variable inputs will eventually produce the economic destitution of the worker. When the salary stops, there is nothing left in the pocket to pay for housing and food. The balance of a worker's life was already on edge. Something had to hold the weight.</p>
+
+  <span class="section-label">II. Bismarck's arithmetic</span>
+  <h2>Why the most conservative chancellor in Europe built the first welfare state.</h2>
+  <p class="section-summary"><strong>TL;DR:</strong> Worker protections aren't charity. They're the cheapest way to prevent the response destitution creates. Works councils came from the same logic.</p>
+
+  <p>In the 1880s, Otto von Bismarck introduced the world's first comprehensive social welfare system. Health insurance. Accident insurance. Old-age pensions. Not because he cared about the working class. He didn't.</p>
+
+  <p>He built it because he understood a simple equation. A population with nothing left to lose does not stay peaceful. Revolution, in the end, is cheaper to prevent than to survive.</p>
+
+  <div class="hero-quote hero-quote--dark">
+    Worker protections were never gifts. They were concessions to prevent economic destitution from becoming revolution.
+  </div>
+
+  <p>A generation later, after the First World War, works councils were written into German law. The Betriebsrat. Not as a favour, but as structural recognition that democracy in the streets without democracy in the workplace, where workers spent most of their waking lives, was not stable. Codetermination was the answer: the legal right for workers to have a seat at the table where decisions about their working conditions are made.</p>
+
+  <p>This is the inheritance. Built on the backs of people who refused to accept that economic vulnerability was a fair price for a wage.</p>
+
+  <!-- TURN DIVIDER -->
+  <div class="turn-divider">
+    <div class="turn-divider__line"></div>
+    <span class="turn-divider__label">Then</span>
+    <div class="turn-divider__dot"></div>
+    <span class="turn-divider__label">Now</span>
+    <div class="turn-divider__line"></div>
+  </div>
+
+  <span class="section-label">III. The same moment</span>
+  <h2>We tell ourselves we live in different times.</h2>
+  <p class="section-summary"><strong>TL;DR:</strong> AI is today's loom. The logic is identical: skill commoditised, worker disposable. For expats, the cost of speaking up is even higher.</p>
+
+  <p>We don't send children into coal mines. We don't depend on a hand loom for dinner. The 19th century feels resolved. Historical. Not relevant to us.</p>
+
+  <p>But look around:</p>
+
+  <ul class="catalog">
+    <li>Mass layoffs announced each quarter, attributed to AI.</li>
+    <li>"Restructuring" used as language for dressing up OpEx and CapEx for the market.</li>
+    <li>Performance frameworks that measure workers against targets that move.</li>
+    <li>Burnout treated as a personal failure rather than a structural one.</li>
+    <li>The quiet expectation of being reachable in the evenings, because refusing marks you as uncommitted.</li>
+  </ul>
+
+  <p>And for those whose residency depends on the job, the cost of speaking up feels higher than the cost of silence. Which is exactly how silence is produced.</p>
+
+  <p>The uniforms are different. The language is different. The outcome is familiar.</p>
+
+  <div class="hero-quote hero-quote--minimal">
+    This is not a different moment. It is the same moment, with a laptop instead of a loom.
+  </div>
+
+  <p>The skill that took years to build is being commoditised in months. The worker is being asked, once again, to accept that their livelihood is negotiable. That technological progress means some of them become disposable. That speaking up carries professional risk. That pushing back marks them as "not a team player."</p>
+
+  <p>This is the exact logic the weavers faced. The exact logic Bismarck recognised as politically dangerous, capable of creating a revolution. The tools built in response — codetermination, works councils, the legal right to challenge employer decisions — still exist, still written into German law.</p>
+
+  <p>The only question is whether anyone at the table is willing to use them.</p>
+
+  <span class="section-label">IV. The realisation</span>
+  <h2>Somewhere along the way, the new arrival started to notice.</h2>
+  <p class="section-summary"><strong>TL;DR:</strong> The rights were always there. §87, §99, §80(2), the EU pay directive. Unused, because nobody said they existed and nobody at the table picked them up.</p>
+
+  <p>That the terms they accepted were not universal. That employment in Germany was not the transaction they'd been trained to expect. That what looked like a private contract was, in fact, a three-way relationship: the company, the worker, and the law.</p>
+
+  <p>They noticed that the colleagues who understood this had a different relationship with their work. Less anxious. More grounded. They pushed back on unreasonable requests not because they were brave, but because they knew the law was on their side.</p>
+
+  <p>They noticed that the Works Council existed. That it had real legal power. That it was supposed to represent them. And that somehow, nothing about their working life suggested anyone was actually using that power on their behalf.</p>
+
+  <p>They started to learn what codetermination actually looks like in practice. When employees have faced sudden role changes, a willing Works Council can refuse consent under §99 until individual cases are reviewed properly. When management has proposed restructurings, the law requires a negotiated social plan, not a take-it-or-leave-it exit. When working hours or surveillance practices shift, §87 means those changes cannot be rolled out unilaterally. The rights are not symbolic. They are operational.</p>
+
+  <p>They started reading. They learned about §87 (codetermination over working hours). §99 (consent required for transfers). <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/fixing-the-pay-gap" target="_blank" style="color: var(--red); text-decoration: underline; text-underline-offset: 2px;">§80(2) (the right to request salary data)</a>. The EU pay transparency directive arriving in 2026/2027.</p>
+
+  <p>They realised, slowly, that the rights had been there the whole time. Someone had fought for them. Someone had written them into law. They had simply been sitting there, unused, because nobody had told <span class="persona">the new arrival</span> they existed, and nobody at the table had been willing to pick them up.</p>
+
+  <p>And then the sharper realisation. <span class="highlight">Electing a Works Council is not just electing names. It is electing whether the law gets used — or whether it sits at the table as a reminder nobody acts on.</span></p>
+
+  <span class="section-label">V. The vote</span>
+  <h2>The new arrival was never just a bystander.</h2>
+  <p class="section-summary"><strong>TL;DR:</strong> GWC members lived these patterns firsthand. The rights apply to you from the moment you signed. The question is whether the people you elect know how to use them.</p>
+
+  <p>Members of our list have faced this vulnerability firsthand. A transfer without warning. A performance rating disconnected from the work. A role that shifted while no one consulted us. A "restructuring" conversation that started and ended without us in the room.</p>
+
+  <p>We are not standing because we read about these patterns. We are standing because we lived them. And because we learned that the tools exist. <span class="highlight">The failure was not in the law, but in whether anyone at the table was willing to use it — or let it slide with a strongly-worded reminder to the employer.</span></p>
+
+  <p>What this means in practice. We will <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/standardized-reorgs-what-happened" target="_blank" style="color: var(--red); text-decoration: underline; text-underline-offset: 2px;">demand individual review of every role change, not standardised exits</a>. We will <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/fixing-the-pay-gap" target="_blank" style="color: var(--red); text-decoration: underline; text-underline-offset: 2px;">request the salary data §80(2) guarantees and use it to challenge unequal pay</a>. We will insist that major decisions reach the workforce before they are finalised, not after. We will <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/our-mission" target="_blank" style="color: var(--red); text-decoration: underline; text-underline-offset: 2px;">document what happens in co-determination meetings</a>, so that accountability is not a promise but a practice. This is what "willing" looks like.</p>
+
+  <p>The rights you have access to were built by people who refused to accept economic vulnerability as the price of a job. They are written into German law. They do not care whether you were born here or arrived last year. They apply to you the moment you signed your contract.</p>
+
+  <p>The only question left is whether you use them, and whether the people you elect to represent you know how.</p>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <h3>May 5&ndash;8. List 3.</h3>
+    <p>On election day, you are not just voting for names. You are voting to keep a 150-year-old protection mechanism functional in a century that is testing it again.</p>
+    <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/action-hub" class="article-cta__btn">Visit the Action Hub &rarr;</a>
+    <span class="article-cta__tag">Global Workforce Community &middot; Works Council Election 2026</span>
+  </div>
+
+  <!-- APPENDIX -->
+  <div class="appendix">
+    <span class="appendix__label">Further reading</span>
+    <h3>Keep going</h3>
+    <ul>
+      <li>
+        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/what-makes-a-healthy-works-council" target="_blank">Redrawing the Line &rarr;</a>
+        <span style="color: var(--text-tertiary); margin-left: 4px;">The three ways boundaries fail, and what the law requires.</span>
+      </li>
+      <li>
+        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/fixing-the-pay-gap" target="_blank">The Pay Gap Isn't a Mystery &rarr;</a>
+        <span style="color: var(--text-tertiary); margin-left: 4px;">Germany's Pay Transparency Act and what §80(2) makes possible.</span>
+      </li>
+      <li>
+        <a href="https://www.bpb.de/themen/arbeit/arbeitsmarktpolitik/" target="_blank">Bundeszentrale f&uuml;r politische Bildung &rarr;</a>
+        <span style="color: var(--text-tertiary); margin-left: 4px;">Official German civic education on labour policy and codetermination.</span>
+      </li>
+    </ul>
+  </div>
+
+</article>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer__brand">Global Workforce Community</div>
+  <div class="site-footer__tagline">A Works Council That Stands for You</div>
+  <div class="site-footer__vote">Vote May 5 &ndash; 8, 2026 &middot; List 3</div>
+</footer>
+
+</body>
+</html>
