@@ -179,6 +179,50 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 .gwc-hub .before-vote__content strong { color: var(--text-primary); }
 
 /* ============================================================
+   BREAKER TOGGLE
+   ============================================================ */
+.gwc-hub .breaker {
+  padding: 0;
+}
+.gwc-hub .breaker__toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 20px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+.gwc-hub .breaker__title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 20px;
+  color: #1A1A1A;
+  line-height: 1.35;
+  flex: 1;
+}
+.gwc-hub .breaker__arrow {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+.gwc-hub .breaker__hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+.gwc-hub .breaker__arrow--open { transform: rotate(180deg); }
+.gwc-hub .breaker__body {
+  display: none;
+  padding-bottom: 24px;
+}
+.gwc-hub .breaker__body--open { display: block; }
+
+/* ============================================================
    BUTTONS
    ============================================================ */
 .gwc-hub .btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Teka', 'DM Sans', sans-serif; font-weight: 600; font-size: 14px; text-decoration: none; border-radius: 6px; padding: 14px 28px; transition: all 0.25s ease; cursor: pointer; border: none; }
@@ -863,15 +907,23 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 </section>
 
 <!-- ===== BREAKER: REPRESENTATION ===== -->
-<section style="padding: 44px 0; background: #FFFFFF; border-top: 1px solid #E5E3DF; border-bottom: 1px solid #E5E3DF;">
+<section style="background: #FFFFFF; border-top: 1px solid #E5E3DF; border-bottom: 1px solid #E5E3DF;">
   <div class="container" style="max-width: 640px;">
-    <p style="font-family: 'DM Serif Display', Georgia, serif; font-size: 24px; color: #1A1A1A; line-height: 1.45; margin-bottom: 20px;">Representation is measured in outcomes, not conversations.</p>
-    <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 16px;">It isn't enough for a concern to matter to your representatives, or for your voice to be carried into the room. A Works Council exists because the law recognised that employees need more than advocacy: they need someone at the table with the legal power to change the outcome. And they are given exactly that.</p>
-    <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 16px;">The work is making it matter to management. At the table, in the agreement, on the page that gets signed. Those are different jobs.</p>
-    <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 20px;">When representatives cannot provide the necessary positive friction required to balance employee interest, chose informal agreements over legally recognised Works Agreements, chose full transparency to the employer but manage communication with employees — they're not fulfilling the rights of the seat.</p>
-    <hr style="border: none; border-top: 2px solid #C41E1E; margin: 0 0 20px; width: 60px;">
-    <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 16px;">Our list exists because the past clearly showed we need a Works Council which is <em style="color: #C41E1E; font-style: normal; font-weight: 600;">using the laws</em>. Not replacing them with assurances. Not just raising concerns. Not just building bridges.</p>
-    <p style="font-size: 16px; color: #1A1A1A; line-height: 1.6; margin-bottom: 0;">Advocacy you can do yourself. The difference a <em style="color: #C41E1E; font-style: normal; font-weight: 600;">true</em> Works Council makes is the difference between <em>asking</em> and <em>requiring</em>.</p>
+    <div class="breaker" id="breaker-1">
+      <button class="breaker__toggle" onclick="var b=document.getElementById('breaker-1-body');b.classList.toggle('breaker__body--open');this.querySelector('.breaker__arrow').classList.toggle('breaker__arrow--open');">
+        <span class="breaker__title">"What's actually different about your list?"</span>
+        <span class="breaker__hint">tap to read</span><span class="breaker__arrow">▾</span>
+      </button>
+      <div class="breaker__body" id="breaker-1-body">
+        <p style="font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; color: #1A1A1A; line-height: 1.45; margin-bottom: 18px;">Representation is measured in outcomes, not conversations.</p>
+        <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 16px;">It isn't enough for a concern to matter to your representatives, or for your voice to be carried into the room. A Works Council exists because the law recognised that employees need more than advocacy: they need someone at the table with the legal power to change the outcome. And they are given exactly that.</p>
+        <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 16px;">The work is making it matter to management. At the table, in the agreement, on the page that gets signed. Those are different jobs.</p>
+        <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 20px;">When representatives cannot provide the necessary positive friction required to balance employee interest, chose informal agreements over legally recognised Works Agreements, chose full transparency to the employer but manage communication with employees — they're not fulfilling the rights of the seat.</p>
+        <hr style="border: none; border-top: 2px solid #C41E1E; margin: 0 0 20px; width: 60px;">
+        <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 16px;">Our list exists because the past clearly showed we need a Works Council which is <em style="color: #C41E1E; font-style: normal; font-weight: 600;">using the laws</em>. Not replacing them with assurances. Not just raising concerns. Not just building bridges.</p>
+        <p style="font-size: 16px; color: #1A1A1A; line-height: 1.6; margin-bottom: 0;">Advocacy you can do yourself. The difference a <em style="color: #C41E1E; font-style: normal; font-weight: 600;">true</em> Works Council makes is the difference between <em>asking</em> and <em>requiring</em>.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -981,12 +1033,21 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 </section>
 
 <!-- ===== BREAKER: AWARENESS ===== -->
-<section style="padding: 44px 0; background: #FAF8F4; border-top: 3px solid #C41E1E; border-bottom: 1px solid #E5E3DF;">
+<section style="background: #FAF8F4; border-top: 3px solid #C41E1E; border-bottom: 1px solid #E5E3DF;">
   <div class="container" style="max-width: 640px;">
-    <p style="font-family: 'DM Serif Display', Georgia, serif; font-size: 22px; color: #1A1A1A; line-height: 1.45; margin-bottom: 20px;">Knowing what matters to you is the starting point. Every list knows. Every colleague knows. The question was never awareness.</p>
-    <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 20px;">The question is what happens when awareness meets the table. When your data shows unsustainable workload. When the cases show broad agreements being abused. When your performance and growth is managed without fairness.</p>
-    <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 20px;">That work isn't comfortable. It requires diplomacy and legal language when the room expects advocacy. It requires using §87 when the employer expects a conversation. It requires being the friction that makes the system respond — not just the voice that documents what went wrong.</p>
-    <p style="font-size: 16px; color: #1A1A1A; line-height: 1.6; margin-bottom: 0; border-top: 2px solid #C41E1E; padding-top: 18px;">Everyone wants psychological safety. The difference is whether you're willing to make it <em style="color: #C41E1E;">structurally unavoidable</em>.</p>
+    <div class="breaker" id="breaker-2">
+      <button class="breaker__toggle" onclick="var b=document.getElementById('breaker-2-body');b.classList.toggle('breaker__body--open');this.querySelector('.breaker__arrow').classList.toggle('breaker__arrow--open');">
+        <span class="breaker__title">"But all lists are saying the same thing."</span>
+        <span class="breaker__hint">tap to read</span><span class="breaker__arrow">▾</span>
+      </button>
+      <div class="breaker__body" id="breaker-2-body">
+        <p style="font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; color: #1A1A1A; line-height: 1.45; margin-bottom: 18px;">They don't. This is why.</p>
+        <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 16px;">The question was never awareness. Knowing what matters to you is the starting point. Every list knows. Every colleague knows.</p>
+        <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 16px;">The question is what happens when awareness meets the table. When your data shows unsustainable workload. When the cases show broad agreements being abused. When your performance and growth is managed without fairness.</p>
+        <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 20px;">That work isn't comfortable. It requires diplomacy and legal language when the room expects advocacy. It requires using §87 when the employer expects a conversation. It requires being the friction that makes the system respond — not just the voice that documents what went wrong.</p>
+        <p style="font-size: 16px; color: #1A1A1A; line-height: 1.6; margin-bottom: 0; border-top: 2px solid #C41E1E; padding-top: 18px;">Everyone wants psychological safety. The difference is whether you're willing to make it <em style="color: #C41E1E;">structurally unavoidable</em>.</p>
+      </div>
+    </div>
   </div>
 </section>
 
