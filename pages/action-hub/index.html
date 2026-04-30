@@ -228,8 +228,8 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 .gwc-hub .impact-grid { display: grid; gap: 20px; }
 .gwc-hub .impact-card { background: var(--bg-secondary); border: 1px solid var(--border-card); border-radius: 12px; padding: 26px 24px; transition: border-color 0.3s ease; }
 .gwc-hub .impact-card:hover { border-color: rgba(196,30,30,0.3); }
-.gwc-hub .impact-card h3 { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px; }
-.gwc-hub .impact-card__pain { font-size: 15px; color: var(--text-primary); font-style: italic; margin-bottom: 12px; padding-left: 12px; border-left: 2px solid var(--red); line-height: 1.6; font-family: 'DM Serif Display', Georgia, serif; }
+.gwc-hub .impact-card h3 { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: var(--red); margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase; }
+.gwc-hub .impact-card__pain { font-family: 'DM Serif Display', Georgia, serif; font-size: 17px; color: var(--text-primary); font-style: italic; margin-bottom: 14px; line-height: 1.5; }
 .gwc-hub .impact-card__fix { font-size: 15px; color: var(--text-secondary); display: none; }
 .gwc-hub .impact-card__fix--open { display: block; }
 .gwc-hub .impact-card__fix strong { color: var(--text-primary); }
@@ -671,19 +671,16 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 }
 .gwc-hub .rally-card__cta {
   display: inline-block;
-  background: #fff;
   color: var(--red);
-  font-family: 'Teka', 'DM Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 10px 22px;
-  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
   text-decoration: none;
-  transition: transform 0.2s;
-  position: relative;
-  z-index: 1;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+  transition: opacity 0.2s;
 }
-.gwc-hub .rally-card__cta:hover { transform: translateY(-1px); }
+.gwc-hub .rally-card__cta:hover { opacity: 0.7; }
 
 /* ============================================================
    RESPONSIVE
@@ -769,7 +766,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 
     <!-- Playlist -->
     <div class="video-playlist">
-      <span class="video-playlist__label">All released videos</span>
 
       <button class="video-row" data-video-id="1180571084" data-video-hash="1b23f4799b" data-video-title="The Case for Change" data-video-desc="Three principles. One question: who is actually using the tools the law gives them to fight for your rights?">
         <span class="video-row__type">Video</span>
