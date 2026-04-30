@@ -166,7 +166,7 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 }
 .gwc-hub .before-vote__toggle:hover { border-color: var(--red); background: var(--bg-card-hover); }
 .gwc-hub .before-vote__toggle--open { border-radius: 10px 10px 0 0; border-bottom-color: transparent; }
-.gwc-hub .before-vote__hint { font-family: 'Teka', 'DM Sans', sans-serif; font-size: 12px; color: var(--text-tertiary); font-style: normal; margin-left: auto; }
+.gwc-hub .before-vote__hint { display: block; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-tertiary); font-style: normal; text-align: center; margin-top: 6px; letter-spacing: 0.5px; }
 .gwc-hub .before-vote__arrow { transition: transform 0.3s; font-size: 14px; color: var(--text-tertiary); }
 .gwc-hub .before-vote__arrow--open { transform: rotate(180deg); }
 .gwc-hub .before-vote__content {
@@ -229,7 +229,7 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 .gwc-hub .impact-card { background: var(--bg-secondary); border: 1px solid var(--border-card); border-radius: 12px; padding: 26px 24px; transition: border-color 0.3s ease; }
 .gwc-hub .impact-card:hover { border-color: rgba(196,30,30,0.3); }
 .gwc-hub .impact-card h3 { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px; }
-.gwc-hub .impact-card__pain { font-size: 14px; color: var(--text-tertiary); font-style: italic; margin-bottom: 12px; padding-left: 12px; border-left: 2px solid var(--border-subtle); line-height: 1.55; }
+.gwc-hub .impact-card__pain { font-size: 15px; color: var(--text-primary); font-style: italic; margin-bottom: 12px; padding-left: 12px; border-left: 2px solid var(--red); line-height: 1.6; font-family: 'DM Serif Display', Georgia, serif; }
 .gwc-hub .impact-card__fix { font-size: 15px; color: var(--text-secondary); display: none; }
 .gwc-hub .impact-card__fix--open { display: block; }
 .gwc-hub .impact-card__fix strong { color: var(--text-primary); }
@@ -416,36 +416,41 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 .gwc-hub .toc {
   margin: 8px 0 16px;
   padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 32px;
 }
+@media (max-width: 620px) { .gwc-hub .toc { grid-template-columns: 1fr; } }
 .gwc-hub .toc__label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--text-tertiary);
-  margin-bottom: 14px;
+  margin-bottom: 8px;
   display: block;
 }
+.gwc-hub .toc__col { }
 .gwc-hub .toc__item {
   display: flex;
   align-items: baseline;
-  gap: 16px;
-  padding: 10px 0;
+  gap: 12px;
+  padding: 7px 0;
   border-bottom: 1px solid var(--border-subtle);
 }
 .gwc-hub .toc__item:last-child { border-bottom: none; }
 .gwc-hub .toc__num {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--red);
   flex-shrink: 0;
-  width: 28px;
+  width: 24px;
 }
 .gwc-hub .toc__text {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--text-primary);
-  line-height: 1.5;
+  line-height: 1.45;
 }
 .gwc-hub .toc__text--muted { color: var(--text-secondary); }
 
@@ -717,39 +722,35 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 
     <!-- Numbered TOC (non-interactive orientation — iframe-safe) -->
     <div class="toc animate-in delay-3">
-      <span class="toc__label">Systemic gaps in employee rights</span>
-      <div class="toc__item">
-        <span class="toc__num">01</span>
-        <span class="toc__text">Your performance rating — who really decides</span>
+      <div class="toc__col">
+        <span class="toc__label">Systemic gaps in employee rights</span>
+        <div class="toc__item">
+          <span class="toc__num">01</span>
+          <span class="toc__text">Your performance rating: who really decides</span>
+        </div>
+        <div class="toc__item">
+          <span class="toc__num">02</span>
+          <span class="toc__text">Your restructuring protections</span>
+        </div>
+        <div class="toc__item">
+          <span class="toc__num">03</span>
+          <span class="toc__text">Pay gaps, zBeat that goes nowhere, flexibility & more</span>
+        </div>
       </div>
-      <div class="toc__item">
-        <span class="toc__num">02</span>
-        <span class="toc__text">Your restructuring protections</span>
-      </div>
-      <div class="toc__item">
-        <span class="toc__num">03</span>
-        <span class="toc__text">Pay gaps, zBeat that goes nowhere, flexibility & more</span>
-      </div>
-      <span class="toc__label" style="margin-top: 16px;">More from the campaign</span>
-      <div class="toc__item">
-        <span class="toc__num">04</span>
-        <span class="toc__text toc__text--muted">The people behind this movement</span>
-      </div>
-      <div class="toc__item">
-        <span class="toc__num">05</span>
-        <span class="toc__text toc__text--muted">Know Your Rights: articles in full</span>
-      </div>
-      <div class="toc__item">
-        <span class="toc__num">06</span>
-        <span class="toc__text toc__text--muted">Our case for change: videos & events</span>
-      </div>
-      <div class="toc__item">
-        <span class="toc__num">07</span>
-        <span class="toc__text toc__text--muted">Book a 1-on-1 or bring us to your team</span>
-      </div>
-      <div class="toc__item">
-        <span class="toc__num">08</span>
-        <span class="toc__text toc__text--muted">Before you vote — or decide not to</span>
+      <div class="toc__col">
+        <span class="toc__label">More from the campaign</span>
+        <div class="toc__item">
+          <span class="toc__num">04</span>
+          <span class="toc__text toc__text--muted">The people behind this movement</span>
+        </div>
+        <div class="toc__item">
+          <span class="toc__num">05</span>
+          <span class="toc__text toc__text--muted">The NEED for change: videos &amp; articles</span>
+        </div>
+        <div class="toc__item">
+          <span class="toc__num">06</span>
+          <span class="toc__text toc__text--muted">Before you vote — or decide not to</span>
+        </div>
       </div>
     </div>
   </div>
@@ -761,7 +762,8 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
     <div style="text-align: center;">
       <h3 id="fv-title" style="font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; color: var(--text-primary); margin-bottom: 8px;">The People Behind the Movement <span style="font-weight: 400; color: var(--text-tertiary); font-size: 16px;">| Global Workforce Community</span></h3>
       <div class="video-embed video-embed--active" id="fv-container">
-        <iframe id="fv-iframe" src="https://player.vimeo.com/video/1185638625?h=418d018fb8&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Featured video"></iframe>
+        <!-- TODO: Replace Vimeo embed src with actual URL for The People Behind the Movement -->
+        <iframe id="fv-iframe" src="https://player.vimeo.com/video/VIMEO_ID_HERE?h=VIMEO_HASH_HERE&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Featured video"></iframe>
       </div>
       <p id="fv-desc" style="margin-top: 12px; font-size: 14px; color: var(--text-tertiary);">Who are we? 25+ nationalities. Engineers, designers, PMs, analysts. We came together because we saw the same patterns and decided to act.</p>
     </div>
@@ -791,7 +793,8 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
         <span class="video-row__cta">Watch →</span>
       </button>
 
-      <button class="video-row video-row--active" data-video-id="1185638625" data-video-hash="418d018fb8" data-video-title="The People Behind the Movement" data-video-desc="Who are we? 25+ nationalities. Engineers, designers, PMs, analysts. We came together because we saw the same patterns and decided to act.">
+      <!-- TODO: Replace Vimeo ID + hash below with actual values for The People Behind the Movement -->
+      <button class="video-row video-row--active" data-video-id="VIMEO_ID_HERE" data-video-hash="VIMEO_HASH_HERE" data-video-title="The People Behind the Movement" data-video-desc="Who are we? 25+ nationalities. Engineers, designers, PMs, analysts. We came together because we saw the same patterns and decided to act.">
         <span class="video-row__type">Video</span>
         <span class="video-row__title">The People Behind the Movement</span>
         <span class="video-row__date">Released Apr 24</span>
@@ -807,22 +810,14 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 
     <!-- Events this week -->
     <div class="rally-card">
-      <span class="rally-card__badge">This Week · Before the Vote</span>
+      <span class="rally-card__badge">Today · Before the Vote</span>
       <h3 class="rally-card__title">Meet Us In Person</h3>
-      <p class="rally-card__meta" style="margin-bottom: 4px;"><strong>Mon · Apr 28 · 5:30–7:30 pm</strong> &middot; BHW</p>
-      <p class="rally-card__meta" style="margin-bottom: 4px;"><strong>Tue · Apr 29 · 5:00–7:00 pm</strong> &middot; BHQ</p>
       <p class="rally-card__meta"><strong>Wed · Apr 30 · 4:30–5:30 pm</strong> &middot; BHS Lounge · Final Donuts Event 🍩</p>
-      <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/events/events" target="_blank" class="rally-card__cta">RSVP on zLife &rarr;</a>
+      <a href="https://zlife.zalando.net/workspaces/global-workforce-community/events" target="_blank" class="rally-card__cta">RSVP on zLife &rarr;</a>
     </div>
 
   </div>
 </section>
-
-<div class="container" style="padding-bottom: 8px; padding-top: 8px;">
-  <a href="#gap" class="hero__scroll">
-    Read the full case <span class="arrow-down">↓</span>
-  </a>
-</div>
 
 <!-- ===== THE GAP ===== -->
 <section class="gap-section" id="gap">
@@ -868,7 +863,20 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
       </div>
     </div>
 
-    <p style="margin-top: 24px; font-size: 15px; color: var(--text-secondary);">Ready to talk about what this means for you? <a href="#" style="color: var(--red); font-weight: 600; text-decoration: none;" onclick="openCapture('Book 1o1');return false;">Book a slot →</a>. No prior knowledge of labor law required. Or <a href="#" style="color: var(--red); font-weight: 500; text-decoration: underline; text-underline-offset: 2px;" onclick="openCapture('Subscribe to All Drops');return false;">stay informed when new content drops</a>.</p>
+    <p style="margin-top: 20px; font-size: 13px; color: var(--text-tertiary);">Want to talk about what this means for you? <a href="#" style="color: var(--red); font-weight: 600; text-decoration: none;" onclick="openCapture('Book 1o1');return false;">Book a 1-on-1 →</a> or <a href="#" style="color: var(--red); font-weight: 500; text-decoration: underline; text-underline-offset: 2px;" onclick="openCapture('Subscribe to All Drops');return false;">get notified when new content drops</a>.</p>
+  </div>
+</section>
+
+<!-- ===== BREAKER: REPRESENTATION ===== -->
+<section style="padding: 48px 0; background: #1A1A1A;">
+  <div class="container" style="max-width: 640px;">
+    <p style="font-family: 'DM Serif Display', Georgia, serif; font-size: 24px; color: #FFFFFF; line-height: 1.45; margin-bottom: 24px;">Representation is measured in outcomes, not conversations.</p>
+    <p style="font-size: 15px; color: #AAAAAA; line-height: 1.75; margin-bottom: 16px;">It isn't enough for a concern to matter to your representatives, or for your voice to be carried into the room. A Works Council exists because the law recognised that employees need more than advocacy: they need someone at the table with the legal power to change the outcome. And they are given exactly that.</p>
+    <p style="font-size: 15px; color: #AAAAAA; line-height: 1.75; margin-bottom: 16px;">The work is making it matter to management. At the table, in the agreement, on the page that gets signed. Those are different jobs.</p>
+    <p style="font-size: 15px; color: #AAAAAA; line-height: 1.75; margin-bottom: 24px;">When representatives cannot provide the necessary positive friction required to balance employee interest, chose informal agreements over legally recognised Works Agreements, chose full transparency to the employer but manage communication with employees — they're not fulfilling the rights of the seat.</p>
+    <hr style="border: none; border-top: 1px solid #333; margin: 0 0 24px;">
+    <p style="font-size: 15px; color: #AAAAAA; line-height: 1.75; margin-bottom: 16px;">Our list exists because the past clearly showed we need a Works Council which is <em style="color: #FFFFFF;">using the laws</em>. Not replacing them with assurances. Not just raising concerns. Not just building bridges.</p>
+    <p style="font-size: 16px; color: #FFFFFF; line-height: 1.6; margin-bottom: 0;">Advocacy you can do yourself. The difference a <em style="color: #C41E1E;">true</em> Works Council makes is the difference between <em>asking</em> and <em>requiring</em>.</p>
   </div>
 </section>
 
@@ -930,25 +938,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
   </div>
 </section>
 
-<!-- ===== TEAM ===== -->
-<section class="team-section" id="team">
-  <div class="container">
-    <div class="section-header">
-      <span class="label">Who we are</span>
-      <hr class="divider">
-      <h2>The Face of the Movement</h2>
-      <p>We are your colleagues, supported by legal counsel &amp; industry experience. Diplomatic enough to negotiate across the table. Determined enough to hold the line.</p>
-    </div>
-
-    <div style="margin-top: 12px;">
-      <h3 style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Our philosophy &amp; team</h3>
-      <blockquote style="font-size: 15px; font-style: italic; color: var(--text-primary); line-height: 1.75; border-left: 3px solid var(--red); padding-left: 24px; margin-bottom: 16px;">We aren't just mediating between you and management or passing concerns up the chain. We are high-impact negotiators who ground every solution in your legal rights. We have the diplomatic skill to sit at the table, and the will to hold the line when your rights are at stake.</blockquote>
-      <p style="font-size: 15px; color: var(--text-secondary);">Colleagues from across the company, who decided that passive representation isn't enough. 25+ nations represented. We combine the professional discipline to negotiate constructively with the courage to say no when it matters.</p>
-      <p style="margin-top: 16px; font-size: 14px; color: var(--text-secondary);">Read more about our <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/our-mission" style="color: var(--red); text-decoration: underline; text-underline-offset: 2px;">mission</a>, our <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/our-commitment" style="color: var(--red); text-decoration: underline; text-underline-offset: 2px;">commitments</a>, and the <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/who-we-are" style="color: var(--red); text-decoration: underline; text-underline-offset: 2px;">people behind this movement</a> on our zLife pages.</p>
-    </div>
-  </div>
-</section>
-
 <!-- ===== KNOW YOUR RIGHTS — ARTICLES ===== -->
 <section style="padding: 0 0 48px;" id="articles">
   <div class="container">
@@ -992,20 +981,43 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
         <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/standardized-reorganizations" target="_blank" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">Read →</a>
       </div>
 
-      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
-        <div class="series-card__status series-card__status--coming" style="flex-shrink: 0;"></div>
-        <span class="series-card__type series-card__type--article" style="flex-shrink: 0;">Article</span>
-        <div style="flex: 1; min-width: 140px;">
-          <div style="font-weight: 600; color: var(--text-primary); font-size: 14px;">AI Age &amp; the 150-year-old Contract</div>
-          <div style="font-size: 12px; color: var(--text-tertiary); margin-top: 2px;">A Story About Labour Rights</div>
-        </div>
-        <span style="font-size: 11px; color: var(--accent-gold); font-weight: 600; flex-shrink: 0;">Tue · Apr 28</span>
-        <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="openCapture('Notify Publication Drops','AI Age &amp; the 150-year-old Contract');return false;">Notify me →</a>
-      </div>
-
     </div>
   </div>
 </section>
+
+<!-- ===== TEAM ===== -->
+<section class="team-section" id="team">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Who we are</span>
+      <hr class="divider">
+      <h2>The Face of the Movement</h2>
+      <p>We are your colleagues, supported by legal counsel &amp; industry experience. Diplomatic enough to negotiate across the table. Determined enough to hold the line.</p>
+    </div>
+
+    <div style="margin-top: 12px;">
+      <h3 style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Our philosophy &amp; team</h3>
+      <blockquote style="font-size: 15px; font-style: italic; color: var(--text-primary); line-height: 1.75; border-left: 3px solid var(--red); padding-left: 24px; margin-bottom: 16px;">We aren't just mediating between you and management or passing concerns up the chain. We are high-impact negotiators who ground every solution in your legal rights. We have the diplomatic skill to sit at the table, and the will to hold the line when your rights are at stake.</blockquote>
+      <p style="font-size: 15px; color: var(--text-secondary);">Colleagues from across the company, who decided that passive representation isn't enough. 25+ nations represented. We combine the professional discipline to negotiate constructively with the courage to say no when it matters.</p>
+      <p style="margin-top: 16px; font-size: 14px; color: var(--text-secondary);">Read more about our <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/our-mission" style="color: var(--red); text-decoration: underline; text-underline-offset: 2px;">mission</a>, our <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/our-commitment" style="color: var(--red); text-decoration: underline; text-underline-offset: 2px;">commitments</a>, and the <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/who-we-are" style="color: var(--red); text-decoration: underline; text-underline-offset: 2px;">people behind this movement</a> on our zLife pages.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BEFORE YOU VOTE ===== -->
+<div class="before-vote" id="before-vote">
+  <div class="container">
+    <button class="before-vote__toggle" id="before-vote-toggle">
+      Before you vote — or decide not to <span class="before-vote__arrow" id="before-vote-arrow">▾</span>
+    </button>
+    <span class="before-vote__hint">tap to read</span>
+    <div class="before-vote__content" id="before-vote-content">
+      <p>Employment in Germany is a social partnership (<em>Sozialpartnerschaft</em>), not a commodity, not a one-way purchase of labor. Your Works Council election is how that partnership is put into practice.</p>
+      <p>This election decides who sits across from management when your pay, your restructuring terms, and your flexibility are on the table. It's about not leaving your colleagues vulnerable: those whose residency, family, and livelihood depend on real representation.</p>
+      <p><strong>That answer is in your hands. Your vote is private. Your decision is yours alone. Not because a friend asked at a coffee chat. Not because you chose to stand in a list.</strong> We ask only this: read, compare, and vote for the representation you deserve.</p>
+    </div>
+  </div>
+</div>
 
 <!-- ===== CAMPAIGN SERIES ===== -->
 <section class="series-section" id="series">
@@ -1027,31 +1039,13 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 
       <!-- ========== UPCOMING ========== -->
 
-      <!-- BHW — April 28 — UPCOMING -->
-      <div data-filter="upcoming" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
-        <div class="series-card__status series-card__status--soon" style="flex-shrink: 0;"></div>
-        <span class="series-card__type" style="color: #1a6b8a; background: rgba(26,107,138,0.08); flex-shrink: 0;">Live Event</span>
-        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">GWC at BHW</span>
-        <span style="font-size: 11px; color: var(--text-tertiary);">Mon · Apr 28 · 5:30 pm</span>
-        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/events/events" target="_blank" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">RSVP →</a>
-      </div>
-
-      <!-- BHQ — April 29 — UPCOMING -->
-      <div data-filter="upcoming" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
-        <div class="series-card__status series-card__status--soon" style="flex-shrink: 0;"></div>
-        <span class="series-card__type" style="color: #1a6b8a; background: rgba(26,107,138,0.08); flex-shrink: 0;">Live Event</span>
-        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">GWC at BHQ</span>
-        <span style="font-size: 11px; color: var(--text-tertiary);">Tue · Apr 29 · 5:00 pm</span>
-        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/events/events" target="_blank" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">RSVP →</a>
-      </div>
-
       <!-- BHS Donuts — April 30 — UPCOMING -->
       <div data-filter="upcoming" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <div class="series-card__status series-card__status--soon" style="flex-shrink: 0;"></div>
         <span class="series-card__type" style="color: #1a6b8a; background: rgba(26,107,138,0.08); flex-shrink: 0;">Live Event</span>
         <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">Final Donuts Event 🍩 · BHS Lounge</span>
         <span style="font-size: 11px; color: var(--text-tertiary);">Wed · Apr 30 · 4:30 pm</span>
-        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/events/events" target="_blank" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">RSVP →</a>
+        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/events" target="_blank" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">RSVP →</a>
       </div>
 
       <!-- AI Age & 150-year-old Contract — April 28 — UPCOMING -->
@@ -1233,20 +1227,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
   </div>
 </section>
 
-<!-- ===== BEFORE YOU VOTE ===== -->
-<div class="before-vote" id="before-vote">
-  <div class="container">
-    <button class="before-vote__toggle" id="before-vote-toggle">
-      Before you vote — or decide not to <span class="before-vote__hint">tap to read</span> <span class="before-vote__arrow" id="before-vote-arrow">▾</span>
-    </button>
-    <div class="before-vote__content" id="before-vote-content">
-      <p>Employment in Germany is a social partnership (<em>Sozialpartnerschaft</em>), not a commodity, not a one-way purchase of labor. Your Works Council election is how that partnership is put into practice.</p>
-      <p>This election decides who sits across from management when your pay, your restructuring terms, and your flexibility are on the table. It's about not leaving your colleagues vulnerable: those whose residency, family, and livelihood depend on real representation.</p>
-      <p><strong>That answer is in your hands. Your vote is private. Your decision is yours alone. Not because a friend asked at a coffee chat. Not because you chose to stand in a list.</strong> We ask only this: read, compare, and vote for the representation you deserve.</p>
-    </div>
-  </div>
-</div>
-
 <!-- ===== FOOTER ===== -->
 <footer class="site-footer">
   <div class="container">
@@ -1386,7 +1366,7 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
     'Subscribe to All Drops': "You'll be notified about all upcoming content: videos, articles, and events.",
     'Notify Video Drops': "You'll be notified when <strong>new videos</strong> drop.",
     'Notify Publication Drops': "You'll be notified when <strong>new articles and statements</strong> are published.",
-    'Notify Rally': "You'll be notified with the details for the <strong>Rally Before Your Vote</strong> (Tue, Apr 28).",
+    'Notify Rally': "You'll be notified with the details for upcoming <strong>GWC events</strong>.",
     'Book 1o1': "We'll reach out to schedule a <strong>25-minute 1-on-1</strong> introduction.",
     'Book Team': "We'll reach out to schedule a <strong>50-minute team session</strong>.",
     'Book Event': "We'll send you the details for <strong>{EVENT}</strong>.",
