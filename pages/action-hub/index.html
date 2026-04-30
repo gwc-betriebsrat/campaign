@@ -186,34 +186,34 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 }
 .gwc-hub .breaker__toggle {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
   width: 100%;
-  padding: 20px 0;
+  padding: 24px 20px;
   background: none;
   border: none;
   cursor: pointer;
-  text-align: left;
+  text-align: center;
+  transition: opacity 0.2s;
 }
+.gwc-hub .breaker__toggle:hover { opacity: 0.7; }
 .gwc-hub .breaker__title {
   font-family: 'DM Serif Display', Georgia, serif;
   font-size: 20px;
   color: #1A1A1A;
   line-height: 1.35;
-  flex: 1;
 }
 .gwc-hub .breaker__arrow {
   font-size: 14px;
   color: var(--text-tertiary);
   transition: transform 0.3s;
-  flex-shrink: 0;
 }
 .gwc-hub .breaker__hint {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   color: var(--text-tertiary);
   letter-spacing: 0.5px;
-  flex-shrink: 0;
+  margin-top: 8px;
 }
 .gwc-hub .breaker__arrow--open { transform: rotate(180deg); }
 .gwc-hub .breaker__body {
@@ -844,20 +844,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 </section>
 
 <!-- ===== RALLY + EVENTS ===== -->
-<section style="padding: 0 0 24px;" id="events-this-week">
-  <div class="container">
-
-    <!-- Events this week -->
-    <div class="rally-card">
-      <span class="rally-card__badge">Today · Before the Vote</span>
-      <h3 class="rally-card__title">Meet Us In Person</h3>
-      <p class="rally-card__meta"><strong>Wed · Apr 30 · 4:30–5:30 pm</strong> &middot; BHS Lounge · Final Donuts Event 🍩</p>
-      <a href="https://zlife.zalando.net/workspaces/global-workforce-community/events" target="_blank" class="rally-card__cta">RSVP on zLife &rarr;</a>
-    </div>
-
-  </div>
-</section>
-
 <!-- ===== THE GAP ===== -->
 <section class="gap-section" id="gap">
   <div class="container">
@@ -911,17 +897,17 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
   <div class="container" style="max-width: 640px;">
     <div class="breaker" id="breaker-1">
       <button class="breaker__toggle" onclick="var b=document.getElementById('breaker-1-body');b.classList.toggle('breaker__body--open');this.querySelector('.breaker__arrow').classList.toggle('breaker__arrow--open');">
-        <span class="breaker__title">"What's actually different about your list?"</span>
-        <span class="breaker__hint">tap to read</span><span class="breaker__arrow">▾</span>
+        <span class="breaker__title">"Didn't the Works Council have talks with the employer on these topics?"</span>
+        <span class="breaker__hint">tap to read <span class="breaker__arrow">▾</span></span>
       </button>
       <div class="breaker__body" id="breaker-1-body">
-        <p style="font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; color: #1A1A1A; line-height: 1.45; margin-bottom: 18px;">Representation is measured in outcomes, not conversations.</p>
+        <p style="font-family: 'DM Serif Display', Georgia, serif; font-size: 22px; color: #1A1A1A; line-height: 1.45; margin-bottom: 22px; text-align: center;">Representation is measured in outcomes, not conversations.</p>
         <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 16px;">It isn't enough for a concern to matter to your representatives, or for your voice to be carried into the room. A Works Council exists because the law recognised that employees need more than advocacy: they need someone at the table with the legal power to change the outcome. And they are given exactly that.</p>
         <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 16px;">The work is making it matter to management. At the table, in the agreement, on the page that gets signed. Those are different jobs.</p>
         <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 20px;">When representatives cannot provide the necessary positive friction required to balance employee interest, chose informal agreements over legally recognised Works Agreements, chose full transparency to the employer but manage communication with employees — they're not fulfilling the rights of the seat.</p>
-        <hr style="border: none; border-top: 2px solid #C41E1E; margin: 0 0 20px; width: 60px;">
+        <hr style="border: none; border-top: 2px solid #C41E1E; margin: 22px auto; width: 60px;">
         <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 16px;">Our list exists because the past clearly showed we need a Works Council which is <em style="color: #C41E1E; font-style: normal; font-weight: 600;">using the laws</em>. Not replacing them with assurances. Not just raising concerns. Not just building bridges.</p>
-        <p style="font-size: 16px; color: #1A1A1A; line-height: 1.6; margin-bottom: 0;">Advocacy you can do yourself. The difference a <em style="color: #C41E1E; font-style: normal; font-weight: 600;">true</em> Works Council makes is the difference between <em>asking</em> and <em>requiring</em>.</p>
+        <p style="font-size: 16px; color: #1A1A1A; line-height: 1.7; margin-bottom: 0; text-align: center;">Advocacy you can do yourself. The difference a <em style="color: #C41E1E; font-style: normal; font-weight: 600;">true</em> Works Council makes is the difference between <em>asking</em> and <em>requiring</em>.</p>
       </div>
     </div>
   </div>
@@ -980,8 +966,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
         <p class="impact-card__fix">This is exactly where Works Council members with the will to use the full legal leverage can make a change. The council has the legal right to access employee data like zBeat results, hold management accountable for acting on systemic issues, and ensure that transparency isn't optional. When feedback leads to binding agreements instead of internal presentations, the cycle of "acknowledge and move on" ends. <strong>Your voice stops being a data point and starts becoming a mandate.</strong></p>
       </div>
     </div>
-
-    <p style="margin-top: 24px; font-size: 15px; color: var(--text-secondary); text-align: center;">Something else affecting you or your team? Bring it to a conversation. <a href="#dialogue" style="color: var(--red); text-decoration: none; font-weight: 500;">Book a 1-on-1</a> or <a href="#dialogue" style="color: var(--red); text-decoration: none; font-weight: 500;">invite us to your team</a>.</p>
   </div>
 </section>
 
@@ -1029,6 +1013,8 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
       </div>
 
     </div>
+
+    <p style="margin-top: 24px; font-size: 15px; color: var(--text-secondary); text-align: center;">Something else affecting you or your team? Bring it to a conversation. <a href="#dialogue" style="color: var(--red); text-decoration: none; font-weight: 500;">Book a 1-on-1</a> or <a href="#dialogue" style="color: var(--red); text-decoration: none; font-weight: 500;">invite us to your team</a>.</p>
   </div>
 </section>
 
@@ -1038,14 +1024,15 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
     <div class="breaker" id="breaker-2">
       <button class="breaker__toggle" onclick="var b=document.getElementById('breaker-2-body');b.classList.toggle('breaker__body--open');this.querySelector('.breaker__arrow').classList.toggle('breaker__arrow--open');">
         <span class="breaker__title">"But all lists are saying the same thing."</span>
-        <span class="breaker__hint">tap to read</span><span class="breaker__arrow">▾</span>
+        <span class="breaker__hint">tap to read <span class="breaker__arrow">▾</span></span>
       </button>
       <div class="breaker__body" id="breaker-2-body">
-        <p style="font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; color: #1A1A1A; line-height: 1.45; margin-bottom: 18px;">They don't. This is why.</p>
+        <p style="font-family: 'DM Serif Display', Georgia, serif; font-size: 22px; color: #1A1A1A; line-height: 1.45; margin-bottom: 22px; text-align: center;">True. The difference is doing it.</p>
         <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 16px;">The question was never awareness. Knowing what matters to you is the starting point. Every list knows. Every colleague knows.</p>
         <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 16px;">The question is what happens when awareness meets the table. When your data shows unsustainable workload. When the cases show broad agreements being abused. When your performance and growth is managed without fairness.</p>
         <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 20px;">That work isn't comfortable. It requires diplomacy and legal language when the room expects advocacy. It requires using §87 when the employer expects a conversation. It requires being the friction that makes the system respond — not just the voice that documents what went wrong.</p>
-        <p style="font-size: 16px; color: #1A1A1A; line-height: 1.6; margin-bottom: 0; border-top: 2px solid #C41E1E; padding-top: 18px;">Everyone wants psychological safety. The difference is whether you're willing to make it <em style="color: #C41E1E;">structurally unavoidable</em>.</p>
+        <hr style="border: none; border-top: 2px solid #C41E1E; margin: 22px auto; width: 60px;">
+        <p style="font-size: 16px; color: #1A1A1A; line-height: 1.7; margin-bottom: 0; text-align: center;">Everyone wants psychological safety. The difference is whether you're willing to make it <em style="color: #C41E1E;">structurally unavoidable</em>.</p>
       </div>
     </div>
   </div>
@@ -1065,25 +1052,23 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
       <h3 style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Our philosophy &amp; team</h3>
       <blockquote style="font-size: 15px; font-style: italic; color: var(--text-primary); line-height: 1.75; border-left: 3px solid var(--red); padding-left: 24px; margin-bottom: 16px;">We aren't just mediating between you and management or passing concerns up the chain. We are high-impact negotiators who ground every solution in your legal rights. We have the diplomatic skill to sit at the table, and the will to hold the line when your rights are at stake.</blockquote>
       <p style="font-size: 15px; color: var(--text-secondary);">Colleagues from across the company, who decided that passive representation isn't enough. 25+ nations represented. We combine the professional discipline to negotiate constructively with the courage to say no when it matters.</p>
-      <p style="margin-top: 16px; font-size: 14px; color: var(--text-secondary);">Read more about our <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/our-mission" style="color: var(--red); text-decoration: underline; text-underline-offset: 2px;">mission</a>, our <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/our-commitment" style="color: var(--red); text-decoration: underline; text-underline-offset: 2px;">commitments</a>, and the <a href="https://zlife.zalando.net/workspaces/global-workforce-community/apps/content/who-we-are" style="color: var(--red); text-decoration: underline; text-underline-offset: 2px;">people behind this movement</a> on our zLife pages.</p>
     </div>
   </div>
 </section>
 
 <!-- ===== BEFORE YOU VOTE ===== -->
-<div class="before-vote" id="before-vote">
-  <div class="container">
-    <button class="before-vote__toggle" id="before-vote-toggle">
-      Before you vote — or decide not to <span class="before-vote__arrow" id="before-vote-arrow">▾</span>
-    </button>
-    <span class="before-vote__hint">tap to read</span>
-    <div class="before-vote__content" id="before-vote-content">
-      <p>Employment in Germany is a social partnership (<em>Sozialpartnerschaft</em>), not a commodity, not a one-way purchase of labor. Your Works Council election is how that partnership is put into practice.</p>
-      <p>This election decides who sits across from management when your pay, your restructuring terms, and your flexibility are on the table. It's about not leaving your colleagues vulnerable: those whose residency, family, and livelihood depend on real representation.</p>
-      <p><strong>That answer is in your hands. Your vote is private. Your decision is yours alone. Not because a friend asked at a coffee chat. Not because you chose to stand in a list.</strong> We ask only this: read, compare, and vote for the representation you deserve.</p>
+<section style="background: #FAF8F4; border-top: 1px solid #E5E3DF; border-bottom: 1px solid #E5E3DF;" id="before-vote">
+  <div class="container" style="max-width: 640px;">
+    <div style="padding: 36px 20px;">
+      <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 1.5px; color: var(--red); text-align: center; margin-bottom: 18px; text-transform: uppercase; font-weight: 600;">Before you vote — or decide not to</p>
+      <p style="font-family: 'DM Serif Display', Georgia, serif; font-size: 22px; color: #1A1A1A; line-height: 1.45; margin-bottom: 22px; text-align: center;">Employment in Germany is a social partnership.</p>
+      <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 16px;"><em>Sozialpartnerschaft</em> — not a commodity, not a one-way purchase of labor. Your Works Council election is how that partnership is put into practice.</p>
+      <p style="font-size: 15px; color: #4A4A4A; line-height: 1.75; margin-bottom: 16px;">This election decides who sits across from management when your evaluation, your restructuring terms, and your flexibility are on the table. It's about not leaving your colleagues vulnerable — those whose residency, family, and livelihood depend on real representation.</p>
+      <hr style="border: none; border-top: 2px solid #C41E1E; margin: 22px 0; width: 60px;">
+      <p style="font-size: 16px; color: #1A1A1A; line-height: 1.7; margin-bottom: 0;"><strong>The answer is in your hands. Your vote is private. Your decision is yours alone.</strong> Not because a friend asked at a coffee chat. Not because you chose to stand in a list. We ask only this: read, compare, and vote for the representation you deserve.</p>
     </div>
   </div>
-</div>
+</section>
 
 <!-- ===== CAMPAIGN SERIES ===== -->
 <section class="series-section" id="series">
@@ -1096,37 +1081,11 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
     </div>
 
     <div class="series-toggle">
-      <button class="series-toggle__btn" id="series-btn-upcoming" onclick="filterSeries('upcoming')">Upcoming</button>
       <button class="series-toggle__btn" id="series-btn-live" onclick="filterSeries('live')">Live</button>
       <button class="series-toggle__btn" id="series-btn-past" onclick="filterSeries('past')">Past</button>
     </div>
 
     <div style="margin-top: 8px;" id="series-list">
-
-      <!-- ========== UPCOMING ========== -->
-
-      <!-- BHS Donuts — April 30 — UPCOMING -->
-      <div data-filter="upcoming" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
-        <div class="series-card__status series-card__status--soon" style="flex-shrink: 0;"></div>
-        <span class="series-card__type" style="color: #1a6b8a; background: rgba(26,107,138,0.08); flex-shrink: 0;">Live Event</span>
-        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">Final Donuts Event 🍩 · BHS Lounge</span>
-        <span style="font-size: 11px; color: var(--text-tertiary);">Wed · Apr 30 · 4:30 pm</span>
-        <a href="https://zlife.zalando.net/workspaces/global-workforce-community/events" target="_blank" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;">RSVP →</a>
-      </div>
-
-      <!-- AI Age & 150-year-old Contract — April 28 — UPCOMING -->
-      <div data-filter="upcoming" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
-        <div class="series-card__status series-card__status--coming" style="flex-shrink: 0;"></div>
-        <span class="series-card__type series-card__type--article" style="flex-shrink: 0;">Article</span>
-        <span style="font-weight: 600; color: var(--text-primary); flex: 1; min-width: 140px; font-size: 14px;">AI Age &amp; the 150-year-old Contract</span>
-        <span style="font-size: 11px; color: var(--text-tertiary);">Tue · Apr 28</span>
-        <a href="#" style="font-size: 12px; color: var(--red); text-decoration: none; font-weight: 500; flex-shrink: 0;" onclick="openCapture('Notify Publication Drops','AI Age &amp; the 150-year-old Contract');return false;">Notify me →</a>
-      </div>
-
-      <!-- More coming -->
-      <div data-filter="upcoming" style="display: flex; padding: 12px 0; text-align: center; justify-content: center;">
-        <span style="font-size: 13px; color: var(--text-tertiary); font-style: italic;">More coming.</span>
-      </div>
 
       <!-- ========== LIVE ========== -->
 
@@ -1195,6 +1154,30 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
 
       <!-- ========== PAST ========== -->
 
+      <!-- BHS Donuts — April 30 — PAST -->
+      <div data-filter="past" style="display: none; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+        <div class="series-card__status series-card__status--past" style="flex-shrink: 0;"></div>
+        <span class="series-card__type" style="color: var(--text-tertiary); background: var(--bg-tertiary); flex-shrink: 0;">Live Event</span>
+        <span style="font-weight: 600; color: var(--text-secondary); flex: 1; min-width: 140px; font-size: 14px;">Final Donuts Event 🍩 · BHS Lounge</span>
+        <span style="font-size: 11px; color: var(--text-tertiary);">Apr 30 · done</span>
+      </div>
+
+      <!-- BHQ — April 29 — PAST -->
+      <div data-filter="past" style="display: none; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+        <div class="series-card__status series-card__status--past" style="flex-shrink: 0;"></div>
+        <span class="series-card__type" style="color: var(--text-tertiary); background: var(--bg-tertiary); flex-shrink: 0;">Live Event</span>
+        <span style="font-weight: 600; color: var(--text-secondary); flex: 1; min-width: 140px; font-size: 14px;">GWC at BHQ</span>
+        <span style="font-size: 11px; color: var(--text-tertiary);">Apr 29 · done</span>
+      </div>
+
+      <!-- BHW — April 28 — PAST -->
+      <div data-filter="past" style="display: none; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+        <div class="series-card__status series-card__status--past" style="flex-shrink: 0;"></div>
+        <span class="series-card__type" style="color: var(--text-tertiary); background: var(--bg-tertiary); flex-shrink: 0;">Live Event</span>
+        <span style="font-weight: 600; color: var(--text-secondary); flex: 1; min-width: 140px; font-size: 14px;">GWC at BHW</span>
+        <span style="font-size: 11px; color: var(--text-tertiary);">Apr 28 · done</span>
+      </div>
+
       <!-- Pizza — April 22 — PAST -->
       <div data-filter="past" style="display: none; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
         <div class="series-card__status series-card__status--past" style="flex-shrink: 0;"></div>
@@ -1211,12 +1194,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
         <span style="font-size: 11px; color: var(--text-tertiary);">Apr 21 · done</span>
       </div>
 
-    </div>
-
-    <div class="series-subscribe">
-      <h3>Be first to see every release</h3>
-      <p>Get notified the moment new content goes live: videos, articles, and events. One form, no spam.</p>
-      <a href="#" class="btn btn--primary btn--small" onclick="openCapture('Subscribe to All Drops');return false;">Get Notified →</a>
     </div>
   </div>
 </section>
@@ -1356,12 +1333,11 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
   hub.querySelector('#cal-btn').addEventListener('click', downloadICS);
   hub.querySelector('#cal-btn-2').addEventListener('click', downloadICS);
 
-  // Series toggle — Upcoming / Live / Past
+  // Series toggle — Live / Past
   window.filterSeries = function(filter) {
     hub.querySelectorAll('#series-list [data-filter]').forEach(function(row) {
       row.style.display = row.getAttribute('data-filter') === filter ? 'flex' : 'none';
     });
-    hub.querySelector('#series-btn-upcoming').classList.toggle('series-toggle__btn--active', filter === 'upcoming');
     hub.querySelector('#series-btn-live').classList.toggle('series-toggle__btn--active', filter === 'live');
     hub.querySelector('#series-btn-past').classList.toggle('series-toggle__btn--active', filter === 'past');
   };
@@ -1407,13 +1383,6 @@ body { overflow-y: scroll; -ms-overflow-style: none; }
       impactToggle.textContent = impactOpen ? 'hide all details' : 'show all details';
     });
   }
-
-  // Before You Vote toggle
-  hub.querySelector('#before-vote-toggle').addEventListener('click', function() {
-    hub.querySelector('#before-vote-content').classList.toggle('before-vote__content--open');
-    hub.querySelector('#before-vote-arrow').classList.toggle('before-vote__arrow--open');
-    this.classList.toggle('before-vote__toggle--open');
-  });
 
   // Engage more toggle
   hub.querySelector('#engage-more-toggle').addEventListener('click', function() {
