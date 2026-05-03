@@ -1380,7 +1380,7 @@ const INTROS = {
 }
 const CANDIDATES = [
       ["Wilfredo Manrique","Member Zalando SE Berlin Works Council","a7d18175-5623-4b2c-8882-bd5ebbefab00","8b096f89-2f80-4b03-9f33-1ea00e2b15f5"],
-      ["Daniel Calderon","Senior Application Security Engineer","76d4f49a-a96d-4ead-bf69-ab91ac2f56b4","340442b1-a01a-4946-a25a-7a5ecd9dd602"],
+      ["Daniel Calderon","Senior Application Security Engineer","daniel","340442b1-a01a-4946-a25a-7a5ecd9dd602"],
       ["Kim Ozor","Member Zalando SE Berlin Works Council","0dc8f072-9531-4ca9-8b91-7947adf7642a","2c43d1e7-87bb-46cf-9d00-4efbaebdc620"],
       ["Mosheera Salah","Lead of ZTF PMO","68e9642b-edb6-4aff-b963-6db5f0a83ba3","cad44c81-b2d7-4a40-9728-1f2cabda76ee"],
       ["Mahmoud Gaballah","Senior Software Engineer","84aecc90-f20e-4576-a518-4569902f0a97","f94fb8fc-4714-4150-a5ea-74fa2d354cb9"],
@@ -1502,8 +1502,13 @@ const CANDIDATES = [
       if (docId) {
         const img = document.createElement('img');
         img.className = 'card-photo';
-        img.src = BASE_IMG + docId + '.jpg';
-        img.onerror = function() { if (this.src.endsWith('.jpg')) this.src = BASE_IMG + docId + '.png'; };
+        const PHOTO_EXTS = ['.jpg', '.png', '.webp'];
+        let extIdx = 0;
+        img.src = BASE_IMG + docId + PHOTO_EXTS[extIdx];
+        img.onerror = function() {
+          extIdx += 1;
+          if (extIdx < PHOTO_EXTS.length) this.src = BASE_IMG + docId + PHOTO_EXTS[extIdx];
+        };
         img.alt = name;
         front.appendChild(img);
       } else {
@@ -1538,13 +1543,18 @@ const CANDIDATES = [
           <div class="back-role">${escHtml(role)}</div>
         </div>`;
 
-      // Set back-photo-bg with .png fallback
+      // Set back-photo-bg, trying .jpg -> .png -> .webp
       const bgEl = backContent.querySelector('.back-photo-bg');
       if (bgEl && docId) {
+        const BG_EXTS = ['.jpg', '.png', '.webp'];
+        let bgIdx = 0;
         const testImg = new Image();
-        testImg.onload = () => { bgEl.style.backgroundImage = `url('${BASE_IMG}${docId}.jpg')`; };
-        testImg.onerror = () => { bgEl.style.backgroundImage = `url('${BASE_IMG}${docId}.png')`; };
-        testImg.src = BASE_IMG + docId + '.jpg';
+        testImg.onload = () => { bgEl.style.backgroundImage = `url('${BASE_IMG}${docId}${BG_EXTS[bgIdx]}')`; };
+        testImg.onerror = () => {
+          bgIdx += 1;
+          if (bgIdx < BG_EXTS.length) testImg.src = BASE_IMG + docId + BG_EXTS[bgIdx];
+        };
+        testImg.src = BASE_IMG + docId + BG_EXTS[bgIdx];
       }
 
       const intro = INTROS[name];
