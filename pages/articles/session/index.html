@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Recap: AI, Layoffs, and Works Councils · Global Workforce Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --red: #C41E1E;
+  --red-light: rgba(196,30,30,0.06);
+  --text-primary: #1A1A1A;
+  --text-secondary: #4A4A4A;
+  --text-tertiary: #888;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F7F6F3;
+  --border: #E5E3DF;
+  --border-subtle: #F0EEEB;
+  --highlight: linear-gradient(180deg, transparent 55%, rgba(247,214,96,0.55) 55%);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+.topbar { background: var(--bg-primary); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; }
+.topbar__brand { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; color: var(--red); letter-spacing: 1px; text-decoration: none; }
+.topbar__tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-tertiary); letter-spacing: 1px; text-transform: uppercase; }
+
+.article-header { padding: 48px 24px 36px; max-width: 720px; margin: 0 auto; border-bottom: 1px solid var(--border-subtle); }
+.article-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+.article-meta__tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--red); background: var(--red-light); padding: 4px 10px; border-radius: 3px; }
+.article-meta__time { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-tertiary); letter-spacing: 0.5px; }
+h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(30px, 4.5vw, 40px); line-height: 1.2; color: var(--text-primary); font-weight: 400; margin-bottom: 18px; }
+.article-deck { font-size: 17px; color: var(--text-secondary); line-height: 1.6; }
+
+.article-body { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+.article-body section { padding: 28px 0; }
+.article-body p { font-size: 16px; line-height: 1.75; color: var(--text-secondary); margin-bottom: 16px; }
+.article-body p strong { color: var(--text-primary); font-weight: 600; }
+.article-body p em { font-style: italic; }
+
+.guests { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; margin: 24px 0; }
+.guests__label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--red); margin-bottom: 12px; display: block; }
+.guest { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border-subtle); }
+.guest:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.guest__name { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+.guest__role { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+
+.tldr-box { background: rgba(247,214,96,0.18); border-left: 3px solid #D4A92E; border-radius: 0 8px 8px 0; padding: 22px 24px; margin: 28px 0; }
+.tldr-box__label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: #8B6914; margin-bottom: 12px; display: block; }
+.tldr-box ul { list-style: none; padding: 0; margin: 0; }
+.tldr-box li { font-size: 15px; line-height: 1.65; color: var(--text-primary); padding-left: 22px; position: relative; margin-bottom: 10px; }
+.tldr-box li:last-child { margin-bottom: 0; }
+.tldr-box li::before { content: '→'; color: var(--red); position: absolute; left: 0; font-weight: 700; }
+
+.article-body h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: 26px; line-height: 1.3; color: var(--text-primary); font-weight: 400; margin-top: 8px; margin-bottom: 14px; }
+.topic-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--red); margin-bottom: 10px; display: block; }
+
+.pullquote { border-left: 3px solid var(--red); padding: 14px 20px; margin: 22px 0; background: var(--red-light); border-radius: 0 6px 6px 0; }
+.pullquote p { font-family: 'DM Serif Display', Georgia, serif; font-size: 18px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 6px; }
+.pullquote__attr { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-tertiary); letter-spacing: 1px; text-transform: uppercase; }
+
+.highlight { background: var(--highlight); padding: 0 4px; }
+
+.divider { border: none; border-top: 1px solid var(--border-subtle); margin: 28px 0; }
+
+.footer-note { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin: 36px 0 20px; }
+.footer-note p { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 8px; }
+.footer-note p:last-child { margin-bottom: 0; }
+.footer-note strong { color: var(--text-primary); }
+
+.article-footer { max-width: 720px; margin: 24px auto 60px; padding: 0 24px; text-align: center; }
+.article-footer p { font-size: 13px; color: var(--text-tertiary); line-height: 1.65; }
+
+@media (max-width: 640px) {
+  .article-body p { font-size: 15px; }
+  .article-body h2 { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="#" class="topbar__brand">GLOBAL WORKFORCE COMMUNITY · LIST 3</a>
+  <span class="topbar__tag">Event Recap</span>
+</div>
+
+<header class="article-header">
+  <div class="article-meta">
+    <span class="article-meta__tag">Event Recap</span>
+    <span class="article-meta__time">6 min read</span>
+  </div>
+  <h1>Inside the conversation: AI, layoffs, transparency, and what a Works Council actually does</h1>
+  <p class="article-deck">On May 4th, Global Workforce Community hosted a panel called <em>Managing Digital Transformation Responsibly</em>. The conversation brought together a labour researcher, a Berlin tech organiser, and a current Zalando Works Council member. This is a recap for colleagues who couldn't attend.</p>
+</header>
+
+<article class="article-body">
+
+  <section>
+    <p>Across Germany, Europe, and the wider world, economic restructuring driven by AI and automation is reshaping entire industries. The change is real, the pace is fast, and the cost is landing on employees first. <strong>It's not a matter of if. It is already reality.</strong></p>
+
+    <p>Many of us heard the story of Erfurt, Zalando's first warehouse, and how colleagues with the longest tenure saw their roles rewritten by automation arriving in Giessen on the other side of Germany. The same forces are now landing in tech. The question is no longer whether they will affect us, but who will be at the table when they do.</p>
+
+    <p>To bring outside perspective into Zalando, we hosted a panel on May 4th to discuss the opportunities and challenges presented by automation, set the industry context, share what other employee representation bodies are doing in response, and look at how the Works Council can shape what comes next. The conversation was hosted by Daniela Nigro and ran about 45 minutes.</p>
+
+    <div class="guests">
+      <span class="guests__label">Who was in the conversation</span>
+      <div class="guest">
+        <div class="guest__name">Yonatan Miller</div>
+        <div class="guest__role">Software engineer and trade union organiser, originally from New York, now based in Berlin. Co-founder of Berlin Tech Workers Coalition and a ver.di trade union organiser. Supports the formation of new Works Councils in tech and mentors them afterwards.</div>
+      </div>
+      <div class="guest">
+        <div class="guest__name">Valentin Niebler</div>
+        <div class="guest__role">Doctoral candidate at the Institute for European Ethnology and the Berlin Institute for Migration Studies, Humboldt University. Research focus: conflict resolution and regulation in the tech industry.</div>
+      </div>
+      <div class="guest">
+        <div class="guest__name">Daniel Calderon</div>
+        <div class="guest__role">Application Security Engineer in Information Security at Zalando, where he has worked for over 7.5 years. Member of Zalando SE Berlin Works Council since 2022, currently full-time. Elected as official assessor for the 2026 reorganization negotiations.</div>
+      </div>
+    </div>
+
+    <div class="tldr-box">
+      <span class="tldr-box__label">TL;DR — five things that came up</span>
+      <ul>
+        <li>Zalando was an early adopter of a Works Council in tech (2020), but other Berlin tech companies have since pushed further on transparency, agreements, and codetermination practice.</li>
+        <li>For Berlin's heavily international workforce, layoffs carry extra weight: residency, family relocation, and visa status. German law does not list migration as a protected vulnerable status, but Works Councils can negotiate it into social plans.</li>
+        <li>Works Agreements are the legal documents that regulate company-wide rules (evaluations, time tracking, working hours, surveillance, AI tools, benefits). Zalando SE Berlin currently has five.</li>
+        <li>The Works Council is not anti-AI. Google Gemini was reviewed and approved. The work is about adopting tools without losing employee privacy, dignity, and job security in the process.</li>
+        <li>The recent 2026 reorganization negotiations went into formal arbitration. The outcome included a voluntary-only structure, a fair severance package, and a block on targeted dismissals.</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <span class="topic-label">Topic 1 · Transparency</span>
+    <h2>How does Zalando look from outside the company?</h2>
+
+    <p>Yonatan opened the conversation with a direct take. Zalando was one of the earliest tech companies in Berlin to form a Works Council, in 2020 (an effort that started in 2019 and was delayed by covid). Since then, around 30 other tech workplaces in Berlin have followed.</p>
+
+    <p>What he has noticed at network-wide conferences of tech Works Councils, organised in 2022 and 2023, is that Zalando has not been visibly part of that public conversation. Several Zalando Works Council members showed up at those meetings expressing frustration about how things were being handled internally.</p>
+
+    <div class="pullquote">
+      <p>"It was an early adopter, but perhaps because it was an early adopter, it didn't have a reference point what to compare it to."</p>
+      <span class="pullquote__attr">— Yonatan Miller</span>
+    </div>
+
+    <p>His broader point: a Works Council is a toolbox. Many of the tools are optional. Whether they get used depends on the people in the seats and on whether they network with other Works Councils to learn what is being done elsewhere.</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <span class="topic-label">Topic 2 · Layoffs and the migrant workforce</span>
+    <h2>What protections exist, and what gaps the law leaves open</h2>
+
+    <p>Yonatan described two ways layoffs typically happen in tech companies. The first is a transparent, bounded process: management proposes a percentage, the Works Council pushes back, and the workforce is informed early enough to make plans. The second is opaque: even affected employees may not know how many others are affected or what the terms are.</p>
+
+    <p>For a workforce that is heavily migrant, this distinction matters more. Many colleagues are on visa-dependent contracts. Even those who are not still face higher costs of relocation if a layoff happens.</p>
+
+    <p>German law gives special vulnerable status to people with disabilities, parents, and older workers. <span class="highlight">Migration is not on that protected list.</span> Yonatan's point was that this gap can be closed deliberately. At his previous workplace, the Works Council negotiated extended notice periods for colleagues with migrant status (at half pay if needed) into the social plan, and treated all visa types equally.</p>
+
+    <div class="pullquote">
+      <p>"This only happens when you network with other Works Councils and industry experts."</p>
+      <span class="pullquote__attr">— Yonatan Miller</span>
+    </div>
+
+    <p>Valentin reinforced this from a research angle. Tech workers in Berlin often arrive into what he called a "honeymoon phase": free fruit, flat hierarchies, the language of family and creativity. After a few years, the same patterns surface across companies: management decisions affecting work life, often without real consultation. His framing was that workers need to think of themselves <em>as workers</em>, with something to lose and something to win, even when the company culture frames them as family or creatives.</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <span class="topic-label">Topic 3 · Works Agreements</span>
+    <h2>The legal documents most employees never see</h2>
+
+    <p>Daniel introduced what he called the most underused part of the Works Council role. A Works Agreement (Betriebsvereinbarung) is a binding legal document between the employer and the Works Council. It regulates internal company matters that apply to all employees: evaluations, time tracking, working hours, benefits, drinks in the canteen, AI tools, and many more.</p>
+
+    <p>These agreements are not published publicly, but employees within a company that has them can compare notes with colleagues at other companies. Yonatan said an extensive informal collection of works agreements exists across the Berlin tech network, used for benchmarking how comprehensive (and how protective) different companies' agreements are.</p>
+
+    <p>Daniel noted that <span class="highlight">Zalando SE Berlin currently has five Works Agreements</span>, while the topics that could be covered run into the dozens or higher. From his vantage point, this represents one of the clearest underused levers in the current Works Council mandate.</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <span class="topic-label">Topic 4 · AI adoption and codetermination</span>
+    <h2>What role should the Works Council play when new tools are introduced?</h2>
+
+    <p>Daniel was direct: GWC is not anti-AI or anti-innovation. Google Gemini, which many Zalando colleagues now use, went through Works Council review and was approved. Many tools have. The Works Council has codetermination rights over software, but that doesn't mean blocking adoption. It means scrutinizing how the tool is used and whether it preserves employee privacy, dignity, and job security.</p>
+
+    <p>The harder question, Daniel said, is what happens when AI is used to justify replacing roles. He cited Klarna and Duolingo, both of which announced replacing teams with AI and later walked the decisions back when the work didn't hold up. The cost of those reversals fell on the people who had already been laid off.</p>
+
+    <div class="pullquote">
+      <p>"Employee privacy, dignity, and job security really need to be thought of here."</p>
+      <span class="pullquote__attr">— Daniel Calderon</span>
+    </div>
+
+    <p>His framing: a Works Council that is involved early enough can prevent decisions like that from being made. Once they are made, the Works Council can negotiate the protections (severance, alternatives, retraining), but the harm is already in motion.</p>
+
+    <p>Valentin added the bigger picture. AI is often used by management as a placeholder for "you have to adjust without concessions". A Works Council with the right framework is what turns that conversation from "you must adapt" into "what does adaptation actually look like, and who pays for the transition".</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <span class="topic-label">Topic 5 · The 2026 reorganization at Zalando</span>
+    <h2>What happened in the recent negotiations</h2>
+
+    <p>Daniel gave the clearest description of recent reorganization negotiations that has been shared publicly to date. The proposal affected roles in the range of 150 to 200 jobs. The Works Council attempted to negotiate, and when those negotiations did not progress further, the matter went into formal arbitration through what is called an Einigungsstelle: a process where a judge sits between management and the Works Council, with three assessors elected from each side.</p>
+
+    <p>Daniel was elected as one of the Works Council assessors. The outcome included three things he highlighted as wins:</p>
+
+    <p>A <strong>voluntary-only component</strong> for affected employees, meaning departures could not be forced.<br>A <strong>fair severance package</strong> negotiated as part of the social plan.<br>A <strong>block on targeted dismissals</strong>, which had appeared in management's initial proposal.</p>
+
+    <p>His broader point: the legal tools exist. Whether they are used in any given negotiation depends on whether the Works Council is prepared, whether it has expert support, and whether it is willing to push the matter into formal arbitration when an agreement cannot be reached at the table.</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <span class="topic-label">Closing thoughts</span>
+    <h2>What ties the three perspectives together</h2>
+
+    <p>Across all three guests, one observation kept resurfacing: a Works Council in Germany has substantial legal power, but using that power is not automatic. Many of the codetermination tools are optional in practice, even when they are mandatory in scope. The difference between a Works Council that fully exercises those rights and one that does not is what shapes the lived experience of employees over the next four years.</p>
+
+    <div class="pullquote">
+      <p>"The Works Council is not the end goal. It's the starting point."</p>
+      <span class="pullquote__attr">— Yonatan Miller</span>
+    </div>
+
+    <p>Valentin closed his contribution by noting that the international diversity of tech workforces is both an advantage and a vulnerability, and that he saw the focus on this as one of GWC's distinctive strengths.</p>
+
+    <p>Daniel ended on a practical note: voting in the Works Council election runs Tuesday through Friday, May 5 to 8, from 8:00 to 18:00, in BHW (first floor, Summer Garden), BHQX (ground floor, Market Orange), and BHS (first floor, Gauss).</p>
+  </section>
+
+  <div class="footer-note">
+    <p><strong>About this recap:</strong> This is a summary of the May 4th panel hosted by Global Workforce Community. <strong>The full recording will follow in a separate post.</strong> This text is for colleagues who could not attend and want a clear sense of what was discussed.</p>
+    <p>Voting in the Works Council election takes place <strong>May 5 to 8</strong>. Every employee is eligible. The vote is private.</p>
+  </div>
+
+</article>
+
+<footer class="article-footer">
+  <p>Global Workforce Community · List 3 · Works Council Election 2026</p>
+</footer>
+
+</body>
+</html>
